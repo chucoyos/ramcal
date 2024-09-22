@@ -3,7 +3,7 @@
   <div class="form">
     <%= form_with model: @user do |f| %>
       <div class="input-group">
-        <%= f.label 'Nombre' %>
+        <%= f.label "Nombre" %>
         <%= f.text_field :first_name, class: "form-control" %>
       </div>
 
@@ -34,13 +34,13 @@
 
       <div class="field">
         <%= f.label :user_type %>
-        <%= f.select :user_type, options_for_select([['Admin', 0], ['Staff', 1], ['Client', 2]]), class: "form-control" %>
+        <%= f.select :user_type, options_for_select([[ "Admin", 0 ], [ "Staff", 1], [ "Client", 2]]), class: "form-control" %>
       </div>
 
       <div class="input-group">
-        <%= f.submit "Actualizar", class: 'btn-primary mt-2' %>
+        <%= f.submit "Actualizar", class: "btn-primary mt-2" %>
       </div>
     <% end %>
-    <%= link_to "<- Cancelar", users_path, class: 'btn-primary text-center' %>
+    <%= link_to "<- Cancelar", users_path, class: "btn-primary text-center" %>
   </div>
 </div>

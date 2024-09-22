@@ -18,11 +18,11 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="">
+  <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    <%= render '/navbar' %>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <%= render "/navbar" %>
+    <main class="container mx-auto mt-16 flex">
       <%= yield %>
     </main>
   </body>

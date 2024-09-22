@@ -13,6 +13,10 @@
   h1 {
     @apply text-4xl font-bold text-slate-900 text-center;
   }
+
+  h2 {
+    @apply text-xl font-bold text-slate-600 text-center mt-2;
+  }
   .form {
     @apply flex flex-col gap-2 lg:w-1/2 lg:mx-auto;
   }
