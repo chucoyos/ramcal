@@ -11,16 +11,16 @@
     hover:bg-blue-600 hover:text-slate-100;
   }
   h1 {
-    @apply text-4xl font-bold text-slate-900;
+    @apply text-4xl font-bold text-slate-900 text-center;
   }
   .form {
-    @apply flex flex-col gap-2 lg:w-1/2 sm:w-full;
+    @apply flex flex-col gap-2 lg:w-1/2 lg:mx-auto;
   }
   .form .btn-primary {
     @apply bg-blue-600 text-white hover:bg-white hover:text-blue-600 
     hover:ring-2 hover:ring-blue-600;
   }
-  .input-group {
+  .input-group, .field {
     @apply flex flex-col w-full;
   }
   .form-control {

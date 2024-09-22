@@ -1,34 +1,46 @@
 <div class="flex flex-col gap-4 w-full">
   <h1>Editar Usuario</h1>
-  <%= form_with model: @user do |f| %>
-    <div class="form">
-        <div class="input-group">
-          <%= f.label 'Nombre' %>
-          <%= f.text_field :first_name, class: "form-control" %>
-        </div>
+  <div class="form">
+    <%= form_with model: @user do |f| %>
+      <div class="input-group">
+        <%= f.label 'Nombre' %>
+        <%= f.text_field :first_name, class: "form-control" %>
+      </div>
 
-        <div class="input-group">
-          <%= f.label "Apellido Paterno" %>
-          <%= f.text_field :last_name, class: "form-control" %>
-        </div>
+      <div class="input-group">
+        <%= f.label "Apellido Paterno" %>
+        <%= f.text_field :last_name, class: "form-control" %>
+      </div>
 
-        <div class="input-group">
-          <%= f.label "Apellido Materno" %>
-          <%= f.text_field :second_last_name, class: "form-control" %>
-        </div>
+      <div class="input-group">
+        <%= f.label "Apellido Materno" %>
+        <%= f.text_field :second_last_name, class: "form-control" %>
+      </div>
 
-        <div class="input-group">
-          <%= f.label "Nombre de Usuario" %>
-          <%= f.text_field :username, class: "form-control" %>
-        </div>
+      <div class="input-group">
+        <%= f.label "Nombre de Usuario" %>
+        <%= f.text_field :username, class: "form-control" %>
+      </div>
 
-        <div class="input-group">
-          <%= f.submit "Actualizar", class: 'btn-primary' %>
-        </div>
-    </div>
-  <% end %>
+      <div class="field">
+        <%= f.label :phone_number %>
+        <%= f.text_field :phone_number, class: "form-control" %>
+      </div>
+      
+      <div class="field">
+        <%= f.label :contact_person %>
+        <%= f.text_field :contact_person, class: "form-control" %>
+      </div>
 
-  <div>
-    <%= link_to "Regresar", users_path, class: 'btn-primary' %>
+      <div class="field">
+        <%= f.label :user_type %>
+        <%= f.select :user_type, options_for_select([['Admin', 0], ['Staff', 1], ['Client', 2]]), class: "form-control" %>
+      </div>
+
+      <div class="input-group">
+        <%= f.submit "Actualizar", class: 'btn-primary mt-2' %>
+      </div>
+    <% end %>
+    <%= link_to "<- Cancelar", users_path, class: 'btn-primary text-center' %>
   </div>
 </div>
