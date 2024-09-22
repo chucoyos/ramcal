@@ -1,8 +1,13 @@
 <div>
   <h1 class="font-bold text-4xl">Users#show</h1>
   <p>Find me in app/views/users/show.html.erb</p>
-  <%= @user.first_name %>
-  <%= @user.last_name %>
-
-  <%= link_to 'Edit User', edit_user_path(@user) %>
-</div>
+  <div class="my-3">
+    <%= @user.first_name %>
+    <%= @user.last_name %>
+    <%= @user.second_last_name %>
+    <%= @user.username %>
+  </div>
+  <div class="m-4">
+    <%= link_to "Regresar", users_path, class: 'btn-primary' %>
+    <%= link_to 'Editar', edit_user_path(@user), class: 'btn-primary' %>
+  </div>
