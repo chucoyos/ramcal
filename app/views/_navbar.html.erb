@@ -5,7 +5,7 @@
         <li><%= link_to "Cancelar Cuenta", registration_path(current_user), data: { turbo_method: :delete, turbo_confirm: "Eliminar Cuenta?" } %></li>
         <li><%= link_to "Salir", destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Cerrar Sesión?"} %></li>
         <li><%= link_to "Usuarios", users_path %></li>
-        Welcome <%= current_user.username %>
+        <li><%= link_to "Roles", roles_path %></li>
     <% else %>
         <li><%= link_to "Iniciar Sesión", new_user_session_path %></li>
         <li><%= link_to "Registrar", new_user_registration_path %></li>

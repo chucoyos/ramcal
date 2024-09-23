@@ -3,6 +3,7 @@
   <table class="table">
     <thead class="bg-slate-200">
       <tr class="border">
+        <th class="px-2">Rol</th>
         <th class="px-2">Nombre</th>
         <th class="px-2">Apellido Paterno</th>
         <th class="px-2">Apellido Materno</th>
@@ -14,6 +15,7 @@
     </thead>
     <tbody>
       <tr class="border">
+        <td class="px-2"><%= @user.role&.name %></td>
         <td class="px-2"><%= @user.first_name %></td>
         <td class="px-2"><%= @user.last_name %></td>
         <td class="px-2"><%= @user.second_last_name %></td>
