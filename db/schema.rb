@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_23_063309) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_24_050219) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "permissions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "permissions_roles", id: false, force: :cascade do |t|
+    t.bigint "permission_id", null: false
+    t.bigint "role_id", null: false
+    t.index ["permission_id", "role_id"], name: "index_permissions_roles_on_permission_id_and_role_id"
+    t.index ["role_id", "permission_id"], name: "index_permissions_roles_on_role_id_and_permission_id"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"

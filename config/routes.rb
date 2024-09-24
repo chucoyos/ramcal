@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :permissions
   resources :roles
   root "pages#index"
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
