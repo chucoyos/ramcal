@@ -1,0 +1,80 @@
+<div class="flex flex-col w-full">
+  <h1>Nuevo Usuario</h1>
+  <div class="form">
+    <%= form_for @user, url: members_path do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+        <ul>
+          <% @user.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+      <div class="field">
+        <%= f.label :role %>
+        <%= f.collection_select :role_id, Role.all, :id, :name, { prompt: "Selecciona un Rol" }, class: "form-control" %>
+      </div>
+
+      <div class="field">
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password %>
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+    </div>
+    
+    <div class="field">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+    </div>
+
+      <div class="input-group">
+        <%= f.label "Nombre" %>
+        <%= f.text_field :first_name, class: "form-control" %>
+      </div>
+
+      <div class="input-group">
+        <%= f.label "Apellido Paterno" %>
+        <%= f.text_field :last_name, class: "form-control" %>
+      </div>
+
+      <div class="input-group">
+        <%= f.label "Apellido Materno" %>
+        <%= f.text_field :second_last_name, class: "form-control" %>
+      </div>
+
+      <div class="input-group">
+        <%= f.label "Nombre de Usuario" %>
+        <%= f.text_field :username, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :phone_number %>
+        <%= f.text_field :phone_number, class: "form-control" %>
+      </div>
+      
+      <div class="field">
+        <%= f.label :contact_person %>
+        <%= f.text_field :contact_person, class: "form-control" %>
+      </div>
+      
+      <div class="field">
+        <%= f.label :user_type %>
+        <%= f.select :user_type, options_for_select([[ "Admin", 0 ], [ "Staff", 1], [ "Client", 2]]), class: "form-control" %>
+      </div>
+
+      <div class="input-group">
+        <%= f.submit class: "btn-primary mt-2" %>
+      </div>
+    <% end %>
+    <%= link_to "<- Cancelar", users_path, class: "btn-primary text-center" %>
+  </div>
+</div>

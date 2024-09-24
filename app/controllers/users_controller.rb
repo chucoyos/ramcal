@@ -4,6 +4,21 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def new
+    @user = User.new
+    @roles = Role.all
+  end
+
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to users_path, notice: "User was successfully created."
+    else
+      render :new, status: :unprocessable_entity
+      flash.now[:alert] = "User was not created."
+    end
+  end
+
   def show
     @user = User.find(params[:id])
   end
@@ -25,6 +40,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :second_last_name, :username, :phone, :user_type, :contact_person, :role_id)
+    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :second_last_name, :username, :phone, :user_type, :contact_person, :role_id)
   end
 end
