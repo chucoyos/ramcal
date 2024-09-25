@@ -1,12 +1,29 @@
 <div class="mx-auto md:w-2/3 w-full flex">
+  <% if @role.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(@role.errors.count, "error") %> prohibited this role from being saved:</h2>
+
+      <ul>
+        <% @role.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class="mx-auto">
     <div class="flex flex-col">
       <h1>Rol</h1>
       <h2 class="my-4"><%= @role.name %></h2>
+      <h3>Permisos Otorgados:</h3>
+      <ul>
+        <% @role.permissions.each do |permission| %>
+          <li>- <%= permission.name %></li>
+        <% end %>
+      </ul>
       <div class="flex gap-2">
         <%= link_to "Editar", edit_role_path(@role), class: "btn-primary" %>
         <%= link_to "Regresar", roles_path, class: "btn-primary" %>
-        <%= button_to "Eliminar", @role, method: :delete, class: "btn-primary" %>
+        <%= button_to "Eliminar", @role, data: { turbo_confirm: "¿Estás seguro?", turbo_method: :delete }, class: "btn-danger" %>
       </div>
     </div>
   </div>

@@ -13,10 +13,12 @@ class RolesController < ApplicationController
   # GET /roles/new
   def new
     @role = Role.new
+    @permissions = Permission.all
   end
 
   # GET /roles/1/edit
   def edit
+    @permissions = Permission.all
   end
 
   # POST /roles or /roles.json
@@ -49,11 +51,15 @@ class RolesController < ApplicationController
 
   # DELETE /roles/1 or /roles/1.json
   def destroy
-    @role.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to roles_path, status: :see_other, notice: "Role was successfully destroyed." }
-      format.json { head :no_content }
+    if @role.users.any?
+      flash[:alert] = "Cannot delete role with assigned users."
+      redirect_to roles_path
+    else
+      @role.destroy!
+      respond_to do |format|
+        format.html { redirect_to roles_path, status: :see_other, notice: "Role was successfully destroyed." }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -65,6 +71,6 @@ class RolesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def role_params
-      params.require(:role).permit(:name)
+      params.require(:role).permit(:name, permission_ids: [])
     end
 end

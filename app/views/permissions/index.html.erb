@@ -15,7 +15,8 @@
           <p><%= permission.name %></p>
           <div class="flex gap-2">
            <%= link_to "Editar", edit_permission_path(permission), class: "btn-primary" %>
-           <%= button_to "Eliminar", permission, method: :delete, class: "btn-primary" %>
+           <%= link_to "Ver Permiso", permission, class: "btn-primary" %>
+           <%= button_to "Eliminar", permission, method: :delete, class: "btn-danger" %>
           </div>
         </div>
       </div>

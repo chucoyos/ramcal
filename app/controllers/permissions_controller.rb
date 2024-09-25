@@ -49,11 +49,16 @@ class PermissionsController < ApplicationController
 
   # DELETE /permissions/1 or /permissions/1.json
   def destroy
-    @permission.destroy!
+    if @permission.roles.any?
+      flash[:alert] = "No puedes eliminar permisos con roles asignados."
+      redirect_to permissions_path
+    else
+      @permission.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to permissions_path, status: :see_other, notice: "Permission was successfully destroyed." }
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to permissions_path, status: :see_other, notice: "El permiso ha sido eliminado." }
+        format.json { head :no_content }
+      end
     end
   end
 

@@ -42,7 +42,7 @@
   </div>
   <div class="flex gap-2 mt-2 my-2">
     <%= link_to "Editar", edit_user_path(@user), class: "btn-primary" %>
-    <%= link_to "Eliminar", delete_member_path(@user), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro de eliminar a #{@user.first_name} #{@user.last_name}? Tambien se perdera la infomacion relacionada a este usuario" }, class: "btn-primary" %>
+    <%= link_to "Eliminar", delete_member_path(@user), data: { turbo_method: :delete, turbo_confirm: "¿Estás seguro de eliminar a #{@user.first_name} #{@user.last_name}? Tambien se perdera la infomacion relacionada a este usuario" }, class: "btn-danger" %>
   </div>
   <div class="mt-4">
     <%= link_to "Regresar", users_path, class: "btn-primary" %>

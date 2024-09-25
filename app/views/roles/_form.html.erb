@@ -16,6 +16,18 @@
     <%= form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
+  <div class="field">
+    <%= form.label "Permisos" %>
+    <div class="checkboxes">
+      <% @permissions.each do |permission| %>
+        <div>
+          <%= check_box_tag "role[permission_ids][]", permission.id, @role.permissions.include?(permission) %>
+          <%= permission.name %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
