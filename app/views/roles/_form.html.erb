@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label "Permisos" %>
-    <div class="checkboxes">
+    <div class="checkboxes my-2">
       <% @permissions.each do |permission| %>
         <div>
           <%= check_box_tag "role[permission_ids][]", permission.id, @role.permissions.include?(permission) %>
@@ -29,6 +29,6 @@
   </div>
 
   <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit class: "btn-primary" %>
   </div>
 <% end %>
