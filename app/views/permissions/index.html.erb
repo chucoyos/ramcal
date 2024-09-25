@@ -1,7 +1,4 @@
 <div class="w-full flex flex-col px-4">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
 
   <% content_for :title, "Permissions" %>
 
@@ -16,7 +13,7 @@
           <div class="flex gap-2">
            <%= link_to "Editar", edit_permission_path(permission), class: "btn-primary" %>
            <%= link_to "Ver Permiso", permission, class: "btn-primary" %>
-           <%= button_to "Eliminar", permission, method: :delete, class: "btn-danger" %>
+           <%= button_to "Eliminar", permission, data: { turbo_confirm: "Quieres eliminar este permiso?"}, method: :delete, class: "btn-danger" %>
           </div>
         </div>
       </div>

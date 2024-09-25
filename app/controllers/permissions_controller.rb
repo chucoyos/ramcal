@@ -25,7 +25,7 @@ class PermissionsController < ApplicationController
 
     respond_to do |format|
       if @permission.save
-        format.html { redirect_to @permission, notice: "Permission was successfully created." }
+        format.html { redirect_to @permission, notice: "El permiso ha sido creado." }
         format.json { render :show, status: :created, location: @permission }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class PermissionsController < ApplicationController
   def update
     respond_to do |format|
       if @permission.update(permission_params)
-        format.html { redirect_to @permission, notice: "Permission was successfully updated." }
+        format.html { redirect_to @permission, notice: "Se actualizó el permiso." }
         format.json { render :show, status: :ok, location: @permission }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -50,7 +50,7 @@ class PermissionsController < ApplicationController
   # DELETE /permissions/1 or /permissions/1.json
   def destroy
     if @permission.roles.any?
-      flash[:alert] = "No puedes eliminar permisos con roles asignados."
+      flash[:alert] = "No se puede eliminar permisos con roles asignados."
       redirect_to permissions_path
     else
       @permission.destroy!

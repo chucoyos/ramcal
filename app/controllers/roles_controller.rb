@@ -52,12 +52,12 @@ class RolesController < ApplicationController
   # DELETE /roles/1 or /roles/1.json
   def destroy
     if @role.users.any?
-      flash[:alert] = "Cannot delete role with assigned users."
+      flash[:alert] = "No se puede eliminar el rol con usuarios asignados."
       redirect_to roles_path
     else
       @role.destroy!
       respond_to do |format|
-        format.html { redirect_to roles_path, status: :see_other, notice: "Role was successfully destroyed." }
+        format.html { redirect_to roles_path, status: :see_other, notice: "El rol fue eliminado." }
         format.json { head :no_content }
       end
     end

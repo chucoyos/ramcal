@@ -10,17 +10,18 @@
     <%= link_to "New role", new_role_path, class: "btn-primary" %>
   </div>
 
-  <div id="roles" class="min-w-full">
+  <div id="roles" class="flex flex-col gap-2bg-white p-4 rounded-lg shadow-md">
     <% @roles.each do |role| %>
       <div class="flex justify-between items-center py-3 border-b border-gray-200">
-        <p class="text-lg font-medium"><%= role.name %></p>
-        <p>
-          <%= link_to "Edit", edit_role_path(role), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-        </p>
+        <div class="flex flex-col gap-2">
+          <p class="text-lg font-medium"><%= role.name %></p>
+          <div class="flex gap-2">
+            <%= link_to "Editar", edit_role_path(role), class: "btn-primary" %>
+            <%= link_to "Ver Rol", role, class: "btn-primary" %>
+            <%= button_to "Eliminar", role, data: { turbo_confirm: "Quieres eliminar este permiso?"}, method: :delete, class: "btn-danger" %>
+          </div>
+        </div>
       </div>
-      <p>
-        <%= link_to "Show this role", role, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
     <% end %>
   </div>
 </div>
