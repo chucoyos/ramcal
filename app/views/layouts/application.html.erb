@@ -18,12 +18,18 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= render "/navbar" %>
-    <main class="container mx-auto mt-16 flex">
+  <body class="">
+    <main class="container mx-auto mt-4">
+      <% if notice.present? %>
+      <div class="fixed top-0 right-0">
+        <p class="text-center py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block"><%= notice %></p>
+      </div>
+    <% end %>
+    <% if alert.present? %>
+      <p class="py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block"><%= alert %></p>
+    <% end %>
       <%= yield %>
     </main>
+    <%= render "/navbar" %>
   </body>
 </html>

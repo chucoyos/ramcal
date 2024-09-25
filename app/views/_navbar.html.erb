@@ -1,16 +1,14 @@
-<nav class="bg-slate-200">
-  <ul class="flex gap-2">
-    <li><%= link_to "Home", root_path %></li>
+<nav class="nav">
+  <ul class="flex justify-evenly py-2 lg:flex-col items-center lg:gap-8 lg:mt-8">
+    <li class="nav-link"><%= link_to "Home", root_path %></li>
     <% if user_signed_in? %>
-        <p class="font-bold"><%= current_user.username%></p>
-        <li><%= link_to "Cancelar Cuenta", registration_path(current_user), data: { turbo_method: :delete, turbo_confirm: "Eliminar Cuenta?" } %></li>
-        <li><%= link_to "Salir", destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Cerrar Sesión?"} %></li>
-        <li><%= link_to "Usuarios", users_path %></li>
-        <li><%= link_to "Roles", roles_path %></li>
-        <li><%= link_to "Permissions", permissions_path %>
+        <li class="nav-link"><%= link_to "Salir", destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Cerrar Sesión?"} %></li>
+        <li class="nav-link"><%= link_to "Usuarios", users_path %></li>
+        <li class="nav-link"><%= link_to "Roles", roles_path %></li>
+        <li class="nav-link"><%= link_to "Permisos", permissions_path %>
     <% else %>
-        <li><%= link_to "Iniciar Sesión", new_user_session_path %></li>
-        <li><%= link_to "Registrar", new_user_registration_path %></li>
+        <li class="nav-link"><%= link_to "Iniciar Sesión", new_user_session_path %></li>
+        <li class="nav-link"><%= link_to "Registrar", new_user_registration_path %></li>
     <% end %>
   </ul>
 </nav>

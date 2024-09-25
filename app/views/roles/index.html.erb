@@ -1,4 +1,4 @@
-<div class="w-full">
+<div class="w-full px-4">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
@@ -7,12 +7,17 @@
 
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Roles</h1>
-    <%= link_to "New role", new_role_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <%= link_to "New role", new_role_path, class: "btn-primary" %>
   </div>
 
   <div id="roles" class="min-w-full">
     <% @roles.each do |role| %>
-      <%= render role %>
+      <div class="flex justify-between items-center py-3 border-b border-gray-200">
+        <p class="text-lg font-medium"><%= role.name %></p>
+        <p>
+          <%= link_to "Edit", edit_role_path(role), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        </p>
+      </div>
       <p>
         <%= link_to "Show this role", role, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
       </p>

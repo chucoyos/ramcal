@@ -1,21 +1,24 @@
-<div class="w-full">
+<div class="w-full flex flex-col px-4">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
   <% content_for :title, "Permissions" %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Permissions</h1>
-    <%= link_to "New permission", new_permission_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
+    <h1 class="mb-4">Permisos</h1>
+    <%= link_to "Nuevo Permiso", new_permission_path, class: "btn-primary w-2/3 lg:w-1/5 text-center" %>
 
-  <div id="permissions" class="min-w-full">
+  <div class="flex flex-col gap-2">
     <% @permissions.each do |permission| %>
-      <%= render permission %>
-      <p>
-        <%= link_to "Show this permission", permission, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
+      <div class="flex flex-col gap-2 bg-white p-4 rounded-lg shadow-md">
+        <div class="flex flex-col gap-2">
+          <p><%= permission.name %></p>
+          <div class="flex gap-2">
+           <%= link_to "Editar", edit_permission_path(permission), class: "btn-primary" %>
+           <%= button_to "Eliminar", permission, method: :delete, class: "btn-primary" %>
+          </div>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>

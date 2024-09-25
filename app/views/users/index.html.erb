@@ -1,33 +1,46 @@
 <div class="flex flex-col gap-2">
   <h1 class="font-bold text-4xl">Usuarios</h1>
-  <%= link_to "Nuevo Usuario", new_user_path, class: "btn-primary"%>
+  <%= link_to "Nuevo Usuario", new_user_path, class: "btn-primary w-1/2 lg:w-1/6 text-center ml-2 mb-4"%>
 
   <% if @users.any? %>
-    <table class="table">
-      <thead class="bg-slate-200">
-        <tr class="border">
-          <th class="px-2">Nombre</th>
-          <th class="px-2">A. Paterno</th>
-          <th class="px-2">A. Materno</th>
-          <th class="px-2">Usuario</th>
-          <th class="px-2">Rol</th>
-          <th class="px-2">Email</th>
-          <th class="px-2">Acciones</th>
-        </tr>
-      </thead>
-        <tbody>
-          <% @users.each do |user| %>
-            <tr class="border hover:bg-slate-100">
-              <td class="px-2"><%= user.first_name %> </td>
-              <td class="px-2"><%= user.last_name %></td>
-              <td class="px-2"><%= user.second_last_name %></td>
-              <td class="px-2"><%= user.username %></td>
-              <td class="px-2"><%= user.role.name %></td>
-              <td class="px-2"><%= user.email %></td>
-              <td class="px-2"><%= link_to "Ver Detalles", user, class: "underline" %></td>
-            </tr>
-          <% end %>
-        </tbody>
-    </table>
+    <div class="hidden lg:flex lg:flex-col">
+      <table class="table">
+        <thead class="bg-slate-200">
+          <tr class="border">
+            <th class="px-2">Nombre</th>
+            <th class="px-2">A. Paterno</th>
+            <th class="px-2">A. Materno</th>
+            <th class="px-2">Usuario</th>
+            <th class="px-2">Rol</th>
+            <th class="px-2">Email</th>
+            <th class="px-2">Acciones</th>
+          </tr>
+        </thead>
+          <tbody>
+            <% @users.each do |user| %>
+              <tr class="border hover:bg-slate-100">
+                <td class="px-2"><%= user.first_name %> </td>
+                <td class="px-2"><%= user.last_name %></td>
+                <td class="px-2"><%= user.second_last_name %></td>
+                <td class="px-2"><%= user.username %></td>
+                <td class="px-2"><%= user.role.name %></td>
+                <td class="px-2"><%= user.email %></td>
+                <td class="px-2"><%= link_to "Ver Detalles", user, class: "underline" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+      </table>
+    </div>
+    <div class="lg:hidden mb-16">
+      <% @users.each do |user| %>
+        <div class="border p-2 my-2">
+          <p><strong>Nombre:</strong> <%= user.first_name %> <%= user.last_name %> <%= user.second_last_name %></p>
+          <p><strong>Usuario:</strong> <%= user.username %></p>
+          <p><strong>Rol:</strong> <%= user.role.name %></p>
+          <p><strong>Email:</strong> <%= user.email %></p>
+          <p><%= link_to "Ver Detalles", user, class: "underline" %></p>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 </div>
