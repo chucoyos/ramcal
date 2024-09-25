@@ -2,7 +2,8 @@
   <h1 class="font-bold text-4xl">Editing permission</h1>
 
   <%= render "form", permission: @permission %>
-
-  <%= link_to "Show this permission", @permission, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to "Back to permissions", permissions_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <div class="flex mt-4 gap-2">
+    <%= link_to "Ver Permiso", @permission, class: "btn-primary" %>
+    <%= link_to "Regresar", permissions_path, class: "btn-primary" %>
+  </div>
 </div>

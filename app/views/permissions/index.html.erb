@@ -1,9 +1,9 @@
-<div class="w-full flex flex-col px-4">
+<div class="w-full flex flex-col px-4 lg:mx-16">
 
   <% content_for :title, "Permissions" %>
 
     <h1 class="mb-4">Permisos</h1>
-    <%= link_to "Nuevo Permiso", new_permission_path, class: "btn-primary w-2/3 lg:w-1/5 text-center" %>
+    <%= link_to "Nuevo Permiso", new_permission_path, class: "btn-primary w-2/3 lg:w-1/5 ml-2 text-center" %>
 
   <div class="flex flex-col gap-2">
     <% @permissions.each do |permission| %>

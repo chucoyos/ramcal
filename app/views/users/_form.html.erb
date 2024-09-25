@@ -47,8 +47,8 @@
       <%= f.select :user_type, options_for_select([[ "Admin", 0 ], [ "Staff", 1], [ "Client", 2]]), class: "form-control" %>
     </div>
     <div class="input-group">
-      <%= f.submit class: "btn-primary mt-2" %>
+      <%= f.submit class: "btn-primary mt-2 w-1/2 lg:w-1/4" %>
     </div>
   <% end %>
-    <%= link_to "<- Cancelar", users_path, class: "btn-primary text-center" %>
+    <%= link_to "<- Cancelar", users_path, class: "btn-primary text-center w-1/2 lg:w-1/4" %>
 </div>
