@@ -4,24 +4,29 @@ class PermissionsController < ApplicationController
 
   # GET /permissions or /permissions.json
   def index
+    authorize current_user, :index?, policy_class: PermissionPolicy
     @permissions = Permission.all
   end
 
   # GET /permissions/1 or /permissions/1.json
   def show
+    authorize current_user, :show?, policy_class: PermissionPolicy
   end
 
   # GET /permissions/new
   def new
+    authorize current_user, :create?, policy_class: PermissionPolicy
     @permission = Permission.new
   end
 
   # GET /permissions/1/edit
   def edit
+    authorize current_user, :update?, policy_class: PermissionPolicy
   end
 
   # POST /permissions or /permissions.json
   def create
+    authorize current_user, :create?, policy_class: PermissionPolicy
     @permission = Permission.new(permission_params)
 
     respond_to do |format|
@@ -37,6 +42,7 @@ class PermissionsController < ApplicationController
 
   # PATCH/PUT /permissions/1 or /permissions/1.json
   def update
+    authorize current_user, :update?, policy_class: PermissionPolicy
     respond_to do |format|
       if @permission.update(permission_params)
         format.html { redirect_to @permission, notice: "Se actualizó el permiso." }
@@ -50,6 +56,7 @@ class PermissionsController < ApplicationController
 
   # DELETE /permissions/1 or /permissions/1.json
   def destroy
+    authorize current_user, :destroy?, policy_class: PermissionPolicy
     if @permission.roles.any?
       flash[:alert] = "No se puede eliminar permisos con roles asignados."
       redirect_to permissions_path
