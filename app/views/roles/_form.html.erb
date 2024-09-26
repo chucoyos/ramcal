@@ -18,6 +18,7 @@
 
   <div class="field">
     <%= form.label "Permisos" %>
+    <%= hidden_field_tag "role[permission_ids][]", "" %>
     <div class="checkboxes my-2">
       <% @permissions.each do |permission| %>
         <div>
