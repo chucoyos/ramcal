@@ -41,7 +41,7 @@
     @apply fixed bottom-0 left-0 w-full lg:top-0 lg:w-20 lg:h-full rounded w-screen bg-gradient-to-b from-blue-500 to-blue-950 text-blue-100;
   }
   .nav-link {
-    @apply cursor-pointer text-md;
+    @apply cursor-pointer text-base;
   }
   /* .notice {
     @apply bg-green-200 text-green-900 p-2 rounded-lg;
