@@ -36,10 +36,10 @@ class UsersController < ApplicationController
     authorize current_user, :update?, policy_class: UserPolicy
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to user_path(@user), notice: "User was successfully updated."
+      redirect_to user_path(@user), notice: "Se actualizó el usuario."
     else
       render :edit, status: :unprocessable_entity
-      flash.now[:alert] = "User was not updated."
+      flash.now[:alert] = "No se actualizó el usuario."
     end
   end
 
