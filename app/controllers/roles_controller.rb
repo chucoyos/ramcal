@@ -44,6 +44,7 @@ class RolesController < ApplicationController
 
   # PATCH/PUT /roles/1 or /roles/1.json
   def update
+    authorize current_user, :update?, policy_class: RolePolicy
     respond_to do |format|
       if @role.update(role_params)
         format.html { redirect_to @role, notice: "El rol ha sido actualizado." }
@@ -57,6 +58,7 @@ class RolesController < ApplicationController
 
   # DELETE /roles/1 or /roles/1.json
   def destroy
+    authorize current_user, :destroy?, policy_class: RolePolicy
     if @role.users.any?
       flash[:alert] = "No se puede eliminar el rol con usuarios asignados."
       redirect_to roles_path
