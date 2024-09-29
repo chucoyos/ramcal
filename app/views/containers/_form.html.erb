@@ -14,7 +14,7 @@
 
     <div class="my-5">
       <%= form.label "Cliente" %>
-      <%= form.collection_select :user_id, User.all, :id, :full_name, { prompt: "Seleccione el cliente" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      <%= form.collection_select :user_id, User.clients, :id, :full_name, { prompt: "Seleccione el cliente" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
 
     <div class="my-5">
@@ -24,12 +24,12 @@
 
     <div class="my-5">
       <%= form.label "Tamaño" %>
-      <%= form.select :size, options_for_select([["20", 20], ["40", 40]]), { prompt: "Seleccione el tamaño"}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.select :size, options_for_select([["20", 20], ["40", 40]], form.object.size), { prompt: "Seleccione el tamaño"}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
 
     <div class="my-5">
       <%= form.label "Tipo" %>
-      <%= form.select :container_type, options_for_select([["Seco", "Seco"], ["Refrigerado", "Refrigerado"], ["Open Top", "Open Top"], ["Flat Rack", "Flat Rack"], ["High Cube", "High Cube"], ["Tanque", "Tanque"], ["Otro", "Otro"]]), { prompt: "Seleccione el tipo de contenedor" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      <%= form.select :container_type, options_for_select([["Seco", "Seco"], ["Refrigerado", "Refrigerado"], ["Open Top", "Open Top"], ["Flat Rack", "Flat Rack"], ["High Cube", "High Cube"], ["Tanque", "Tanque"], ["Otro", "Otro"]], form.object.container_type), { prompt: "Seleccione el tipo de contenedor" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
 
     <div class="my-5">
