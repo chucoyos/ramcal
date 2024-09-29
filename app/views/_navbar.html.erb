@@ -5,6 +5,7 @@
         <li class="nav-link"><%= link_to "Salir", destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Cerrar Sesión?"} %></li>
         <li class="nav-link"><%= link_to "Usuarios", users_path %></li>
         <li class="nav-link"><%= link_to "Roles", roles_path %></li>
+        <li class="nav-link"><%= link_to "Contenedores", containers_path %></li>
         <%# link_to "Permisos", permissions_path %>
     <% else %>
         <li class="nav-link"><%= link_to "Ingresar", new_user_session_path %></li>

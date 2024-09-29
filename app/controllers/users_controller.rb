@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+
   def index
     authorize current_user, :index?, policy_class: UserPolicy
     @users = User.all

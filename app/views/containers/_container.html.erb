@@ -1,0 +1,27 @@
+<div id="<%= dom_id container %>", class="mx-5 my-5 bg-white shadow-lg rounded-lg p-5">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Cliente:</strong>
+    <%= container.user.full_name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Número de Contenedor:</strong>
+    <%= container.number %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Tamaño:</strong>
+    <%= container.size %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Tipo de Contenedor:</strong>
+    <%= container.container_type %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Dueño de la Carga:</strong>
+    <%= container.cargo_owner %>
+  </p>
+
+</div>

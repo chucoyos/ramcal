@@ -1,0 +1,16 @@
+<div class="w-full my-10 mx-20">
+   
+  <% content_for :title, "Containers" %>
+
+  <h1 class="font-bold text-4xl mb-8 text-center">Containers</h1>
+  <%= link_to "Nuevo Contenedor", new_container_path, class: "inline rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+
+  <div id="containers" class="min-w-full">
+    <% @containers.each do |container| %>
+      <%= render container %>
+      <p>
+        <%= link_to "Ver detalles", container, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      </p>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+    <%= render @container %>
+
+    <%= link_to "Editar contenedor", edit_container_path(@container), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Regresar", containers_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <div class="inline-block ml-2">
+    <%= link_to "Eliminar contenedor", @container, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este contenedor?" }, class: "rounded-lg py-3 px-5 bg-red-600 text-white inline-block font-medium cursor-pointer" %>
+    </div>
+  </div>
+</div>

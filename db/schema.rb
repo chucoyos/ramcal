@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_24_050219) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_29_080951) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "containers", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "number"
+    t.string "size"
+    t.string "container_type"
+    t.string "cargo_owner"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_containers_on_user_id"
+  end
 
   create_table "permissions", force: :cascade do |t|
     t.string "name"
@@ -54,5 +65,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_24_050219) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "containers", "users"
   add_foreign_key "users", "roles"
 end

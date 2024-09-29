@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  number: MyString
+  size: 1
+  container_type: MyString
+  cargo_owner: MyString
+
+two:
+  user: two
+  number: MyString
+  size: 1
+  container_type: MyString
+  cargo_owner: MyString
