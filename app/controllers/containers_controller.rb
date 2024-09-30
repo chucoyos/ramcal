@@ -4,7 +4,11 @@ class ContainersController < ApplicationController
   # GET /containers or /containers.json
   def index
     authorize current_user, :index?, policy_class: ContainerPolicy
-    @containers = Container.all
+    if current_user.role.name == "cliente"
+      @containers = Container.where(user_id: current_user.id)
+    else
+      @containers = Container.all
+    end
   end
 
   # GET /containers/1 or /containers/1.json
@@ -15,7 +19,11 @@ class ContainersController < ApplicationController
   # GET /containers/new
   def new
     authorize current_user, :create?, policy_class: ContainerPolicy
-    @container = Container.new
+    if current_user.role.name == "cliente"
+      @container = Container.new(user_id: current_user.id)
+    else
+      @container = Container.new
+    end
   end
 
   # GET /containers/1/edit
@@ -26,7 +34,11 @@ class ContainersController < ApplicationController
   # POST /containers or /containers.json
   def create
     authorize current_user, :create?, policy_class: ContainerPolicy
-    @container = Container.new(container_params)
+    if current_user.role.name == "cliente"
+      @container = Container.new(container_params.merge(user_id: current_user.id))
+    else
+      @container = Container.new(container_params)
+    end
 
     respond_to do |format|
       if @container.save

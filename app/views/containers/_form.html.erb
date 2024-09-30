@@ -12,10 +12,12 @@
       </div>
     <% end %>
 
-    <div class="my-5">
-      <%= form.label "Cliente" %>
-      <%= form.collection_select :user_id, User.clients, :id, :full_name, { prompt: "Seleccione el cliente" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-    </div>
+    <% if current_user.role.name != "cliente" %>
+      <div class="my-5">
+        <%= form.label "Cliente" %>
+        <%= form.collection_select :user_id, User.clients, :id, :full_name, { prompt: "Seleccione el cliente" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      </div>
+    <% end %>
 
     <div class="my-5">
       <%= form.label "Numero de Contenedor" %>
