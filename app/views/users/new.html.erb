@@ -13,17 +13,17 @@
       </div>
     <% end %>
 
-      <div class="field">
+      <div class="input-group">
         <%= f.label :role %>
         <%= f.collection_select :role_id, Role.all, :id, :name, { prompt: "Selecciona un Rol" }, class: "form-control" %>
       </div>
 
-      <div class="field">
+      <div class="input-group">
       <%= f.label :email %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
     </div>
 
-    <div class="field">
+    <div class="input-group">
       <%= f.label :password %>
       <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -31,7 +31,7 @@
       <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
     </div>
     
-    <div class="field">
+    <div class="input-group">
       <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
     </div>
@@ -56,21 +56,16 @@
         <%= f.text_field :username, class: "form-control" %>
       </div>
 
-      <div class="field">
+      <div class="input-group">
         <%= f.label :phone_number %>
         <%= f.text_field :phone_number, class: "form-control" %>
       </div>
       
-      <div class="field">
+      <div class="input-group">
         <%= f.label :contact_person %>
         <%= f.text_field :contact_person, class: "form-control" %>
       </div>
       
-      <div class="field">
-        <%= f.label :user_type %>
-        <%= f.select :user_type, options_for_select([[ "Admin", 0 ], [ "Staff", 1], [ "Client", 2]]), class: "form-control" %>
-      </div>
-
       <div class="flex gap-2 mt-3">
         <%= link_to "<- Cancelar", users_path, class: "btn-primary w-1/2" %>
         <%= f.submit "Crear Usuario", class: "btn-primary w-1/2" %>

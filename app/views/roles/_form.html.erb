@@ -16,7 +16,7 @@
     <%= form.text_field :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="field">
+  <div class="">
     <%= form.label "Permisos" %>
     <%= hidden_field_tag "role[permission_ids][]", "" %>
     <div class="checkboxes my-2">
@@ -29,7 +29,8 @@
     </div>
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "btn-primary" %>
+  <div class="">
+    <%= form.submit "Guardar", class: "btn-primary" %>
+    <%= link_to "Regresar", roles_path, class: "btn-primary" %>
   </div>
 <% end %>

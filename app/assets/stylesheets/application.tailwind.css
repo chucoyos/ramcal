@@ -7,11 +7,12 @@
 @layer components {
   .btn-primary {
     /* @apply py-2 px-4 bg-blue-200; */
-    @apply cursor-pointer shadow hover:shadow-lg rounded-lg py-2 px-4 
-    bg-blue-600 text-slate-100 font-medium;
+    @apply cursor-pointer shadow rounded-lg py-3 px-4 
+    bg-blue-600 text-blue-100 font-medium hover:bg-blue-50
+    hover:text-blue-600 hover:shadow-lg hover:ring-2 hover:ring-blue-600;
   }
   .btn-danger {
-    @apply cursor-pointer shadow hover:shadow-lg rounded-lg py-2 px-4 
+    @apply cursor-pointer shadow hover:shadow-lg rounded-lg py-3 px-4 
     bg-red-600 text-slate-100 font-medium;
   }
   h1 {
@@ -31,17 +32,20 @@
     @apply bg-blue-600 text-white hover:bg-white hover:text-blue-600 
     hover:ring-2 hover:ring-blue-600;
   }
-  .input-group, .field {
+  .input-group{
     @apply flex flex-col w-full;
   }
   .form-control {
     @apply border border-gray-300 rounded-lg p-2;
   }
   .nav {
-    @apply fixed bottom-0 left-0 w-full lg:top-0 lg:w-28 lg:h-full rounded w-screen bg-gradient-to-b from-blue-500 to-blue-950 text-blue-100;
+    @apply fixed bottom-0 left-0 w-full lg:top-0 lg:w-32 lg:h-full rounded w-screen bg-gradient-to-b from-blue-500 to-blue-950 text-blue-100;
   }
   .nav-link {
     @apply cursor-pointer text-base;
+  }
+  .field {
+    @apply my-5 my-5 bg-sky-100 rounded-lg px-4 py-2 shadow;
   }
   /* .notice {
     @apply bg-green-200 text-green-900 p-2 rounded-lg;

@@ -12,7 +12,7 @@
       </div>
     <% end %>
 
-    <div class="field">
+    <div class="input-group">
       <%= f.label :role %>
       <%= f.collection_select :role_id, Role.all, :id, :name, { prompt: "Selecciona un Rol" }, class: "form-control" %>
     </div>
@@ -32,17 +32,17 @@
       <%= f.label "Nombre de Usuario" %>
       <%= f.text_field :username, class: "form-control" %>
     </div>
-    <div class="field">
+    <div class="input-group">
       <%= f.label :phone_number %>
       <%= f.text_field :phone_number, class: "form-control" %>
     </div>
     
-    <div class="field">
+    <div class="input-group">
       <%= f.label :contact_person %>
       <%= f.text_field :contact_person, class: "form-control" %>
     </div>
     
-    <div class="field">
+    <div class="input-group">
       <%= f.label :user_type %>
       <%= f.select :user_type, options_for_select([[ "Admin", 0 ], [ "Staff", 1], [ "Client", 2]]), class: "form-control" %>
     </div>

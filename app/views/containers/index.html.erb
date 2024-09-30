@@ -1,16 +1,39 @@
-<div class="w-full my-10 mx-20">
+<div class="flex flex-col gap-2 lg:ml-16 px-5">
    
-  <% content_for :title, "Containers" %>
-
-  <h1 class="font-bold text-4xl mb-8 text-center">Containers</h1>
-  <%= link_to "Nuevo Contenedor", new_container_path, class: "inline rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-
-  <div id="containers" class="min-w-full">
+  <h1 class="">Contenedores</h1>
+  <div class="flex justify-items-end px-8">
+    <%= link_to "Nuevo Contenedor", new_container_path, class: "ml-auto mt-4 btn-primary" %>
+  </div>
+  <div class="lg:hidden my-8">
     <% @containers.each do |container| %>
       <%= render container %>
-      <p>
-        <%= link_to "Ver detalles", container, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
+    <%= link_to "Ver detalles", container, class: "btn-primary" %>
     <% end %>
   </div>
+  <div class="hidden lg:flex flex-col gap-4">
+    <table class="table-auto w-full">
+      <thead>
+        <tr>
+          <th class="px-4 py-2">Client</th>
+          <th class="px-4 py-2">Numero</th>
+          <th class="px-4 py-2">Tamaño</th>
+          <th class="px-4 py-2">Tipo de Contenedor</th>
+          <th class="px-4 py-2">Dueño de la Carga</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @containers.each do |container| %>
+          <tr class="hover:bg-blue-50">
+            <td class="border px-2 py-1"><%= container.user.full_name %></td>
+            <td class="border px-2 py-1"><%= container.number %></td>
+            <td class="border px-2 py-1"><%= container.size %></td>
+            <td class="border px-2 py-1"><%= container.container_type %></td>
+            <td class="border px-2 py-1"><%= container.cargo_owner %></td>
+            <td class="border px-2 py-1">
+              <%= link_to "Ver", container, class: "" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 </div>
