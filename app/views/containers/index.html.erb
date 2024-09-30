@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-2 lg:ml-16 px-5">
+<div class="flex flex-col gap-2 lg:ml-16 px-5 mb-16">
    
   <h1 class="">Contenedores</h1>
   <div class="flex justify-items-end px-8">
@@ -12,26 +12,25 @@
   </div>
   <div class="hidden lg:flex flex-col gap-4">
     <table class="table-auto w-full">
-      <thead>
+      <thead class="bg-slate-200">
         <tr>
-          <th class="px-4 py-2">Client</th>
-          <th class="px-4 py-2">Numero</th>
-          <th class="px-4 py-2">Tamaño</th>
-          <th class="px-4 py-2">Tipo de Contenedor</th>
-          <th class="px-4 py-2">Dueño de la Carga</th>
+          <th class="px-2">Cliente</th>
+          <th class="px-2">Numero</th>
+          <th class="px-2">Tamaño</th>
+          <th class="px-2">Tipo de Contenedor</th>
+          <th class="px-2">Dueño de la Carga</th>
+          <th class="px-2">Acciones</th>
         </tr>
       </thead>
       <tbody>
         <% @containers.each do |container| %>
           <tr class="hover:bg-blue-50">
-            <td class="border px-2 py-1"><%= container.user.full_name %></td>
-            <td class="border px-2 py-1"><%= container.number %></td>
-            <td class="border px-2 py-1"><%= container.size %></td>
-            <td class="border px-2 py-1"><%= container.container_type %></td>
-            <td class="border px-2 py-1"><%= container.cargo_owner %></td>
-            <td class="border px-2 py-1">
-              <%= link_to "Ver", container, class: "" %>
-            </td>
+            <td class="border px-2"><%= container.user.full_name %></td>
+            <td class="border px-2"><%= container.number %></td>
+            <td class="border px-2"><%= container.size %></td>
+            <td class="border px-2"><%= container.container_type %></td>
+            <td class="border px-2"><%= container.cargo_owner %></td>
+            <td class="border px-2"><%= link_to "Ver", container, class: "undeline" %></td>
           </tr>
         <% end %>
       </tbody>
