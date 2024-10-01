@@ -7,13 +7,14 @@
 @layer components {
   .btn-primary {
     /* @apply py-2 px-4 bg-blue-200; */
-    @apply cursor-pointer shadow rounded-lg py-3 px-4 
+    @apply cursor-pointer shadow rounded-lg py-3 px-5 
     bg-blue-600 text-blue-100 font-medium hover:bg-blue-50
     hover:text-blue-600 hover:shadow-lg hover:ring-2 hover:ring-blue-600;
   }
   .btn-danger {
     @apply cursor-pointer shadow hover:shadow-lg rounded-lg py-3 px-4 
-    bg-red-600 text-slate-100 font-medium;
+    bg-red-600 text-red-50 font-medium hover:bg-red-50 hover:text-red-600
+    hover:ring-2 hover:ring-red-600;
   }
   h1 {
     @apply font-bold text-2xl text-slate-900 text-center;
