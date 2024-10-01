@@ -8,6 +8,7 @@
     <% @containers.each do |container| %>
       <%= render container %>
     <%= link_to "Ver detalles", container, class: "btn-primary" %>
+    <%= link_to "Editar", edit_container_path(container), class: "btn-primary" %>
     <% end %>
   </div>
   <div class="hidden lg:flex flex-col gap-4">
@@ -30,7 +31,10 @@
             <td class="border px-2"><%= container.size %></td>
             <td class="border px-2"><%= container.container_type %></td>
             <td class="border px-2"><%= container.cargo_owner %></td>
-            <td class="border px-2"><%= link_to "Ver", container, class: "undeline" %></td>
+            <td class="border px-2">
+              <%= link_to "Ver", container, class: "underline text-blue-900" %> |
+              <%= link_to "Editar", edit_container_path(container), class: "underline text-blue-900" %>
+            </td>
           </tr>
         <% end %>
       </tbody>
