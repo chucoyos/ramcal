@@ -1,0 +1,2 @@
+module EirsHelper
+end

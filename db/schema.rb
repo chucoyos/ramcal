@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_29_080951) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_02_221215) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_29_080951) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_containers_on_user_id"
+  end
+
+  create_table "eirs", force: :cascade do |t|
+    t.bigint "container_id", null: false
+    t.string "operator"
+    t.string "transport"
+    t.string "plate"
+    t.string "fleet_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["container_id"], name: "index_eirs_on_container_id"
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -66,5 +77,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_29_080951) do
   end
 
   add_foreign_key "containers", "users"
+  add_foreign_key "eirs", "containers"
   add_foreign_key "users", "roles"
 end
