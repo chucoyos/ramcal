@@ -1,8 +1,5 @@
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
+<div class="w-full lg:ml-16">
+  
   <% content_for :title, "Eirs" %>
 
   <div class="flex justify-between items-center">
@@ -15,6 +12,8 @@
       <%= render eir %>
       <p>
         <%= link_to "Show this eir", eir, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+        <%= link_to "Edit", edit_eir_path(eir), class: "ml-2 rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium" %>
+        <%= link_to "Delete", eir, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "ml-2 rounded-lg py-3 px-5 bg-red-600 text-white inline-block font-medium" %>
       </p>
     <% end %>
   </div>

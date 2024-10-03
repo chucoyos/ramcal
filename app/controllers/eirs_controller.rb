@@ -8,11 +8,14 @@ class EirsController < ApplicationController
 
   # GET /eirs/1 or /eirs/1.json
   def show
+    pdf = @eir.generate_pdf
+    send_data pdf.render, filename: "eir_#{@eir.container.number}.pdf", type: "application/pdf", disposition: "attachment"
   end
 
   # GET /eirs/new
   def new
-    @eir = Eir.new
+    @container = Container.find(params[:container_id])
+    @eir = Eir.new(container_id: @container&.id)
   end
 
   # GET /eirs/1/edit
@@ -22,10 +25,10 @@ class EirsController < ApplicationController
   # POST /eirs or /eirs.json
   def create
     @eir = Eir.new(eir_params)
-
     respond_to do |format|
       if @eir.save
-        format.html { redirect_to @eir, notice: "Eir was successfully created." }
+        format.html { redirect_to eirs_path, notice: "Eir was successfully created." }
+        # format.html { redirect_to @eir, notice: "Eir was successfully created." }
         format.json { render :show, status: :created, location: @eir }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -62,7 +65,6 @@ class EirsController < ApplicationController
     def set_eir
       @eir = Eir.find(params[:id])
     end
-
     # Only allow a list of trusted parameters through.
     def eir_params
       params.require(:eir).permit(:container_id, :operator, :transport, :plate, :fleet_number)

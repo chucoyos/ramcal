@@ -64,3 +64,9 @@ end
 gem "devise", "~> 4.9"
 
 gem "pundit", "~> 2.4"
+
+gem "rqrcode", "~> 2.2"
+
+gem "prawn", "~> 2.5"
+
+gem "prawn-qrcode"
