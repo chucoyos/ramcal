@@ -48,7 +48,7 @@ class Eir < ApplicationRecord
     end
   end
   def generate_qr_code
-    qr = RQRCode::QRCode.new("https://container-yard-2657e8869d5b.herokuapp.com/containers/#{id}")
+    qr = RQRCode::QRCode.new("https://container-yard-2657e8869d5b.herokuapp.com/containers/#{container_id}")
     qr.as_png(size: 200)
   end
 end
