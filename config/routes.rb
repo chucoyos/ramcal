@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # routes.rb
+  match "*path", to: "application#render_404", via: :all
+
   resources :eirs
   resources :containers
   resources :permissions

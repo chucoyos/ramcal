@@ -4,6 +4,14 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  # Catch routing errors (404)
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
+  rescue_from ActionController::RoutingError, with: :render_404
+
+  def render_404
+    render file: "#{Rails.root}/public/404.html", status: :not_found
+  end
+
   private
   def user_not_authorized
     flash[:alert] = "No tienes autorización para realizar esta acción."
