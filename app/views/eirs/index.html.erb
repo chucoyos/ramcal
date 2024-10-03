@@ -1,20 +1,19 @@
-<div class="w-full lg:ml-16">
+<div class="flex flex-col gap-2 lg:ml-20 px-5 mb-20">
   
   <% content_for :title, "Eirs" %>
 
   <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Eirs</h1>
-    <%= link_to "New eir", new_eir_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <h1 class="mx-auto">EIR</h1>
   </div>
 
   <div id="eirs" class="min-w-full">
     <% @eirs.each do |eir| %>
       <%= render eir %>
-      <p>
-        <%= link_to "Show this eir", eir, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-        <%= link_to "Edit", edit_eir_path(eir), class: "ml-2 rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium" %>
-        <%= link_to "Delete", eir, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "ml-2 rounded-lg py-3 px-5 bg-red-600 text-white inline-block font-medium" %>
-      </p>
+      <div class="flex gap-2">
+        <%= link_to "Descargar EIR", eir, class: "btn-primary" %>
+        <%= link_to "Eliminar", eir, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn-danger" %>
+        <%= link_to "Contenedores", containers_path, class: "btn-primary" %>
+      </div>
     <% end %>
   </div>
 </div>

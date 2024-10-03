@@ -3,7 +3,11 @@ class EirsController < ApplicationController
 
   # GET /eirs or /eirs.json
   def index
-    @eirs = Eir.all
+    if current_user.role.name == "cliente"
+      @eirs = Eir.joins(:container).where(containers: { user_id: current_user.id }).order(created_at: :desc).first(1)
+    else
+      @eirs = Eir.order(created_at: :desc)
+    end
   end
 
   # GET /eirs/1 or /eirs/1.json

@@ -1,27 +1,37 @@
-<div id="<%= dom_id eir %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Container:</strong>
-    <%= eir.container.number %>
-  </p>
+<div class="p-2 my-5 bg-white shadow-lg rounded-lg p-8 bg-sky-50">
+  <%= link_to "Descargar EIR", eir, class: "btn-primary"%>
+  <div class="field">
+    <h2><%= eir.container.number %></h2>
+  </div>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Operator:</strong>
+  <p class="field">
+    <strong class="block font-medium mb-1">Operador:</strong>
     <%= eir.operator %>
   </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Transport:</strong>
+  <p class="field">
+    <strong class="block font-medium mb-1">Transporte:</strong>
     <%= eir.transport %>
   </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Plate:</strong>
+  <p class="field">
+    <strong class="block font-medium mb-1">Placa:</strong>
     <%= eir.plate %>
   </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Fleet number:</strong>
+  <p class="field">
+    <strong class="block font-medium mb-1">Nḿero económico:</strong>
     <%= eir.fleet_number %>
+  </p>
+
+  <p class="field">
+    <strong class="block font-medium mb-1">Dueño de la carga:</strong>
+    <%= eir.container.cargo_owner %>
+  </p>
+
+  <p class="field">
+    <strong class="block font-medium mb-1">Cliente:</strong>
+    <%= eir.container.user.full_name %>
   </p>
 
 </div>
