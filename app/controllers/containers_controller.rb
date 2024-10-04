@@ -1,4 +1,5 @@
 class ContainersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_container, only: %i[ show edit update destroy ]
 
   # GET /containers or /containers.json

@@ -1,8 +1,10 @@
 class EirsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_eir, only: %i[ show edit update destroy ]
 
   # GET /eirs or /eirs.json
   def index
+    authorize current_user, :index?, policy_class: EirPolicy
     if current_user.role.name == "cliente"
       @eirs = Eir.joins(:container).where(containers: { user_id: current_user.id }).order(created_at: :desc).first(1)
     else
@@ -12,22 +14,26 @@ class EirsController < ApplicationController
 
   # GET /eirs/1 or /eirs/1.json
   def show
+    authorize current_user, :show?, policy_class: EirPolicy
     pdf = @eir.generate_pdf
     send_data pdf.render, filename: "eir_#{@eir.container.number}.pdf", type: "application/pdf", disposition: "attachment"
   end
 
   # GET /eirs/new
   def new
+    authorize current_user, :create?, policy_class: EirPolicy
     @container = Container.find(params[:container_id])
     @eir = Eir.new(container_id: @container&.id)
   end
 
   # GET /eirs/1/edit
   def edit
+    authorize current_user, :update?, policy_class: EirPolicy
   end
 
   # POST /eirs or /eirs.json
   def create
+    authorize current_user, :create?, policy_class: EirPolicy
     @eir = Eir.new(eir_params)
     respond_to do |format|
       if @eir.save
@@ -43,6 +49,7 @@ class EirsController < ApplicationController
 
   # PATCH/PUT /eirs/1 or /eirs/1.json
   def update
+    authorize current_user, :update?, policy_class: EirPolicy
     respond_to do |format|
       if @eir.update(eir_params)
         format.html { redirect_to @eir, notice: "Eir was successfully updated." }
@@ -56,6 +63,7 @@ class EirsController < ApplicationController
 
   # DELETE /eirs/1 or /eirs/1.json
   def destroy
+    authorize current_user, :destroy?, policy_class: EirPolicy
     @eir.destroy!
 
     respond_to do |format|

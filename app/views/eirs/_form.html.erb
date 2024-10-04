@@ -11,9 +11,8 @@
     </div>
   <% end %>
   <h2><%= @container.number %></h2>
-  <div class="my-5">
-    <%= form.label :container_id %>
-    <%= form.text_field :container_id, readonly: true, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  <div class="my-5" style="display:none;">
+    <%= form.hidden_field :container_id, value: @container.id %>
   </div>
   <div class="my-5">
     <%= form.label :operador %>
