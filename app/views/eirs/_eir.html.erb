@@ -1,37 +1,48 @@
-<div class="p-2 my-5 bg-white shadow-lg rounded-lg p-8 bg-sky-50">
-  <%= link_to "Descargar EIR", eir, class: "btn-primary"%>
+<div class="p-2 my-5 shadow-lg rounded-lg p-8">
+  <%= link_to "Descargar EIR", eir, class: "btn-primary" %>
   <div class="field">
     <h2><%= eir.container.number %></h2>
   </div>
+  <div class="">
+    <div class="field">
+      <strong class="block font-medium mb-1">Operador:</strong>
+      <%= eir.operator %>
+    </div>
 
-  <p class="field">
-    <strong class="block font-medium mb-1">Operador:</strong>
-    <%= eir.operator %>
-  </p>
+    <div class="field">
+      <strong class="block font-medium mb-1">Transporte:</strong>
+      <%= eir.transport %>
+    </div>
 
-  <p class="field">
-    <strong class="block font-medium mb-1">Transporte:</strong>
-    <%= eir.transport %>
-  </p>
+    <div class="field">
+      <strong class="block font-medium mb-1">Placa:</strong>
+      <%= eir.plate %>
+    </div>
 
-  <p class="field">
-    <strong class="block font-medium mb-1">Placa:</strong>
-    <%= eir.plate %>
-  </p>
+    <div class="field">
+      <strong class="block font-medium mb-1">Número económico:</strong>
+      <%= eir.fleet_number %>
+    </div>
 
-  <p class="field">
-    <strong class="block font-medium mb-1">Nḿero económico:</strong>
-    <%= eir.fleet_number %>
-  </p>
+    <div class="field">
+      <strong class="block font-medium mb-1">Dueño de la carga:</strong>
+      <%= eir.container.cargo_owner %>
+    </div>
 
-  <p class="field">
-    <strong class="block font-medium mb-1">Dueño de la carga:</strong>
-    <%= eir.container.cargo_owner %>
-  </p>
+    <div class="field">
+      <strong class="block font-medium mb-1">Tipo de contenedor:</strong>
+      <%= eir.container.container_type %>
+    </div>
 
-  <p class="field">
-    <strong class="block font-medium mb-1">Cliente:</strong>
-    <%= eir.container.user.full_name %>
-  </p>
+    <div class="field">
+      <strong class="block font-medium mb-1">Tamaño del contenedor:</strong>
+      <%= eir.container.size %>
+    </div>
+
+    <div class="field">
+      <strong class="block font-medium mb-1">Cliente:</strong>
+      <%= eir.container.user.full_name %>
+    </div>
+  </div>
 
 </div>
