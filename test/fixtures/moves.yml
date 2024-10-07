@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  container: one
+  move_type: MyString
+  status: MyString
+  mode: MyString
+  notes: MyText
+  images: MyString
+
+two:
+  container: two
+  move_type: MyString
+  status: MyString
+  mode: MyString
+  notes: MyText
+  images: MyString
