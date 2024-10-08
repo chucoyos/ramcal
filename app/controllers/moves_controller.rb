@@ -19,6 +19,7 @@ class MovesController < ApplicationController
 
   # GET /moves/1/edit
   def edit
+    @container = Container.find(@move.container_id)
   end
 
   # POST /moves or /moves.json
