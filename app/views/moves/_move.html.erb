@@ -5,7 +5,7 @@
   </p>
 
   <p class="field">
-    <strong class="block font-medium mb-1">Move type:</strong>
+    <strong class="block font-medium mb-1">Tipo de Movimiento:</strong>
     <%= move.move_type %>
   </p>
 
@@ -15,17 +15,23 @@
   </p>
 
   <p class="field">
-    <strong class="block font-medium mb-1">Mode:</strong>
+    <strong class="block font-medium mb-1">Modo:</strong>
     <%= move.mode %>
   </p>
 
   <p class="field">
-    <strong class="block font-medium mb-1">Notes:</strong>
+    <strong class="block font-medium mb-1">Notas:</strong>
     <%= move.notes %>
   </p>
 
   <p class="field">
-    <strong class="block font-medium mb-1">Images:</strong>
+    <strong class="block font-medium mb-1">Fecha y hora:</strong> 
+    <%= move.created_at.strftime("%d/%m/%Y") %>
+    <span class="bg-blue-600 px-2 rounded rounded-lg text-white shadow-lg"><%= move.created_at.strftime("%I:%M %p") %></span>
+  </p>
+
+  <p class="field">
+    <strong class="block font-medium mb-1">Imágenes:</strong>
     <%= move.images %>
   </p>
 
