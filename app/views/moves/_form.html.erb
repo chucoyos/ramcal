@@ -18,12 +18,12 @@
 
     <div class="my-5">
       <%= form.label "Tipo de Movimiento" %>
-      <%= form.select :move_type, options_for_select([["Entrada", "Entrada"], ["Salida", "Salida"]], form.object.move_type), { prompt: "Selecciona el tipo de movimiento" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      <%= form.select :move_type, options_for_select([["Entrada", "Entrada"], ["Salida", "Salida"]], form.object.move_type), { prompt: "Selecciona el tipo de movimiento" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", required: true %>
     </div>
 
     <div class="my-5">
       <%= form.label "Estado de carga" %>
-      <%= form.select :status, options_for_select([["Vacío", "Vacío"], ["Lleno", "Lleno"]], form.object.status), { prompt: "Selecciona el estado" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      <%= form.select :status, options_for_select([["Vacío", "Vacío"], ["Lleno", "Lleno"]], form.object.status), { prompt: "Selecciona el estado" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", required: true %>
     </div>
 
     <div class="my-5">
@@ -36,12 +36,12 @@
       <%= form.text_area :notes, rows: 4, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
 
-    <div class="my-5">
-      <%= form.label :images %>
-      <%= form.text_field :images, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <div class="flex flex-col gap-2 my-5 border border-gray-400 outline-none px-2 py-3 rounded">
+      <%= form.label "Imagenes" %>
+      <%= form.file_field :images, id: "file-upload", multiple: true, class: "cursor-pointer p-2 bg-blue-600 text-white rounded-lg", required: true %>
     </div>
 
-    <div class="flex gap-2">
+    <div class="flex gap-2 mb-20">
       <%= form.submit "Guardar", class: "btn-primary" %>
       <%= link_to "Cancelar", moves_path, class: "btn-primary" %>
     </div>
