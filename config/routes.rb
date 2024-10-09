@@ -27,5 +27,5 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # Defines the root path route ("/")
   # root "posts#index"
-  match "*path", to: "application#render_404", via: :all
+  # match "*path", to: "application#render_404", via: :all
 end
