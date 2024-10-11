@@ -26,8 +26,8 @@
 
   <p class="field">
     <strong class="block font-medium mb-1">Fecha y hora:</strong> 
-    <%= move.created_at.strftime("%d/%m/%Y") %>
-    <span class="bg-blue-600 px-2 rounded rounded-lg text-white shadow-lg"><%= move.created_at.strftime("%I:%M %p") %></span>
+    <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
+    <span class="bg-blue-600 px-2 rounded rounded-lg text-white shadow-lg"><%= move.created_at.in_time_zone("America/Mexico_City").strftime("%H:%M %p") %></span>
   </p>
 
   <% if move.images.attached? %>
