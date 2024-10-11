@@ -18,7 +18,7 @@
 
     <div class="my-5">
       <%= form.label "Tipo de Movimiento" %>
-      <%= form.select :move_type, options_for_select([["Entrada", "Entrada"], ["Salida", "Salida"]], form.object.move_type), { prompt: "Selecciona el tipo de movimiento" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", required: true %>
+      <%= form.select :move_type, options_for_select([["Entrada", "Entrada"], ["Salida", "Salida"], ["Reacomodo", "Reacomodo"], ["Movimiento para lavado", "Movimiento para lavado"]], form.object.move_type), { prompt: "Selecciona el tipo de movimiento" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", required: true %>
     </div>
 
     <div class="my-5">
