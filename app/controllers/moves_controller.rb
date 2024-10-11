@@ -68,6 +68,6 @@ class MovesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def move_params
-      params.require(:move).permit(:container_id, :move_type, :status, :mode, :notes, images: [])
+      params.require(:move).permit(:container_id, :move_type, :status, :mode, :seal, :notes, images: [])
     end
 end
