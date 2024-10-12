@@ -6,9 +6,23 @@ class ContainersController < ApplicationController
   def index
     authorize current_user, :index?, policy_class: ContainerPolicy
     if current_user.role.name == "cliente"
-      @containers = Container.where(user_id: current_user.id)
+      @containers = Container.where(user_id: current_user.id).order(created_at: :desc)
     else
-      @containers = Container.all
+      @containers = Container.order(created_at: :desc)
+    end
+    if params[:number].present?
+      @containers = @containers.where("number ILIKE ?", "%#{params[:number]}%")
+    end
+    if params[:cargo_owner].present?
+      @containers = @containers.where("cargo_owner ILIKE ?", "%#{params[:cargo_owner]}%")
+    end
+    if params[:move_type].present? && params[:move_created_at].present?
+      @containers = @containers.joins(:moves)
+                               .where(moves: { move_type: params[:move_type] })
+                               .where("moves.created_at::date = ?", params[:move_created_at].to_date)
+    end
+    if params[:user_id].present?
+      @containers = @containers.where(user_id: params[:user_id])
     end
   end
 

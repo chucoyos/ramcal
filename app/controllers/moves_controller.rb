@@ -3,7 +3,11 @@ class MovesController < ApplicationController
 
   # GET /moves or /moves.json
   def index
-    @moves = Move.all
+    if current_user.role.name == "cliente"
+      @moves = Move.joins(:container).where(containers: { user_id: current_user.id }).order(created_at: :desc)
+    else
+      @moves = Move.order(created_at: :desc)
+    end
   end
 
   # GET /moves/1 or /moves/1.json

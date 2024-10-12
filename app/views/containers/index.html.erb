@@ -1,42 +1,100 @@
 <div class="flex flex-col gap-2 lg:ml-20 px-5 mb-16">
    
   <h1 class="">Contenedores</h1>
+
   <div class="flex justify-items-end px-8">
     <%= link_to "Nuevo Contenedor", new_container_path, class: "ml-auto mt-4 btn-primary" %>
   </div>
-  <div class="lg:hidden my-8">
-    <% @containers.each do |container| %>
-      <%= render container %>
-    <%= link_to "Ver detalles", container, class: "btn-primary" %>
-    <%= link_to "Editar", edit_container_path(container), class: "btn-primary" %>
+
+  <div class="border rounded p-4 bg-blue-50 my-8 shadow">
+    <%= form_with :url => containers_path, method: :get do |f| %>
+
+      <div class="lg:flex gap-2 my-4">
+        <div class="input-group">
+          <%= f.label :number, "Numero de contenedor" %>
+          <%= f.text_field :number, class: "form-control" %>
+        </div>
+
+        <div class="input-group">
+          <%= f.label :cargo_owner, "Dueño de la carga" %>
+          <%= f.text_field :cargo_owner, class: "form-control" %>
+        </div>
+
+        <% if current_user.role.name != "cliente" %>
+          <div class="inline">
+            <div class="input-group">
+              <%= f.label :user_id, "Cliente" %>
+              <%= f.select :user_id, 
+                    options_from_collection_for_select(
+                      User.joins(:role).where(roles: { name: 'cliente' }), 
+                      :id, 
+                      :full_name, 
+                    ), { prompt: "Selecciona" }, class: "form-control" %>
+            </div>
+          </div>
+        <% end %>
+
+      </div>
+      <div class="lg:flex gap-2 my-4 border px-2 py-2 rounded-md bg-slate-200">
+        <div class="input-group">
+          <%= f.label :move_type, "Movimiento" %>
+          <%= f.select :move_type, options_for_select([["Entrada", "Entrada"], ["Salida", "Salida"], ["Reacomodo", "Reacomodo"], ["Movimiento para lavado", "Movimiento para lavado"]]), { prompt: "Selecciona" }, class: "form-control" %>
+        </div>
+
+        <div class="input-group">
+          <%= f.label :move_created_at, "Fecha del movimiento" %>
+          <%= f.date_field :move_created_at, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="input-group inline">
+        <%= f.submit "Buscar", class: "btn-primary" %>
+      </div>
     <% end %>
   </div>
+
+  <div class="lg:hidden my-8">
+    <% if @containers.empty? %>
+      <p class="text-gray-600">No hay resultados para la búsqueda</p>
+    <% else %>
+      <% @containers.each do |container| %>
+        <%= render container %>
+      <%= link_to "Ver detalles", container, class: "btn-primary" %>
+      <%= link_to "Editar", edit_container_path(container), class: "btn-primary" %>
+      <% end %>
+    <% end %>
+  </div>
+
   <div class="hidden lg:flex flex-col gap-4">
-    <table class="table-auto w-full">
-      <thead class="bg-slate-200">
-        <tr>
-          <th class="px-2">Cliente</th>
-          <th class="px-2">Numero</th>
-          <th class="px-2">Tamaño</th>
-          <th class="px-2">Tipo de Contenedor</th>
-          <th class="px-2">Dueño de la Carga</th>
-          <th class="px-2">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @containers.each do |container| %>
-          <tr class="hover:bg-blue-50">
-            <td class="border px-2"><%= container.user.full_name %></td>
-            <td class="border px-2"><%= container.number %></td>
-            <td class="border px-2"><%= container.size %></td>
-            <td class="border px-2"><%= container.container_type %></td>
-            <td class="border px-2"><%= container.cargo_owner %></td>
-            <td class="border px-2">
-              <%= link_to "Ver", container, class: "underline text-blue-900" %> |
-              <%= link_to "Editar", edit_container_path(container), class: "underline text-blue-900" %>
-            </td>
+    <% if @containers.empty? %>
+      <p class="text-gray-600">No hay resultados para la búsqueda</p>
+    <% else %>
+      <table class="table-auto w-full">
+        <thead class="bg-slate-200">
+          <tr>
+            <th class="px-2">Cliente</th>
+            <th class="px-2">Numero</th>
+            <th class="px-2">Size</th>
+            <th class="px-2">Tipo</th>
+            <th class="px-2">Dueño de Carga</th>
+            <th class="px-2">Acciones</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @containers.each do |container| %>
+            <tr class="hover:bg-blue-50">
+              <td class="border px-2"><%= container.user.full_name %></td>
+              <td class="border px-2"><%= container.number %></td>
+              <td class="border px-2"><%= container.size %></td>
+              <td class="border px-2"><%= container.container_type %></td>
+              <td class="border px-2"><%= container.cargo_owner %></td>
+              <td class="border px-2">
+                <%= link_to "Ver", container, class: "underline text-blue-900" %> |
+                <%= link_to "Editar", edit_container_path(container), class: "underline text-blue-900" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
 </div>
