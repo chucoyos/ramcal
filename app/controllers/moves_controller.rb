@@ -29,6 +29,7 @@ class MovesController < ApplicationController
   # POST /moves or /moves.json
   def create
     @move = Move.new(move_params)
+    @container = Container.find(@move.container_id)
 
     respond_to do |format|
       if @move.save
