@@ -74,8 +74,10 @@
             <th class="px-2">Numero</th>
             <th class="px-2">Size</th>
             <th class="px-2">Tipo</th>
-            <th class="px-2">Dueño de Carga</th>
-            <th class="px-2">Acciones</th>
+            <th class="px-2">Dueño</th>
+            <th class="px-2">Entrada</th>
+            <th class="px-2">Salida</th>
+            <th class="px-2">Acción</th>
           </tr>
         </thead>
         <tbody>
@@ -86,6 +88,22 @@
               <td class="border px-2"><%= container.size %></td>
               <td class="border px-2"><%= container.container_type %></td>
               <td class="border px-2"><%= container.cargo_owner %></td>
+              <td class="border px-2">
+                <% entrada_move = container.moves.find_by(move_type: "Entrada") %>
+                <% if entrada_move %>
+                  <span><%= entrada_move.created_at.strftime("%d/%m/%Y") %></span>
+                <% else %>
+                  N/A
+                <% end %>
+              </td>
+              <td class="border px-2">
+                <% entrada_move = container.moves.find_by(move_type: "Salida") %>
+                <% if entrada_move %>
+                  <span><%= entrada_move.created_at.strftime("%d/%m/%Y") %></span>
+                <% else %>
+                  N/A
+                <% end %>
+              </td>
               <td class="border px-2">
                 <%= link_to "Ver", container, class: "underline text-blue-900" %> |
                 <%= link_to "Editar", edit_container_path(container), class: "underline text-blue-900" %>
