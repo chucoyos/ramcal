@@ -27,9 +27,6 @@
             </div>
           </div>
         <% end %>
-
-        
-        
       </div>
 
       <div class="lg:flex gap-2 my-4 border px-2 py-2 rounded-md bg-slate-200">
@@ -50,11 +47,74 @@
   </div>
 
   <div id="moves" class="min-w-full">
-    <% @moves.each do |move| %>
-      <%= render move %>
-      <p class="ml-2">
-        <%= link_to "Ver Movimiento", move, class: "btn-primary" %>
-      </p>
+    <% if @moves.empty? %>
+      <p class="text-gray-600">No hay resultados para la búsqueda</p>
     <% end %>
+
+    <div class="flex-flex-col lg:hidden">
+      <% @moves.each do |move| %>
+        <%= link_to move do %>
+          <p class="field">
+            <%= move.container.number %>
+            <%= move.container.size %>ft.
+            <% if move.move_type == "Entrada" %>
+              Entrada: <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%b/%y") %>
+            <% end %>
+            <% if move.move_type == "Salida" %>
+              Salida: <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%b/%y") %>
+            <% end %>
+            <% if move.move_type == "Reacomodo" %>
+              Reacomodo: <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%b/%y") %>
+            <% end %>
+            <% if move.move_type == "Movimiento para lavado" %>
+              Mov-lavado: <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%b/%y") %>
+            <% end %>
+          </p>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="hidden lg:flex lg:flex-col gap-2">
+      <table class="table w-full">
+          <thead class="bg-slate-200">
+            <tr>
+              <th class="px-2">Num.</th>
+              <th class="px-2">Entrada</th>
+              <th class="px-2">Salida</th>
+              <th class="px-2">Size</th>
+              <th class="px-2">Modo</th>
+              <th class="px-2">Accion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @moves.each do |move| %>
+              <tr class="bg-white">
+                <td class="border px-2"><%= move.container.number %></td>
+                <td class="border px-2">
+                  <% if move.move_type == "Entrada" %>
+                    <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
+                  <% else %>
+                    N/A
+                  <% end %>
+                </td>
+                <td class="border px-2">
+                  <% if move.move_type == "Salida" %>
+                    <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
+                  <% else %>
+                    N/A
+                  <% end %>
+                </td>
+                <td class="border px-2"><%= move.container.size %></td>
+                <td class="border px-2"><%= move.mode %></td>
+                <td class="border px-2">
+                  <%= link_to "Ver", move, class: "underline text-blue-900" %>
+                </td>
+
+              </tr>
+            <% end %>
+          </tbody>
+      </table>
+    </div>
+    
   </div>
 </div>

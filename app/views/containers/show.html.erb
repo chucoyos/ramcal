@@ -8,7 +8,7 @@
         <%= link_to "Editar", edit_container_path(@container), class: "btn-primary" %>
         <%= link_to "Eliminar", @container, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este contenedor?" }, class: "btn-danger" %>
       </div>
-      <div class="mt-4">
+      <div class="my-4">
         <%= link_to "Crear EIR", new_eir_path(container_id: @container.id), class: "btn-primary" %>
         <%= link_to "Nuevo movimiento", new_move_path(container_id: @container.id), class: "btn-primary" %>
       </div>
