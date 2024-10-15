@@ -1,15 +1,17 @@
 <div class="p-2 my-5 bg-white shadow-lg rounded-lg p-2 bg-sky-50">
 
-  <p class="field">
-    <strong class="font-medium">Cliente:</strong>
-    <%= container.user.full_name %>
-  </p>
+  <div class="field">
+    <p class="text-center"><%= container.number %></p>
+  </div>
 
-  <p class="field">
-    <strong class="font-medium">Número de Contenedor:</strong>
-    <%= container.number %>
-  </p>
-
+  <% if container.eirs.any? && container.eirs.last.heavy.present? %>
+    <div class="field flex justify-center items-center">
+      <p class="border rounded-lg bg-blue-600 text-center text-white shadow w-1/2">
+        <%= container.eirs.last.heavy %>
+      </p>
+    </div>
+  <% end %>
+  
   <p class="field">
     <strong class="font-medium">Tamaño:</strong>
     <%= container.size %>
@@ -61,5 +63,10 @@
       <span><%= lavado_move.created_at.strftime("%d/%m/%Y") %></span>
     </p>
   <% end %>
+
+  <p class="field">
+    <strong class="font-medium">Cliente:</strong>
+    <%= container.user.full_name %>
+  </p>
 
 </div>
