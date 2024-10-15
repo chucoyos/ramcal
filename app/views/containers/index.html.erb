@@ -21,7 +21,6 @@
         </div>
 
         <% if current_user.role.name != "cliente" %>
-          <div class="inline">
             <div class="input-group">
               <%= f.label :user_id, "Cliente" %>
               <%= f.select :user_id, 
@@ -31,7 +30,6 @@
                       :full_name, 
                     ), { prompt: "Selecciona" }, class: "form-control" %>
             </div>
-          </div>
         <% end %>
 
       </div>

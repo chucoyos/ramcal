@@ -2,6 +2,53 @@
 
   <h1 class="my-4">Movimientos</h1>
 
+  <div class="border rounded p-4 bg-blue-50 my-8 shadow">
+    <%= form_with :url => moves_path, method: :get do |f| %>
+      <div class="lg:flex gap-2 my-4">
+        <div class="input-group">
+          <%= f.label :number, "Numero de contenedor" %>
+          <%= f.text_field :number, class: "form-control" %>
+        </div>
+
+        <div class="input-group">
+          <%= f.label :mode, "Modo" %>
+          <%= f.select :mode, options_for_select([["Full", "Full"], ["Sencillo", "Sencillo"]]), { prompt: "Selecciona" }, class: "form-control" %>
+        </div>
+        <% if current_user.role.name != "cliente" %>
+          <div class="inline">
+            <div class="input-group">
+              <%= f.label :user_id, "Cliente" %>
+              <%= f.select :user_id,
+                    options_from_collection_for_select(
+                      User.joins(:role).where(roles: { name: 'cliente' }),
+                      :id,
+                      :full_name,
+                    ), { prompt: "Selecciona" }, class: "form-control" %>
+            </div>
+          </div>
+        <% end %>
+
+        
+        
+      </div>
+
+      <div class="lg:flex gap-2 my-4 border px-2 py-2 rounded-md bg-slate-200">
+        <div class="input-group">
+          <%= f.label :move_type, "Movimiento" %>
+          <%= f.select :move_type, options_for_select([["Entrada", "Entrada"], ["Salida", "Salida"], ["Reacomodo", "Reacomodo"], ["Movimiento para lavado", "Movimiento para lavado"]]), { prompt: "Selecciona" }, class: "form-control" %>
+        </div>
+        <div class="input-group">
+          <%= f.label :move_created_at, "Fecha del movimiento" %>
+          <%= f.date_field :move_created_at, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="input-group inline">
+        <%= f.submit "Buscar", class: "btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+
   <div id="moves" class="min-w-full">
     <% @moves.each do |move| %>
       <%= render move %>

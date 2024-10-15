@@ -8,6 +8,18 @@ class MovesController < ApplicationController
     else
       @moves = Move.order(created_at: :desc)
     end
+    if params[:number].present?
+      @moves = @moves.joins(:container).where("containers.number ILIKE ?", "%#{params[:number]}%")
+    end
+    if params[:move_type].present? && params[:move_created_at].present?
+      @moves = @moves.joins(:container).where(move_type: params[:move_type]).where("moves.created_at::date = ?", params[:move_created_at].to_date)
+    end
+    if params[:user_id].present?
+      @moves = @moves.joins(:container).where(containers: { user_id: params[:user_id] })
+    end
+    if params[:mode].present?
+      @moves = @moves.where("mode ILIKE ?", "%#{params[:mode]}%")
+    end
   end
 
   # GET /moves/1 or /moves/1.json
@@ -33,7 +45,7 @@ class MovesController < ApplicationController
 
     respond_to do |format|
       if @move.save
-        format.html { redirect_to @move, notice: "Move was successfully created." }
+        format.html { redirect_to @move, notice: "Se agregó el movimiento." }
         format.json { render :show, status: :created, location: @move }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,9 +56,10 @@ class MovesController < ApplicationController
 
   # PATCH/PUT /moves/1 or /moves/1.json
   def update
+    @container = Container.find(@move.container_id)
     respond_to do |format|
       if @move.update(move_params)
-        format.html { redirect_to @move, notice: "Move was successfully updated." }
+        format.html { redirect_to @move, notice: "Se actualizó el movimiento." }
         format.json { render :show, status: :ok, location: @move }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -60,7 +73,7 @@ class MovesController < ApplicationController
     @move.destroy!
 
     respond_to do |format|
-      format.html { redirect_to moves_path, status: :see_other, notice: "Move was successfully destroyed." }
+      format.html { redirect_to moves_path, status: :see_other, notice: "El movimiento ha sido eliminado." }
       format.json { head :no_content }
     end
   end
