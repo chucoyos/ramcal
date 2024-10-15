@@ -8,6 +8,19 @@ class Eir < ApplicationRecord
     Prawn::Document.new do |pdf|
       # pdf.stroke_color "00008B"
       # pdf.fill_color "00008B"
+      entrada = container.moves.find_by(move_type: "Entrada")
+      salida = container.moves.find_by(move_type: "Salida")
+      status = if entrada.present? && salida.present?
+        "Entregado"
+      elsif entrada.present?
+         "Pase de Salida"
+      else
+         "Pase de Entrada"
+      end
+
+      pdf.text "Folio: #{id}", color: "00008B", size: 10, align: :left
+      pdf.text "#{status}", style: :bold, size: 16, align: :right, color: "00008B"
+      pdf.move_down 10
       pdf.image "#{Rails.root}/app/assets/images/logo.jpeg", width: 200, position: :center
       pdf.move_down 10
       pdf.text "EIR - Logística y Transporte Sago", size: 20, style: :bold, align: :center, color: "00008B"
@@ -16,17 +29,6 @@ class Eir < ApplicationRecord
       pdf.move_down 20
       pdf.text "#{ container.number }", style: :bold, size: 16, align: :center
       pdf.move_down 20
-      entrada = container.moves.find_by(move_type: "Entrada")
-      salida = container.moves.find_by(move_type: "Salida")
-      if entrada.present? && salida.present?
-        pdf.text "Entregado", style: :bold, size: 16, align: :right, color: "00008B"
-      else
-        if entrada.present?
-          pdf.text "Pase de Salida", style: :bold, size: 16, align: :right, color: "00008B"
-        else
-          pdf.text "Pase de Entrada", style: :bold, size: 16, align: :right, color: "00008B"
-        end
-      end
       pdf.text "Operador: #{ operator }"
       pdf.move_down 10
       pdf.text "Transporte: #{ transport }"
