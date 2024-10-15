@@ -12,6 +12,8 @@ class Move < ApplicationRecord
 
     if move_type == "Entrada" && container.moves.where(move_type: "Entrada").where.not(id: id).exists?
       errors.add(:move_type, "Solo un movimiento de 'Entrada' está permitido para este contenedor")
+    elsif move_type != "Entrada" && !container.moves.exists?(move_type: "Entrada")
+      errors.add(:move_type, "Debe existir un movimiento de 'Entrada' antes de agregar otro tipo de movimiento")
     elsif move_type == "Salida" && container.moves.where(move_type: "Salida").where.not(id: id).exists?
       errors.add(:move_type, "Solo un movimiento de 'Salida' está permitido para este contenedor")
     end
