@@ -31,9 +31,21 @@ class Eir < ApplicationRecord
       pdf.move_down 10
       pdf.text "Tamaño: #{ container.size }"
       pdf.move_down 10
-      pdf.text "Emsión: #{ Time.now.strftime('%Y-%m-%d %H:%M') }"
+      entrada = container.moves.find_by(move_type: "Entrada")
+      if entrada.present?
+        pdf.text "Fecha de Entrada: #{entrada.created_at.in_time_zone('America/Mexico_City').strftime('%d/%b/%Y %I:%M %p')}"
+      else
+        pdf.text "Fecha de Entrada: No disponible"
+      end
       pdf.move_down 10
-      pdf.text "Emitido por: #{ container.user.full_name }"
+      salida = container.moves.find_by(move_type: "Salida")
+      if salida.present?
+        pdf.text "Fecha de Salida: #{salida.created_at.in_time_zone('America/Mexico_City').strftime('%d/%b/%Y %I:%M %p')}"
+      else
+        pdf.text "Fecha de Salida: No disponible"
+      end
+      pdf.move_down 10
+      pdf.text "Emisión: #{Time.current.in_time_zone('America/Mexico_City').strftime('%d/%b/%Y %I:%M %p')}"
       pdf.move_down 20
       pdf.text "Firma del Operador: __________________________", position: :center
       pdf.move_down 20
