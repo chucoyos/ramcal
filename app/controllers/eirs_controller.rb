@@ -80,6 +80,6 @@ class EirsController < ApplicationController
     end
     # Only allow a list of trusted parameters through.
     def eir_params
-      params.require(:eir).permit(:container_id, :operator, :transport, :plate, :fleet_number)
+      params.require(:eir).permit(:container_id, :operator, :transport, :plate, :fleet_number, :heavy)
     end
 end

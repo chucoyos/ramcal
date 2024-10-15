@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_11_083557) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_15_205103) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,6 +61,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_11_083557) do
     t.string "fleet_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "heavy"
     t.index ["container_id"], name: "index_eirs_on_container_id"
   end
 

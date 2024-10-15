@@ -28,7 +28,9 @@ class Eir < ApplicationRecord
       pdf.stroke_horizontal_rule
       pdf.move_down 20
       pdf.text "#{ container.number }", style: :bold, size: 16, align: :center
-      pdf.move_down 20
+      pdf.move_down 10
+      pdf.text "#{ heavy }", align: :center, style: :bold, size: 16, color: "00008B"
+      pdf.move_down 10
       pdf.text "Operador: #{ operator }"
       pdf.move_down 10
       pdf.text "Transporte: #{ transport }"

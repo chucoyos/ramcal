@@ -1,40 +1,50 @@
-<%= form_with(model: eir, class: "contents") do |form| %>
-  <% if eir.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(eir.errors.count, "error") %> prohibited this eir from being saved:</h2>
+<div class="px-2">
+  <%= form_with(model: eir, class: "contents") do |form| %>
+    <% if eir.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+        <h2><%= pluralize(eir.errors.count, "error") %> prohibited this eir from being saved:</h2>
 
-      <ul>
-        <% eir.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% eir.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <h2><%= @container.number %></h2>
+
+    <div class="my-5" style="display:none;">
+      <%= form.hidden_field :container_id, value: @container.id %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label "Pesado" %>
+      <%= form.select :heavy, options_for_select([["Pesado", "Pesado"], ["Normal", "Normal"]], form.object.heavy), { prompt: "Selecciona pesado si irá adelante en el full" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", required: true %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :operador %>
+      <%= form.text_field :operator, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :transporte %>
+      <%= form.text_field :transport, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :placas %>
+      <%= form.text_field :plate, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label "Número económico" %>
+      <%= form.text_field :fleet_number, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="flex gap-2">
+      <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+      <%= link_to "Cancelar", eirs_path, class: "btn-primary" %>
     </div>
   <% end %>
-  <h2><%= @container.number %></h2>
-  <div class="my-5" style="display:none;">
-    <%= form.hidden_field :container_id, value: @container.id %>
-  </div>
-  <div class="my-5">
-    <%= form.label :operador %>
-    <%= form.text_field :operator, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :transporte %>
-    <%= form.text_field :transport, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :placas %>
-    <%= form.text_field :plate, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label "Número económico" %>
-    <%= form.text_field :fleet_number, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
-  </div>
-<% end %>
+</div>
