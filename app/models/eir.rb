@@ -15,8 +15,18 @@ class Eir < ApplicationRecord
       pdf.stroke_horizontal_rule
       pdf.move_down 20
       pdf.text "#{ container.number }", style: :bold, size: 16, align: :center
-      # pdf.text "Date: #{date.strftime('%Y-%m-%d %H:%M')}"
       pdf.move_down 20
+      entrada = container.moves.find_by(move_type: "Entrada")
+      salida = container.moves.find_by(move_type: "Salida")
+      if entrada.present? && salida.present?
+        pdf.text "Entregado", style: :bold, size: 16, align: :right, color: "00008B"
+      else
+        if entrada.present?
+          pdf.text "Pase de Salida", style: :bold, size: 16, align: :right, color: "00008B"
+        else
+          pdf.text "Pase de Entrada", style: :bold, size: 16, align: :right, color: "00008B"
+        end
+      end
       pdf.text "Operador: #{ operator }"
       pdf.move_down 10
       pdf.text "Transporte: #{ transport }"
@@ -31,14 +41,12 @@ class Eir < ApplicationRecord
       pdf.move_down 10
       pdf.text "Tamaño: #{ container.size }"
       pdf.move_down 10
-      entrada = container.moves.find_by(move_type: "Entrada")
       if entrada.present?
         pdf.text "Fecha de Entrada: #{entrada.created_at.in_time_zone('America/Mexico_City').strftime('%d/%b/%Y %I:%M %p')}"
       else
         pdf.text "Fecha de Entrada: No disponible"
       end
       pdf.move_down 10
-      salida = container.moves.find_by(move_type: "Salida")
       if salida.present?
         pdf.text "Fecha de Salida: #{salida.created_at.in_time_zone('America/Mexico_City').strftime('%d/%b/%Y %I:%M %p')}"
       else
