@@ -1,8 +1,10 @@
 class MovesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_move, only: %i[ show edit update destroy ]
 
   # GET /moves or /moves.json
   def index
+    authorize current_user, :index?, policy_class: MovePolicy
     if current_user.role.name == "cliente"
       @moves = Move.joins(:container).where(containers: { user_id: current_user.id }).order(created_at: :desc)
     else
@@ -24,22 +26,26 @@ class MovesController < ApplicationController
 
   # GET /moves/1 or /moves/1.json
   def show
+    authorize current_user, :show?, policy_class: MovePolicy
     @container = Container.find(@move.container_id)
   end
 
   # GET /moves/new
   def new
+    authorize current_user, :create?, policy_class: MovePolicy
     @container = Container.find(params[:container_id])
     @move = Move.new(container_id: @container&.id)
   end
 
   # GET /moves/1/edit
   def edit
+    authorize current_user, :update?, policy_class: MovePolicy
     @container = Container.find(@move.container_id)
   end
 
   # POST /moves or /moves.json
   def create
+    authorize current_user, :create?, policy_class: MovePolicy
     @move = Move.new(move_params)
     @container = Container.find(@move.container_id)
 
@@ -56,6 +62,7 @@ class MovesController < ApplicationController
 
   # PATCH/PUT /moves/1 or /moves/1.json
   def update
+    authorize current_user, :update?, policy_class: MovePolicy
     @container = Container.find(@move.container_id)
     respond_to do |format|
       if @move.update(move_params)
@@ -70,6 +77,7 @@ class MovesController < ApplicationController
 
   # DELETE /moves/1 or /moves/1.json
   def destroy
+    authorize current_user, :destroy?, policy_class: MovePolicy
     @move.destroy!
 
     respond_to do |format|
