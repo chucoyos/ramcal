@@ -8,24 +8,36 @@ class Move < ApplicationRecord
 
   validate :location_must_be_available, if: -> { location.present? && move_type == "Entrada" }
 
-  after_create :mark_location_unavailable, if: -> { location.present? && move_type == "Entrada" }
-  after_create :mark_location_available, if: -> { location.present? && move_type == "Salida" }
-
+  before_create :mark_previous_location_available, if: -> { move_type == "Reacomodo" || move_type == "Salida" }
+  after_save :mark_location_unavailable, if: -> { location.present? && (move_type == "Entrada" || move_type == "Reacomodo") }
+  after_save :mark_location_available, if: -> { location.present? && move_type == "Salida" }
 
   private
 
+  # Mark the new location as unavailable
   def mark_location_unavailable
     location.update!(available: false)
   end
 
+  # Mark the previous location as available
+  def mark_previous_location_available
+    previous_move = container.moves.where.not(id: id).order(created_at: :desc).first
+    return unless previous_move&.location
+
+    previous_move.location.update!(available: true)
+  end
+
+  # Mark the current location as available on "Salida"
   def mark_location_available
     location.update!(available: true)
   end
 
+  # Ensure the location is available before assigning it
   def location_must_be_available
     errors.add(:location, "No disponible") unless location.available?
   end
 
+  # Ensure valid sequence of moves
   def single_entry_and_exit
     return unless container
 
