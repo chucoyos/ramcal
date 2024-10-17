@@ -35,12 +35,19 @@ class MovesController < ApplicationController
     authorize current_user, :create?, policy_class: MovePolicy
     @container = Container.find(params[:container_id])
     @move = Move.new(container_id: @container&.id)
+    @current_location = @container.moves.last&.location
+    @available_locations = if @current_location
+      Location.available.or(Location.where(id: @current_location.id))
+    else
+      Location.available
+    end
   end
 
   # GET /moves/1/edit
   def edit
     authorize current_user, :update?, policy_class: MovePolicy
     @container = Container.find(@move.container_id)
+    @location = Location.find(@move.location_id) if @move.location_id.present?
   end
 
   # POST /moves or /moves.json
@@ -49,11 +56,16 @@ class MovesController < ApplicationController
     @move = Move.new(move_params)
     @container = Container.find(@move.container_id)
 
+    if @move.move_type == "Entrada" && Location.available.exists?(params[:location_id])
+       @move.location = Location.find(params[:location_id])
+    end
+
     respond_to do |format|
       if @move.save
         format.html { redirect_to @move, notice: "Se agregó el movimiento." }
         format.json { render :show, status: :created, location: @move }
       else
+        @available_locations = Location.available
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @move.errors, status: :unprocessable_entity }
       end
@@ -94,6 +106,6 @@ class MovesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def move_params
-      params.require(:move).permit(:container_id, :move_type, :status, :mode, :seal, :notes, images: [])
+      params.require(:move).permit(:container_id, :move_type, :location_id, :status, :mode, :seal, :notes, images: [])
     end
 end

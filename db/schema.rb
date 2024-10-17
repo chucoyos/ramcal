@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_15_205103) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_16_022544) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -65,6 +65,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_15_205103) do
     t.index ["container_id"], name: "index_eirs_on_container_id"
   end
 
+  create_table "locations", force: :cascade do |t|
+    t.string "section"
+    t.integer "row"
+    t.integer "position"
+    t.integer "tier"
+    t.boolean "available"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "moves", force: :cascade do |t|
     t.bigint "container_id", null: false
     t.string "move_type"
@@ -75,7 +85,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_15_205103) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "seal"
+    t.bigint "location_id"
     t.index ["container_id"], name: "index_moves_on_container_id"
+    t.index ["location_id"], name: "index_moves_on_location_id"
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -123,5 +135,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_15_205103) do
   add_foreign_key "containers", "users"
   add_foreign_key "eirs", "containers"
   add_foreign_key "moves", "containers"
+  add_foreign_key "moves", "locations"
   add_foreign_key "users", "roles"
 end

@@ -1,11 +1,30 @@
 class Move < ApplicationRecord
+  belongs_to :location, optional: true
   belongs_to :container, optional: false
   validates :container_id, presence: true
   has_many_attached :images
 
   validate :single_entry_and_exit
 
+  validate :location_must_be_available, if: -> { location.present? && move_type == "Entrada" }
+
+  after_create :mark_location_unavailable, if: -> { location.present? && move_type == "Entrada" }
+  after_create :mark_location_available, if: -> { location.present? && move_type == "Salida" }
+
+
   private
+
+  def mark_location_unavailable
+    location.update!(available: false)
+  end
+
+  def mark_location_available
+    location.update!(available: true)
+  end
+
+  def location_must_be_available
+    errors.add(:location, "No disponible") unless location.available?
+  end
 
   def single_entry_and_exit
     return unless container

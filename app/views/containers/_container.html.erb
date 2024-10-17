@@ -4,6 +4,7 @@
     <p class="text-center"><%= container.number %></p>
   </div>
 
+
   <% if container.eirs.any? && container.eirs.last.heavy.present? %>
     <div class="field flex justify-center items-center">
       <p class="border rounded-lg bg-blue-600 text-center text-white shadow w-1/2">
@@ -17,6 +18,14 @@
     <%= container.size %>
   </p>
 
+  <% if container.moves.any? %>
+    <div class="field flex">
+      <p>
+        <%= container.moves.last.location&.full_description || "No location assigned" %>
+      </p>
+    </div>
+  <% end %>
+  
   <p class="field">
     <strong class="font-medium">Tipo de Contenedor:</strong>
     <%= container.container_type %>
