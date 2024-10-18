@@ -1,10 +1,10 @@
-<div class="form">
+<div class="form max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg mb-16">
   <%= form_for @user do |f| %>
 
     <% if @user.errors.any? %>
-      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-        <ul>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-4 py-3 font-medium rounded-lg mt-4">
+        <h2 class="text-red-600"><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+        <ul class="list-disc pl-5 mt-2">
           <% @user.errors.each do |error| %>
             <li><%= error.full_message %></li>
           <% end %>
@@ -12,43 +12,50 @@
       </div>
     <% end %>
 
-    <div class="input-group">
-      <%= f.label :role %>
-      <%= f.collection_select :role_id, Role.all, :id, :name, { prompt: "Selecciona un Rol" }, class: "form-control" %>
+    <div class="input-group mb-4">
+      <%= f.label :role, class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.collection_select :role_id, Role.all, :id, :name, { prompt: "Selecciona un Rol" }, class: "form-control border rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>
-    <div class="input-group">
-      <%= f.label "Nombre" %>
-      <%= f.text_field :first_name, class: "form-control" %>
+
+    <div class="input-group mb-4">
+      <%= f.label "Nombre", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :first_name, class: "form-control border rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>
-    <div class="input-group">
-      <%= f.label "Apellido Paterno" %>
-      <%= f.text_field :last_name, class: "form-control" %>
+
+    <div class="input-group mb-4">
+      <%= f.label "Apellido Paterno", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :last_name, class: "form-control border rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>
-    <div class="input-group">
-      <%= f.label "Apellido Materno" %>
-      <%= f.text_field :second_last_name, class: "form-control" %>
+
+    <div class="input-group mb-4">
+      <%= f.label "Apellido Materno", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :second_last_name, class: "form-control border rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>
-    <div class="input-group">
-      <%= f.label "Nombre de Usuario" %>
-      <%= f.text_field :username, class: "form-control" %>
+
+    <div class="input-group mb-4">
+      <%= f.label "Nombre de Usuario", class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :username, class: "form-control border rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>
-    <div class="input-group">
-      <%= f.label :phone_number %>
-      <%= f.text_field :phone_number, class: "form-control" %>
+
+    <div class="input-group mb-4">
+      <%= f.label :phone_number, class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :phone_number, class: "form-control border rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>
-    
-    <div class="input-group">
-      <%= f.label :contact_person %>
-      <%= f.text_field :contact_person, class: "form-control" %>
+
+    <div class="input-group mb-4">
+      <%= f.label :contact_person, class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.text_field :contact_person, class: "form-control border rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>
-    
-    <div class="input-group">
-      <%= f.label :user_type %>
-      <%= f.select :user_type, options_for_select([[ "Admin", 0 ], [ "Staff", 1], [ "Client", 2]]), class: "form-control" %>
+
+    <div class="input-group mb-4">
+      <%= f.label :user_type, class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.select :user_type, options_for_select([["Admin", 0], ["Staff", 1], ["Client", 2]]), class: "form-control border rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>
-    <div class="input-group">
-      <%= f.submit class: "btn-primary mt-2 w-1/2 lg:w-1/4" %>
+
+    <div class="input-group mb-4">
+      <%= f.submit class: "btn-primary mt-2 w-full lg:w-1/2 px-4 py-2 rounded-md shadow-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none" %>
     </div>
   <% end %>
-    <%= link_to "Cancelar", users_path, class: "btn-primary text-center w-1/2 lg:w-1/4" %>
+  
+  <%= link_to "Cancelar", users_path, class: "mt-2 w-full lg:w-1/2 px-4 py-2 rounded-md text-center text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white" %>
 </div>

@@ -1,47 +1,53 @@
-<div class="flex flex-col gap-2 lg:ml-24 mb-16">
-  <h1 class="">Usuarios</h1>
-  <div class="flex justify-items-end px-8">
-    <%= link_to "Nuevo Usuario", new_user_path, class: "btn-primary w-1/2 lg:w-1/5 text-center ml-2 mb-4"%>
+<div class="flex flex-col gap-4 lg:ml-24 mb-16">
+  <h1 class="text-3xl font-bold text-gray-800">Usuarios</h1>
+  
+  <div class="flex justify-end px-8">
+    <%= link_to "Nuevo Usuario", new_user_path, class: "btn-primary w-full lg:w-1/4 text-center ml-2 mb-4 py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition duration-200" %>
   </div>
+
   <% if @users.any? %>
     <div class="hidden lg:flex lg:flex-col">
-      <table class="table">
+      <table class="min-w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">
         <thead class="bg-slate-200">
-          <tr class="border">
-            <th class="px-2">Nombre</th>
-            <th class="px-2">A. Paterno</th>
-            <th class="px-2">A. Materno</th>
-            <th class="px-2">Usuario</th>
-            <th class="px-2">Rol</th>
-            <th class="px-2">Email</th>
-            <th class="px-2">Acciones</th>
+          <tr>
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Nombre</th>
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">A. Paterno</th>
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">A. Materno</th>
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Usuario</th>
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Rol</th>
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Email</th>
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Acciones</th>
           </tr>
         </thead>
-          <tbody>
-            <% @users.each do |user| %>
-              <tr class="border hover:bg-blue-50">
-                <td class="px-2"><%= user.first_name %> </td>
-                <td class="px-2"><%= user.last_name %></td>
-                <td class="px-2"><%= user.second_last_name %></td>
-                <td class="px-2"><%= user.username %></td>
-                <td class="px-2"><%= user.role.name if user.role %></td>
-                <td class="px-2"><%= user.email %></td>
-                <td class="px-2"><%= link_to "Ver Detalles", user, class: "underline" %></td>
-              </tr>
-            <% end %>
-          </tbody>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr class="border-b hover:bg-blue-50 transition duration-150">
+              <td class="px-4 py-2"><%= user.first_name %></td>
+              <td class="px-4 py-2"><%= user.last_name %></td>
+              <td class="px-4 py-2"><%= user.second_last_name %></td>
+              <td class="px-4 py-2"><%= user.username %></td>
+              <td class="px-4 py-2"><%= user.role.name if user.role %></td>
+              <td class="px-4 py-2"><%= user.email %></td>
+              <td class="px-4 py-2"><%= link_to "Ver Detalles", user, class: "underline text-blue-600 hover:text-blue-800" %></td>
+            </tr>
+          <% end %>
+        </tbody>
       </table>
     </div>
+
     <div class="lg:hidden my-8">
       <% @users.each do |user| %>
-        <div class="p-2 my-5 bg-white shadow-lg rounded-lg p-8 bg-sky-50">
+        <div class="p-4 my-5 bg-white shadow-lg rounded-lg bg-sky-50 transition duration-150 hover:shadow-xl">
           <p class="field"><strong>Nombre:</strong> <%= user.first_name %> <%= user.last_name %> <%= user.second_last_name %></p>
           <p class="field"><strong>Usuario:</strong> <%= user.username %></p>
           <p class="field"><strong>Rol:</strong> <%= user.role.name if user.role %></p>
           <p class="field"><strong>Email:</strong> <%= user.email %></p>
-          <p class="field"><%= link_to "Ver Detalles", user, class: "underline" %></p>
+            <%= link_to "Ver Detalles", user, class: "btn-primary" %>
         </div>
       <% end %>
     </div>
+  <% else %>
+    <p class="text-center text-gray-600">No hay usuarios disponibles.</p>
   <% end %>
 </div>
+

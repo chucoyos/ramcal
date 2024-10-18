@@ -1,62 +1,62 @@
 <div class="p-8 my-5 bg-white shadow-lg rounded-lg bg-sky-50">
 
   <!-- Container Number -->
-  <div class="field mb-4">
-    <h2 class="text-2xl font-bold text-center text-gray-700">
+  <div class="field mb-6">
+    <h2 class="text-3xl font-bold text-center text-gray-800 tracking-wide">
       <%= move.container.number %>
     </h2>
   </div>
 
   <!-- Heavy Status -->
   <% if move.container&.eirs&.any? && move.container.eirs.last.heavy.present? %>
-    <div class="field flex justify-center items-center mb-4">
-      <p class="border rounded-lg bg-blue-600 text-center text-white shadow-md px-4 py-2 w-1/2">
+    <div class="field flex justify-center items-center mb-6">
+      <p class="border rounded-lg bg-blue-600 text-white shadow-md px-6 py-3 text-lg w-1/2 text-center">
         <%= move.container.eirs.last.heavy %>
       </p>
     </div>
   <% end %>
 
-  <!-- Fields -->
-  <div class="space-y-4">
+  <!-- Fields Section -->
+  <div class="space-y-6">
     <p class="field">
-      <strong class="block font-medium mb-1 text-gray-700">Tipo de Movimiento:</strong>
+      <strong class="block font-semibold text-gray-700">Tipo de Movimiento:</strong>
       <span class="text-gray-600"><%= move.move_type %></span>
     </p>
 
     <p class="field">
-      <strong class="block font-medium mb-1 text-gray-700">Ubicación:</strong>
+      <strong class="block font-semibold text-gray-700">Ubicación:</strong>
       <span class="text-gray-600">
         <%= move.location&.full_description || "No location assigned" %>
       </span>
     </p>
 
     <p class="field">
-      <strong class="block font-medium mb-1 text-gray-700">Status:</strong>
+      <strong class="block font-semibold text-gray-700">Status:</strong>
       <span class="text-gray-600"><%= move.status %></span>
     </p>
 
     <p class="field">
-      <strong class="block font-medium mb-1 text-gray-700">Modo:</strong>
+      <strong class="block font-semibold text-gray-700">Modo:</strong>
       <span class="text-gray-600"><%= move.mode %></span>
     </p>
 
     <p class="field">
-      <strong class="block font-medium mb-1 text-gray-700">Número de candado:</strong>
+      <strong class="block font-semibold text-gray-700">Número de candado:</strong>
       <span class="text-gray-600"><%= move.seal %></span>
     </p>
 
     <p class="field">
-      <strong class="block font-medium mb-1 text-gray-700">Notas:</strong>
+      <strong class="block font-semibold text-gray-700">Notas:</strong>
       <span class="text-gray-600"><%= move.notes %></span>
     </p>
 
     <!-- Date and Time -->
     <p class="field">
-      <strong class="block font-medium mb-1 text-gray-700">Fecha y hora:</strong> 
+      <strong class="block font-semibold text-gray-700">Fecha y hora:</strong> 
       <span class="text-gray-600">
         <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
       </span>
-      <span class="bg-blue-600 px-2 ml-2 rounded-lg text-white shadow-lg">
+      <span class="bg-blue-600 px-3 ml-2 rounded-lg text-white shadow-md">
         <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%H:%M %p") %>
       </span>
     </p>
@@ -64,17 +64,18 @@
 
   <!-- Images Section -->
   <% if move.images.attached? %>
-    <div class="flex gap-4 mt-6">
+    <div class="flex gap-4 mt-8">
       <% move.images.each do |image| %>
-        <div class="border shadow-lg rounded-lg overflow-hidden">
-          <%= link_to image_tag(image, class: "w-32 h-32 object-cover"), rails_blob_path(image, only_path: true) %>
+        <div class="border shadow-lg rounded-lg overflow-hidden w-32 h-32">
+          <%= link_to image_tag(image, class: "object-cover w-full h-full"), rails_blob_path(image, only_path: true) %>
         </div>
       <% end %>
     </div>
   <% else %>
-    <p class="field mt-4 text-gray-500">No hay imágenes adjuntas</p>
+    <p class="field mt-6 text-center text-gray-500">No hay imágenes adjuntas</p>
   <% end %>
 
 </div>
+
 
 
