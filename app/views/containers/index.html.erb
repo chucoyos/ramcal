@@ -106,7 +106,8 @@
               </td>
               <td class="border px-2">
                 <%= link_to "Ver", container, class: "underline text-blue-900" %> |
-                <%= link_to "Editar", edit_container_path(container), class: "underline text-blue-900" %>
+                <%= link_to "Crear EIR", new_eir_path(container_id: container.id), class: "underline text-blue-900" %> |
+                <%= link_to "Nuevo Mvto", new_move_path(container_id: container.id), class: "underline text-blue-900" %>
               </td>
             </tr>
           <% end %>

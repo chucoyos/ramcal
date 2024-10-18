@@ -5,8 +5,8 @@
       <th class="border border-gray-300 px-4 py-2">Fila</th>
       <th class="border border-gray-300 px-4 py-2">Bahía</th>
       <th class="border border-gray-300 px-4 py-2">Estiba</th>
-      <th class="border border-gray-300 px-4 py-2">Disponible</th>
-      <th class="border border-gray-300 px-4 py-2">Acciones</th>
+      <th class="border border-gray-300 px-4 py-2">Disp</th>
+      <th class="border border-gray-300 px-4 py-2">Acc</th>
     </tr>
   </thead>
   <tbody>
@@ -18,7 +18,7 @@
       <td class="border border-gray-300 px-4 py-2"><%= location.available ? 'Sí' : 'No' %></td>
       <td class="border border-gray-300 px-4 py-2">
         <%= link_to "Editar", edit_location_path(location), class: "underline text-blue" %> |
-        <%= link_to "Eliminar", location, method: :delete, data: { confirm: "¿Estás seguro?" }, class: "underline" %>
+        <%= link_to "Eliminar", location, data: { turbo_confirm: "¿Estás seguro?", turbo_method: :delete }, class: "underline" %>
       </td>
     </tr>
   </tbody>

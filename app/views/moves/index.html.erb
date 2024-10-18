@@ -10,10 +10,6 @@
           <%= f.text_field :number, class: "form-control" %>
         </div>
 
-        <div class="input-group">
-          <%= f.label :mode, "Modo" %>
-          <%= f.select :mode, options_for_select([["Full", "Full"], ["Sencillo", "Sencillo"]]), { prompt: "Selecciona" }, class: "form-control" %>
-        </div>
         <% if current_user.role.name != "cliente" %>
           <div class="inline">
             <div class="input-group">
@@ -32,7 +28,7 @@
       <div class="lg:flex gap-2 my-4 border px-2 py-2 rounded-md bg-slate-200">
         <div class="input-group">
           <%= f.label :move_type, "Movimiento" %>
-          <%= f.select :move_type, options_for_select([["Entrada", "Entrada"], ["Salida", "Salida"], ["Reacomodo", "Reacomodo"], ["Movimiento para lavado", "Movimiento para lavado"]]), { prompt: "Selecciona" }, class: "form-control" %>
+          <%= f.select :move_type, options_for_select([["Entrada", "Entrada"], ["Salida", "Salida"], ["Reacomodo", "Reacomodo"]]), { prompt: "Selecciona" }, class: "form-control" %>
         </div>
         <div class="input-group">
           <%= f.label :move_created_at, "Fecha del movimiento" %>
@@ -66,9 +62,6 @@
             <% if move.move_type == "Reacomodo" %>
               Reacomodo: <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%b/%y") %>
             <% end %>
-            <% if move.move_type == "Movimiento para lavado" %>
-              Mov-lavado: <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%b/%y") %>
-            <% end %>
           </p>
         <% end %>
       <% end %>
@@ -79,10 +72,10 @@
           <thead class="bg-slate-200">
             <tr>
               <th class="px-2">Num.</th>
+              <th class="px-2">Cliente</th>
               <th class="px-2">Entrada</th>
+              <th class="px-2">Reacomodo</th>
               <th class="px-2">Salida</th>
-              <th class="px-2">Size</th>
-              <th class="px-2">Modo</th>
               <th class="px-2">Accion</th>
             </tr>
           </thead>
@@ -90,6 +83,7 @@
             <% @moves.each do |move| %>
               <tr class="bg-white">
                 <td class="border px-2"><%= move.container.number %></td>
+                <td class="border px-2"><%= move.container.user.full_name %></td>
                 <td class="border px-2">
                   <% if move.move_type == "Entrada" %>
                     <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
@@ -97,6 +91,15 @@
                     N/A
                   <% end %>
                 </td>
+
+                <td class="border px-2">
+                  <% if move.move_type == "Reacomodo" %>
+                    <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
+                  <% else %>
+                    N/A
+                  <% end %>
+                </td>
+
                 <td class="border px-2">
                   <% if move.move_type == "Salida" %>
                     <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
@@ -104,10 +107,10 @@
                     N/A
                   <% end %>
                 </td>
-                <td class="border px-2"><%= move.container.size %></td>
-                <td class="border px-2"><%= move.mode %></td>
+            
                 <td class="border px-2">
-                  <%= link_to "Ver", move, class: "underline text-blue-900" %>
+                  <%= link_to "Ver", move, class: "underline text-blue-900" %> |
+                  <%= link_to "Eliminar", move, data: { turbo_confirm: "¿Estás seguro?", turbo_method: :delete }, class: "underline text-blue-900" %>
                 </td>
 
               </tr>

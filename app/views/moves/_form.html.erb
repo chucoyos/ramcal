@@ -68,7 +68,10 @@
       <% end %>
 
       <!-- File input for uploading new images -->
-      <%= form.file_field :images, id: "file-upload", multiple: true, class: "cursor-pointer p-2 bg-blue-600 text-white rounded-lg" %>
+      <%= form.file_field :images, id: "file-upload", multiple: true, 
+        class: "cursor-pointer p-2 bg-blue-600 text-white rounded-lg",
+        accept: "image/png, image/jpeg, image/jpg image/webp"
+      %>
     </div>
 
 

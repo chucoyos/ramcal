@@ -19,9 +19,6 @@ class MovesController < ApplicationController
     if params[:user_id].present?
       @moves = @moves.joins(:container).where(containers: { user_id: params[:user_id] })
     end
-    if params[:mode].present?
-      @moves = @moves.where("mode ILIKE ?", "%#{params[:mode]}%")
-    end
   end
 
   # GET /moves/1 or /moves/1.json
@@ -48,6 +45,9 @@ class MovesController < ApplicationController
     authorize current_user, :update?, policy_class: MovePolicy
     @container = Container.find(@move.container_id)
     @location = Location.find(@move.location_id) if @move.location_id.present?
+    @move = Move.find(params[:id])
+    @available_locations = Location.where(available: true).or(Location.where(id: @location.id))
+    @current_location = @move.location
   end
 
   # POST /moves or /moves.json
@@ -76,6 +76,7 @@ class MovesController < ApplicationController
   def update
     authorize current_user, :update?, policy_class: MovePolicy
     @container = Container.find(@move.container_id)
+    @location = Location.find(@move.location_id) if @move.location_id.present?
     respond_to do |format|
       if @move.update(move_params)
         format.html { redirect_to @move, notice: "Se actualizó el movimiento." }

@@ -4,10 +4,8 @@
 
     <%= render @move %>
 
-    <%= link_to "Editar", edit_move_path(@move), class: "mt-2 btn-primary" %>
     <%= link_to "Regresar", moves_path, class: "ml-2 btn-primary" %>
     <div class="inline-block ml-2">
-      <%= link_to "Eliminar", @move, data: {turbo_method: :delete, turbo_confirm: "Quieres eliminar el movimiento?"}, class: "mt-2 btn-danger" %>
     </div>
   </div>
 </div>

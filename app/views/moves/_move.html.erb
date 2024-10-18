@@ -1,57 +1,80 @@
-<div class="p-2 my-5 bg-white shadow-lg rounded-lg p-8 bg-sky-50">
+<div class="p-8 my-5 bg-white shadow-lg rounded-lg bg-sky-50">
 
-
-  <div class="field">
-    <h2><%= move.container.number %></h2>
+  <!-- Container Number -->
+  <div class="field mb-4">
+    <h2 class="text-2xl font-bold text-center text-gray-700">
+      <%= move.container.number %>
+    </h2>
   </div>
 
+  <!-- Heavy Status -->
   <% if move.container&.eirs&.any? && move.container.eirs.last.heavy.present? %>
-    <div class="field flex justify-center items-center">
-      <p class="border rounded-lg bg-blue-600 text-center text-white shadow w-1/2">
+    <div class="field flex justify-center items-center mb-4">
+      <p class="border rounded-lg bg-blue-600 text-center text-white shadow-md px-4 py-2 w-1/2">
         <%= move.container.eirs.last.heavy %>
       </p>
     </div>
   <% end %>
 
-  <p class="field">
-    <strong class="block font-medium mb-1">Tipo de Movimiento:</strong>
-    <%= move.move_type %>
-  </p>
+  <!-- Fields -->
+  <div class="space-y-4">
+    <p class="field">
+      <strong class="block font-medium mb-1 text-gray-700">Tipo de Movimiento:</strong>
+      <span class="text-gray-600"><%= move.move_type %></span>
+    </p>
 
-  <p class="field">
-    <strong class="block font-medium mb-1">Status:</strong>
-    <%= move.status %>
-  </p>
+    <p class="field">
+      <strong class="block font-medium mb-1 text-gray-700">Ubicación:</strong>
+      <span class="text-gray-600">
+        <%= move.location&.full_description || "No location assigned" %>
+      </span>
+    </p>
 
-  <p class="field">
-    <strong class="block font-medium mb-1">Modo:</strong>
-    <%= move.mode %>
-  </p>
+    <p class="field">
+      <strong class="block font-medium mb-1 text-gray-700">Status:</strong>
+      <span class="text-gray-600"><%= move.status %></span>
+    </p>
 
-  <p class="field">
-    <strong class="block font-medium mb-1">Número de candado:</strong>
-    <%= move.seal %>
-  </p>
+    <p class="field">
+      <strong class="block font-medium mb-1 text-gray-700">Modo:</strong>
+      <span class="text-gray-600"><%= move.mode %></span>
+    </p>
 
-  <p class="field">
-    <strong class="block font-medium mb-1">Notas:</strong>
-    <%= move.notes %>
-  </p>
+    <p class="field">
+      <strong class="block font-medium mb-1 text-gray-700">Número de candado:</strong>
+      <span class="text-gray-600"><%= move.seal %></span>
+    </p>
 
-  <p class="field">
-    <strong class="block font-medium mb-1">Fecha y hora:</strong> 
-    <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
-    <span class="bg-blue-600 px-2 rounded rounded-lg text-white shadow-lg"><%= move.created_at.in_time_zone("America/Mexico_City").strftime("%H:%M %p") %></span>
-  </p>
+    <p class="field">
+      <strong class="block font-medium mb-1 text-gray-700">Notas:</strong>
+      <span class="text-gray-600"><%= move.notes %></span>
+    </p>
 
+    <!-- Date and Time -->
+    <p class="field">
+      <strong class="block font-medium mb-1 text-gray-700">Fecha y hora:</strong> 
+      <span class="text-gray-600">
+        <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
+      </span>
+      <span class="bg-blue-600 px-2 ml-2 rounded-lg text-white shadow-lg">
+        <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%H:%M %p") %>
+      </span>
+    </p>
+  </div>
+
+  <!-- Images Section -->
   <% if move.images.attached? %>
-    <div class="flex flex-wrap">
+    <div class="flex gap-4 mt-6">
       <% move.images.each do |image| %>
-        <%= link_to image_tag(image, class: "w-full object-cover"), rails_blob_path(image, only_path: true) %>
+        <div class="border shadow-lg rounded-lg overflow-hidden">
+          <%= link_to image_tag(image, class: "w-32 h-32 object-cover"), rails_blob_path(image, only_path: true) %>
+        </div>
       <% end %>
     </div>
   <% else %>
-        <p class="field">No hay imágenes adjuntas</p>
+    <p class="field mt-4 text-gray-500">No hay imágenes adjuntas</p>
   <% end %>
 
 </div>
+
+
