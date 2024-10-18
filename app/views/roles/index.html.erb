@@ -1,4 +1,4 @@
-<div class="flex flex-col w-full lg:mx-24 p-4 bg-gray-50 rounded-lg shadow-md">
+<div class="flex flex-col w-full lg:mx-24 p-4 bg-gray-50 rounded-lg shadow-md mb-16">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice">
       <%= notice %>
@@ -8,6 +8,13 @@
   <% content_for :title, "Roles" %>
   <h1 class="font-bold text-4xl mb-4">Roles</h1>
   <%= link_to "Nuevo Rol", new_role_path, class: "btn-primary w-32 ml-2 mb-4" %>
+
+  <div class="bg-red-50 p-4 rounded-lg mr-8 border-l-4 border-red-600">
+    <p class="text-red-900">Los roles de <span class="font-bold">administrador y cliente</span> son roles 
+      predefinidos y no se deben eliminar ni editar. Si alteras uno de estos roles, puede que la aplicación
+      no funcione correctamente.
+    </p>
+  </div>
 
   <div id="roles" class="flex flex-col bg-white rounded-lg shadow-md p-4">
     <% @roles.each do |role| %>
