@@ -1,7 +1,7 @@
 <%= form_with(model: location, class: "contents") do |form| %>
   <% if location.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(location.errors.count, "error") %> prohibited this location from being saved:</h2>
+      <h2><%= pluralize(location.errors.count, "error") %> impiden guardar la ubicación:</h2>
 
       <ul>
         <% location.errors.each do |error| %>
@@ -12,23 +12,8 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :section %>
-    <%= form.text_field :section, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label "Fila" %>
-    <%= form.number_field :row, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label "Bahía" %>
-    <%= form.number_field :position, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label "Estiba" %>
-    <%= form.number_field :tier, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.label :location %>
+    <%= form.text_field :location, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">

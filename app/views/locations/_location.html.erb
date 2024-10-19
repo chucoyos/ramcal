@@ -1,20 +1,14 @@
 <table class="table-auto border-collapse shadow-lg border rounded my-4 w-full">
   <thead>
     <tr class="bg-blue-50">
-      <th class="border border-gray-300 px-4 py-2">Section</th>
-      <th class="border border-gray-300 px-4 py-2">Fila</th>
-      <th class="border border-gray-300 px-4 py-2">Bahía</th>
-      <th class="border border-gray-300 px-4 py-2">Estiba</th>
-      <th class="border border-gray-300 px-4 py-2">Disp</th>
-      <th class="border border-gray-300 px-4 py-2">Acc</th>
+      <th class="border border-gray-300 px-4 py-2">Ubicación</th>
+      <th class="border border-gray-300 px-4 py-2">Disponible</th>
+      <th class="border border-gray-300 px-4 py-2">Acciones</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td class="border border-gray-300 px-4 py-2"><%= location.section %></td>
-      <td class="border border-gray-300 px-4 py-2"><%= location.row %></td>
-      <td class="border border-gray-300 px-4 py-2"><%= location.position %></td>
-      <td class="border border-gray-300 px-4 py-2"><%= location.tier %></td>
+      <td class="border border-gray-300 px-4 py-2"><%= location.location %></td>
       <td class="border border-gray-300 px-4 py-2"><%= location.available ? 'Sí' : 'No' %></td>
       <td class="border border-gray-300 px-4 py-2">
         <%= link_to "Editar", edit_location_path(location), class: "underline text-blue" %> |
