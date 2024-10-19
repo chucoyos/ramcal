@@ -1,26 +1,32 @@
 class LocationsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_location, only: %i[ show edit update destroy ]
 
   # GET /locations or /locations.json
   def index
+    authorize current_user, :index?, policy_class: LocationPolicy
     @locations = Location.order(:location)
   end
 
   # GET /locations/1 or /locations/1.json
   def show
+    authorize current_user, :show?, policy_class: LocationPolicy
   end
 
   # GET /locations/new
   def new
+    authorize current_user, :create?, policy_class: LocationPolicy
     @location = Location.new
   end
 
   # GET /locations/1/edit
   def edit
+    authorize current_user, :update?, policy_class: LocationPolicy
   end
 
   # POST /locations or /locations.json
   def create
+    authorize current_user, :create?, policy_class: LocationPolicy
     @location = Location.new(location_params)
 
     respond_to do |format|
@@ -36,6 +42,7 @@ class LocationsController < ApplicationController
 
   # PATCH/PUT /locations/1 or /locations/1.json
   def update
+    authorize current_user, :update?, policy_class: LocationPolicy
     respond_to do |format|
       if @location.update(location_params)
         format.html { redirect_to @location, notice: "La ubicación ha sido actualizada." }
@@ -49,6 +56,7 @@ class LocationsController < ApplicationController
 
   # DELETE /locations/1 or /locations/1.json
   def destroy
+    authorize current_user, :destroy?, policy_class: LocationPolicy
     @location.destroy!
 
     respond_to do |format|
