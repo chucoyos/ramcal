@@ -2,7 +2,7 @@
 
   <h1 class="text-3xl font-bold text-center text-gray-800 my-6">Movimientos</h1>
 
-  <div class="border rounded-lg p-6 bg-blue-50 my-8 shadow-md">
+  <div class="border rounded-lg p-4 bg-blue-50 my-8 shadow-md">
     <%= form_with :url => moves_path, method: :get do |f| %>
       <div class="lg:flex gap-4 my-4">
         <div class="input-group flex-1">
@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <div class="input-group mt-6">
+      <div class="input-group inline">
         <%= f.submit "Buscar", class: "btn-primary py-2 px-4 rounded-md shadow-md transition duration-200" %>
       </div>
     <% end %>
