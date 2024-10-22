@@ -1,8 +1,39 @@
 <%= turbo_frame_tag dom_id(notification) do %>
-  <div id="">
-    <p class="my-5">
-      <%= notification.message %>
-    </p>
+  <div class="border rounded-lg shadow px-8 py-2 my-2">
+
+    <h2 class="font-bold"><%= notification.move.move_type %></h2>
+    
+    <div class="flex justify-evenly">
+      <p class="my-5 text-lg">
+        <%= notification.move.container.number %>
+      </p>
+
+      <p class="my-5 border rounded bg-blue-600 text-white px-3 px-2">
+        <%= notification.move.container.eirs.last&.heavy %>
+      </p>
+
+      <p class="my-5 text-lg">
+        <%= notification.move.location.location %>
+      </p>
+    </div>
+
+    <div class="flex justify-evenly">
+      <p class="my-5 text-lg">
+        <%= notification.move.container.eirs.last&.transport %>
+      </p>
+
+      <p class="my-5 text-lg">
+        <%= notification.move.mode %>
+      </p>
+
+      <p class="my-5 text-lg">
+        <%= notification.move.container.eirs.last&.fleet_number %>
+      </p>
+
+      <p class="my-5 text-lg">
+        <%= notification.move.container.eirs.last&.plate %>
+      </p>
+    </div>
 
     <%= turbo_frame_tag "notification_#{notification.id}" do %>
       <%= button_to "Eliminar", notification, method: :delete, class: "btn-danger", 

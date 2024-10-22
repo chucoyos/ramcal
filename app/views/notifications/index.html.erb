@@ -1,12 +1,7 @@
 <%= turbo_stream_from "notifications"%>
 <div class="mb-20 px-8 lg:ml-20 ml-2">
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Notifications</h1>
-  </div>
-  <%= turbo_frame_tag "notification_form" do %>
-    <%= render "form", notification: @notification %>
-  <% end %>
 
+  <h1 class="font-bold text-4xl mb-4">Notificaciones</h1>
 
   <%= turbo_frame_tag "notifications" do %>
     <%= render @notifications %>

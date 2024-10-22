@@ -108,8 +108,7 @@ class MovesController < ApplicationController
   private
   def send_notification(move)
     notification = Notification.new(
-      message: "#{move.move_type}-#{move.container.number}-#{move.container.eirs.last&.heavy}-
-        #{move.location.location}-#{move.container.eirs.last&.transport}-#{move.container.eirs.last&.plate}",
+      message: "#{move.move_type}-#{move.container.number}",
       completed: false,
       move: move # Associate the notification with the move
     )
