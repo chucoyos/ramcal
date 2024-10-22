@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_19_050650) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_19_093629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,6 +87,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_19_050650) do
     t.index ["location_id"], name: "index_moves_on_location_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.string "message"
+    t.boolean "completed"
+    t.bigint "move_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["move_id"], name: "index_notifications_on_move_id"
+  end
+
   create_table "permissions", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -133,5 +142,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_19_050650) do
   add_foreign_key "eirs", "containers"
   add_foreign_key "moves", "containers"
   add_foreign_key "moves", "locations"
+  add_foreign_key "notifications", "moves"
   add_foreign_key "users", "roles"
 end

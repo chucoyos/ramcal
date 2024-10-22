@@ -62,6 +62,12 @@ class MovesController < ApplicationController
 
     respond_to do |format|
       if @move.save
+        Rails.logger.info "Move saved successfully, sending notification..."
+        begin
+          send_notification(@move)
+        rescue StandardError => e
+          puts "Falló la notificacón: #{e.message}"
+        end
         format.html { redirect_to @move, notice: "Se agregó el movimiento." }
         format.json { render :show, status: :created, location: @move }
       else
@@ -100,6 +106,13 @@ class MovesController < ApplicationController
   end
 
   private
+  def send_notification(move)
+    ActionCable.server.broadcast(
+      "notification_channel",
+      message: "#{move.move_type} #{move.container.number}, #{move.location.location}",
+      completed: false
+    )
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_move
       @move = Move.find(params[:id])

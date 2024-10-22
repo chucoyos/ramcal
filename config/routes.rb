@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
+  resources :notifications
   resources :locations
   resources :moves
-  # routes.rb
 
   resources :eirs
   resources :containers
