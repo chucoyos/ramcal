@@ -1,18 +1,7 @@
 <%= turbo_frame_tag dom_id(notification) do %>
   <div id="">
     <p class="my-5">
-      <strong class="block font-medium mb-1">Message:</strong>
       <%= notification.message %>
-    </p>
-
-    <p class="my-5">
-      <strong class="block font-medium mb-1">Completed:</strong>
-      <%= notification.completed %>
-    </p>
-
-    <p class="my-5">
-      <strong class="block font-medium mb-1">Move:</strong>
-      <%= notification.move_id %>
     </p>
 
     <%= turbo_frame_tag "notification_#{notification.id}" do %>

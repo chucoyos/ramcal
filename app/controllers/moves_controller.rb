@@ -107,11 +107,17 @@ class MovesController < ApplicationController
 
   private
   def send_notification(move)
-    ActionCable.server.broadcast(
-      "notification_channel",
-      message: "#{move.move_type} #{move.container.number}, #{move.location.location}",
-      completed: false
+    notification = Notification.new(
+      message: "#{move.move_type}-#{move.container.number}-#{move.location.location}",
+      completed: false,
+      move: move # Associate the notification with the move
     )
+
+    if notification.save
+      Rails.logger.info "Notification saved successfully."
+    else
+      Rails.logger.error "Notification save failed: #{notification.errors.full_messages.join(', ')}"
+    end
   end
     # Use callbacks to share common setup or constraints between actions.
     def set_move
