@@ -1,6 +1,6 @@
 import { createConsumer } from "@rails/actioncable";
 
-const consumer = createConsumer(); // Creates a new ActionCable consumer
+const consumer = createConsumer("/cable"); // Creates a new ActionCable consumer
 
 consumer.subscriptions.create("NotificationChannel", {
   connected() {
