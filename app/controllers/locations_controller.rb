@@ -5,7 +5,7 @@ class LocationsController < ApplicationController
   # GET /locations or /locations.json
   def index
     authorize current_user, :index?, policy_class: LocationPolicy
-    @locations = Location.order(:location)
+    @locations = Location.order(:location).page(params[:page]).per(10)
   end
 
   # GET /locations/1 or /locations/1.json

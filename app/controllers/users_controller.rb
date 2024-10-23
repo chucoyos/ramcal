@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def index
     authorize current_user, :index?, policy_class: UserPolicy
-    @users = User.all
+    @users = User.order(:first_name).page(params[:page]).per(10)
   end
 
   def new

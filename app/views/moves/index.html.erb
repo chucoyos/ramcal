@@ -47,7 +47,7 @@
 
     <!-- Mobile view for moves -->
     <div class="flex flex-col lg:hidden">
-      <div class="my-4 flex justify-center border bg-blue-50 rounded-lg py-2">
+      <div class="my-4 flex justify-center border bg-blue-50 rounded-lg px-6 py-2">
         <%= paginate @moves %>
       </div>
       <% @moves.each do |move| %>
@@ -67,7 +67,7 @@
     </div>
 
     <!-- Desktop view for moves -->
-    <div class="my-4 flex justify-center border bg-blue-50 rounded-lg py-2">
+    <div class="my-4 flex justify-center border bg-blue-50 rounded-lg px-6 py-2">
       <%= paginate @moves %>
     </div>
 
@@ -117,9 +117,9 @@
           <% end %>
         </tbody>
       </table>
-      <div class="my-4 flex justify-center border bg-blue-50 rounded-lg py-2">
-      <%= paginate @moves %>
-    </div>
+      <div class="my-4 flex justify-center border bg-blue-50 rounded-lg px-6 py-2">
+        <%= paginate @moves %>
+      </div>
     </div>
     
   </div>
