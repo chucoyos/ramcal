@@ -10,11 +10,13 @@ class Move < ApplicationRecord
   validate :location_must_be_available, if: -> { location.present? && move_type == "Entrada" }
   validate :no_moves_after_salida, on: :create
 
+  before_destroy :mark_location_available, if: -> { location.present? }
   before_create :mark_previous_location_available, if: -> { move_type == "Reacomodo" || move_type == "Salida" }
   after_save :mark_location_unavailable, if: -> { location.present? && (move_type == "Entrada" || move_type == "Reacomodo") }
   after_save :mark_location_available, if: -> { location.present? && move_type == "Salida" }
 
   private
+
   # Validation to ensure no moves are allowed after a "Salida"
   def no_moves_after_salida
     if container.moves.exists?(move_type: "Salida")
@@ -32,6 +34,10 @@ class Move < ApplicationRecord
   # Mark the new location as unavailable
   def mark_location_unavailable
     location.update!(available: false)
+  end
+
+  def mark_location_available
+    location.update!(available: true)
   end
 
   # Mark the previous location as available
