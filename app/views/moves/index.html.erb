@@ -1,4 +1,4 @@
-<div class="flex flex-col mx-auto md:w-2/3 px-4 md:px-8 mb-20">
+<div class="flex flex-col mx-auto lg:w-3/4 px-4 md:px-8 mb-20">
 
   <h1 class="text-3xl font-bold text-center text-gray-800 my-6">Movimientos</h1>
 
@@ -47,6 +47,9 @@
 
     <!-- Mobile view for moves -->
     <div class="flex flex-col lg:hidden">
+      <div class="my-4 flex justify-center border bg-blue-50 rounded-lg py-2">
+        <%= paginate @moves %>
+      </div>
       <% @moves.each do |move| %>
         <%= link_to move do %>
           <p class="field border-b p-4 hover:bg-blue-50 transition duration-200">
@@ -64,6 +67,10 @@
     </div>
 
     <!-- Desktop view for moves -->
+    <div class="my-4 flex justify-center border bg-blue-50 rounded-lg py-2">
+      <%= paginate @moves %>
+    </div>
+
     <div class="hidden lg:flex lg:flex-col gap-2">
       <table class="table w-full border border-gray-300">
         <thead class="bg-slate-200">
@@ -110,6 +117,9 @@
           <% end %>
         </tbody>
       </table>
+      <div class="my-4 flex justify-center border bg-blue-50 rounded-lg py-2">
+      <%= paginate @moves %>
+    </div>
     </div>
     
   </div>

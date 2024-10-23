@@ -51,6 +51,10 @@
     <% end %>
   </div>
 
+  <div class="my-4 flex justify-center border bg-blue-50 rounded-lg py-2">
+    <%= paginate @containers %>
+  </div>
+
   <div class="lg:hidden my-8">
     <% if @containers.empty? %>
       <p class="text-gray-600">No hay resultados para la búsqueda</p>
@@ -114,4 +118,8 @@
         </tbody>
       </table>
     <% end %>
+</div>
+
+<div class="my-4 flex justify-center border bg-blue-50 rounded-lg py-2">
+  <%= paginate @containers %>
 </div>

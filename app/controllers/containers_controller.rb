@@ -6,23 +6,23 @@ class ContainersController < ApplicationController
   def index
     authorize current_user, :index?, policy_class: ContainerPolicy
     if current_user.role.name == "cliente"
-      @containers = Container.where(user_id: current_user.id).order(created_at: :desc)
+      @containers = Container.where(user_id: current_user.id).order(created_at: :desc).page(params[:page]).per(10)
     else
-      @containers = Container.order(created_at: :desc)
+      @containers = Container.order(created_at: :desc).page(params[:page]).per(10)
     end
     if params[:number].present?
-      @containers = @containers.where("number ILIKE ?", "%#{params[:number]}%")
+      @containers = @containers.where("number ILIKE ?", "%#{params[:number]}%").page(params[:page]).per(10)
     end
     if params[:cargo_owner].present?
-      @containers = @containers.where("cargo_owner ILIKE ?", "%#{params[:cargo_owner]}%")
+      @containers = @containers.where("cargo_owner ILIKE ?", "%#{params[:cargo_owner]}%").page(params[:page]).per(10)
     end
     if params[:move_type].present? && params[:move_created_at].present?
       @containers = @containers.joins(:moves)
                                .where(moves: { move_type: params[:move_type] })
-                               .where("moves.created_at::date = ?", params[:move_created_at].to_date)
+                               .where("moves.created_at::date = ?", params[:move_created_at].to_date).page(params[:page]).per(10)
     end
     if params[:user_id].present?
-      @containers = @containers.where(user_id: params[:user_id])
+      @containers = @containers.where(user_id: params[:user_id]).page(params[:page]).per(10)
     end
   end
 
