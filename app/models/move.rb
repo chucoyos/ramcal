@@ -2,6 +2,7 @@ class Move < ApplicationRecord
   belongs_to :location, optional: true
   belongs_to :container, optional: false
   validates :container_id, presence: true
+  has_many :notifications, dependent: :destroy
   has_many_attached :images
 
   validate :single_entry_and_exit
