@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   mount ActionCable.server => "/cable"
-  resources :notifications
+  patch "completeds/:id" => "completeds#update"
+  resources :notifications do
+    resource :completed
+  end
   resources :locations
   resources :moves
 

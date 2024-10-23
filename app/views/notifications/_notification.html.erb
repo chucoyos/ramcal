@@ -1,5 +1,7 @@
 <%= turbo_frame_tag dom_id(notification) do %>
-  <div class="border rounded-lg shadow px-8 py-2 my-2">
+  <div class="border rounded-lg shadow px-8 py-2 my-2", 
+      style="background-color: <%= notification.completed ? '#dcfce7' : '#ffe4e6' %>;
+      color: <%= notification.completed ? '#166534' : '#991b1b' %>">
 
     <h2 class="font-bold"><%= notification.move.move_type %></h2>
     
@@ -33,11 +35,15 @@
       <p class="my-5 text-lg">
         <%= notification.move.container.eirs.last&.plate %>
       </p>
+
     </div>
 
     <%= turbo_frame_tag "notification_#{notification.id}" do %>
-      <%= button_to "Eliminar", notification, method: :delete, class: "btn-danger", 
-          data: { turbo_confirm: "Are you sure?" } %>
+      <div class="flex gap-2">
+        <%= button_to "Cumplido", notification_completed_path(notification), method: :patch, class: "btn-primary" %>
+        <%= button_to "Eliminar", notification, method: :delete, class: "btn-danger", 
+            data: { turbo_confirm: "Are you sure?" } %>
+      </div>
     <% end %>
 
   </div>
