@@ -10,9 +10,11 @@
         <%= notification.move.container.number %>
       </p>
 
-      <p class="my-5 border rounded bg-blue-600 text-white px-3 px-2">
-        <%= notification.move.container.eirs.last&.heavy %>
-      </p>
+      <%if notification.move.container.eirs.last&.heavy %>
+        <p class="my-5 border rounded bg-blue-600 text-white px-3 px-2 inline">
+          <%= notification.move.container.eirs.last&.heavy %>
+        </p>
+      <% end %>
 
       <p class="my-5 text-lg">
         <%= notification.move.location.location %>
@@ -20,21 +22,29 @@
     </div>
 
     <div class="flex flex-col md:flex-row text-center md:justify-evenly">
-      <p class="my-5 text-lg">
-        <%= notification.move.container.eirs.last&.transport %>
-      </p>
+      <%if notification.move.container.eirs.last&.transport %>
+        <p class="my-5 text-lg">
+          <%= notification.move.container.eirs.last&.transport %>
+        </p>
+      <% end %>
 
-      <p class="my-5 text-lg">
-        <%= notification.move.mode %>
-      </p>
+      <% if notification.move.mode %>
+        <p class="my-5 text-lg">
+          <%= notification.move.mode %>
+        </p>
+      <% end %>
 
-      <p class="my-5 text-lg">
-        <%= notification.move.container.eirs.last&.fleet_number %>
-      </p>
+      <% if notification.move.container.eirs.last&.fleet_number %>
+        <p class="my-5 text-lg">
+          <%= notification.move.container.eirs.last&.fleet_number %>
+        </p>
+      <% end %>
 
-      <p class="my-5 text-lg">
-        <%= notification.move.container.eirs.last&.plate %>
-      </p>
+      <% if notification.move.container.eirs.last&.plate %>
+        <p class="my-5 text-lg">
+          <%= notification.move.container.eirs.last&.plate %>
+        </p>
+      <% end %>
 
     </div>
 
