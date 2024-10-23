@@ -1,27 +1,33 @@
 class NotificationsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_notification, only: %i[ show edit update destroy ]
 
   # GET /notifications or /notifications.json
   def index
+    authorize current_user, :index?, policy_class: NotificationPolicy
     @notifications = Notification.all
     @notification = Notification.new
   end
 
   # GET /notifications/1 or /notifications/1.json
   def show
+    authorize current_user, :show?, policy_class: NotificationPolicy
   end
 
   # GET /notifications/new
   def new
+    authorize current_user, :create?, policy_class: NotificationPolicy
     @notification = Notification.new
   end
 
   # GET /notifications/1/edit
   def edit
+    authorize current_user, :update?, policy_class: NotificationPolicy
   end
 
   # POST /notifications or /notifications.json
   def create
+    authorize current_user, :create?, policy_class: NotificationPolicy
     @notification = Notification.new(notification_params)
 
     if @notification.save
@@ -39,6 +45,7 @@ class NotificationsController < ApplicationController
 
   # PATCH/PUT /notifications/1 or /notifications/1.json
   def update
+    authorize current_user, :update?, policy_class: NotificationPolicy
     respond_to do |format|
       if @notification.update(notification_params)
         format.html { redirect_to @notification, notice: "Notification was successfully updated." }
@@ -52,6 +59,7 @@ class NotificationsController < ApplicationController
 
   # DELETE /notifications/1 or /notifications/1.json
   def destroy
+    authorize current_user, :destroy?, policy_class: NotificationPolicy
     @notification.destroy!
 
     respond_to do |format|
