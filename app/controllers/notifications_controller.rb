@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
   # GET /notifications or /notifications.json
   def index
     authorize current_user, :index?, policy_class: NotificationPolicy
-    @notifications = Notification.all
+    @notifications = Notification.order(created_at: :desc).page(params[:page]).per(10)
     @notification = Notification.new
   end
 
