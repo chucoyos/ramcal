@@ -20,16 +20,12 @@
       <%= form.label "Tipo de Movimiento" %>
       <%= form.select :move_type, options_for_select([["Entrada", "Entrada"], ["Salida", "Salida"], ["Reacomodo", "Reacomodo"]], form.object.move_type), { prompt: "Selecciona el tipo de movimiento" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", required: true %>
     </div>
-    
-    <div class="input-group">
+
+    <div data-controller="location" class="input-group">
       <%= form.label "Ubicación" %>
-      <%= form.collection_select :location_id, @available_locations, :id, :full_description, 
-        { 
-          class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", 
-          selected: @current_location&.id,
-          data: { action: "change->location#updateLocation" }
-        } %>
+      <%= form.select :location_id, @available_locations.map { |loc| [loc.full_description, loc.id] }, { selected: @current_location&.id, prompt: "Select a location" }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { action: "change->location#change" } } %>
     </div>
+
 
     <div class="my-5">
       <%= form.label "Estado de carga" %>
