@@ -35,8 +35,9 @@ class MovesController < ApplicationController
     @current_location = @container.moves.last&.location
     @available_locations = if @current_location
       Location.available.or(Location.where(id: @current_location.id))
+      .order(location: :asc)
     else
-      Location.available
+      Location.available.order(location: :asc)
     end
   end
 
