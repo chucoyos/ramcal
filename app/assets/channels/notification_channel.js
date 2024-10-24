@@ -4,11 +4,11 @@ const consumer = createConsumer("/cable"); // Creates a new ActionCable consumer
 
 consumer.subscriptions.create("NotificationChannel", {
   connected() {
-    console.log("Connected to NotificationChannel!");
+    // console.log("Connected to NotificationChannel!");
   },
 
   disconnected() {
-    console.log("Disconnected from NotificationChannel.");
+    // console.log("Disconnected from NotificationChannel.");
   },
 
   received(data) {

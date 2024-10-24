@@ -23,7 +23,7 @@
 
     <div data-controller="location" class="input-group">
       <%= form.label "Ubicación" %>
-      <%= form.select :location_id, @available_locations.map { |loc| [loc.full_description, loc.id] }, { selected: @current_location&.id, prompt: "Select a location" }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { action: "change->location#change" } } %>
+      <%= form.select :location_id, @available_locations.map { |loc| [loc.full_description, loc.full_description] }, { selected: @current_location&.id, prompt: "Select a location" }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { action: "change->location#change" } } %>
     </div>
 
 
