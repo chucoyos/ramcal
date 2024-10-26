@@ -25,13 +25,13 @@
     
     <div class="my-5" data-controller="location">
       <%= form_with url: location_path, method: :get, data: { turbo_frame: "location_list" }, local: false do |form| %>
-  <%= form.label :location, "Search Move" %>
-  <%= form.text_field :location, 
-      class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", 
-      required: true, 
-      data: { action: "input->location#search" }
-  %>
-<% end %>
+        <%= form.label :location, "Search Move" %>
+        <%= form.text_field :location, 
+            class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", 
+            required: true, 
+            data: { action: "input->location#search" }
+        %>
+      <% end %>
 
       <!-- Turbo Frame to display the locations list -->
       <turbo-frame id="location_list">
