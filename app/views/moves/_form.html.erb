@@ -20,11 +20,26 @@
       <%= form.label "Tipo de Movimiento" %>
       <%= form.select :move_type, options_for_select([["Entrada", "Entrada"], ["Salida", "Salida"], ["Reacomodo", "Reacomodo"]], form.object.move_type), { prompt: "Selecciona el tipo de movimiento" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", required: true %>
     </div>
+    <%# start try %>
 
-    <div data-controller="location" class="input-group">
-      <%= form.label "Ubicación" %>
-      <%= form.select :location_id, @available_locations.map { |loc| [loc.full_description, loc.full_description] }, { selected: @current_location&.id, prompt: "Select a location" }, { class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", data: { action: "change->location#change" } } %>
+    
+    <div class="my-5" data-controller="location">
+      <%= form_with url: location_path, method: :get, data: { turbo_frame: "location_list" }, local: false do |form| %>
+  <%= form.label :location, "Search Move" %>
+  <%= form.text_field :location, 
+      class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", 
+      required: true, 
+      data: { action: "input->location#search" }
+  %>
+<% end %>
+
+      <!-- Turbo Frame to display the locations list -->
+      <turbo-frame id="location_list">
+        <% render "moves/location_list" %>
+      </turbo-frame>
     </div>
+
+    <%# end try %>
 
 
     <div class="my-5">

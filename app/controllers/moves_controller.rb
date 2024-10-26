@@ -27,6 +27,19 @@ class MovesController < ApplicationController
     @container = Container.find(@move.container_id)
   end
 
+  def search_locations
+    query = params[:location]
+    Rails.logger.info "Search query: #{query}"  # Add this line to confirm the query
+    # @available_locations = Locations.where("location ILIKE ?", "%#{query}%")
+    @available_locations = Location.where("location ILIKE ?", "%#{query}%")
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html do
+        render turbo_frame: "location_list", partial: "moves/location_list", locals: { available_locations: @available_locations }
+      end
+    end
+  end
   # GET /moves/new
   def new
     authorize current_user, :create?, policy_class: MovePolicy
@@ -38,6 +51,14 @@ class MovesController < ApplicationController
       .order(location: :asc)
     else
       Location.available.order(location: :asc)
+    end
+    if params[:location_id].present?
+      @available_locations = Location.where(available: true).or(Location.where(id: params[:location_id]))
+    end
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
     end
   end
 

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "location", to: "moves#search_locations"
   mount ActionCable.server => "/cable"
   patch "completeds/:id" => "completeds#update"
   resources :notifications do
