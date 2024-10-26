@@ -80,6 +80,7 @@ class MovesController < ApplicationController
     authorize current_user, :create?, policy_class: MovePolicy
     @move = Move.new(move_params)
     @container = Container.find(@move.container_id)
+    @move.location = Location.find(params[:location_id]) if params[:location_id].present?
 
     if @move.move_type == "Entrada" && Location.available.exists?(params[:location_id])
        @move.location = Location.find(params[:location_id])
