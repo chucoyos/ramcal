@@ -16,7 +16,8 @@ export default class extends Controller {
   selectMove(event) {
     const location = event.target.dataset.location;
     this.element.querySelector("input").value = location; // Set the input field value
-    console.log("selected location:", location);
+    const frame = document.querySelector("#location_list");
+    frame.innerHTML = ""; // Clear the list of moves
   }
 
 }

@@ -31,12 +31,13 @@ class MovesController < ApplicationController
     query = params[:location]
     Rails.logger.info "Search query: #{query}"  # Add this line to confirm the query
     # @available_locations = Locations.where("location ILIKE ?", "%#{query}%")
-    @available_locations = Location.where("location ILIKE ?", "%#{query}%")
+    @available_locations = Location.where("location ILIKE ?", "%#{query}%").limit(5)
 
     respond_to do |format|
       format.turbo_stream
       format.html do
-        render turbo_frame: "location_list", partial: "moves/location_list", locals: { available_locations: @available_locations }
+        render turbo_frame: "location_list", partial: "moves/location_list",
+          locals: { available_locations: @available_locations }
       end
     end
   end
