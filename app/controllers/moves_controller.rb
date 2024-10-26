@@ -55,6 +55,8 @@ class MovesController < ApplicationController
     end
     if params[:location_id].present?
       @available_locations = Location.where(available: true).or(Location.where(id: params[:location_id]))
+    else
+      @available_locations = []
     end
 
     respond_to do |format|

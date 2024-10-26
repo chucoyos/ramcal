@@ -1,9 +1,8 @@
 <div class="my-5 mx-5">
-  <%= form_with(model: move, class: "contents") do |form| %>
+  <%= form_with(model: move, class: "contents", local: true) do |form| %> <!-- Set local: true for full form submission -->
     <% if move.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
         <h2><%= pluralize(move.errors.count, "error") %> impiden guardar el movimiento:</h2>
-
         <ul>
           <% move.errors.each do |error| %>
             <li><%= error.full_message %></li>
@@ -11,36 +10,28 @@
         </ul>
       </div>
     <% end %>
+
     <h2><%= @container.number %></h2>
-    <div class="my-5" style="display:none;">
-      <%= form.hidden_field :container_id, value: @container.id %>
-    </div>
+    <%= form.hidden_field :container_id, value: @container.id %>
 
     <div class="my-5">
       <%= form.label "Tipo de Movimiento" %>
       <%= form.select :move_type, options_for_select([["Entrada", "Entrada"], ["Salida", "Salida"], ["Reacomodo", "Reacomodo"]], form.object.move_type), { prompt: "Selecciona el tipo de movimiento" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", required: true %>
     </div>
-    <%# start try %>
 
-    
     <div class="my-5" data-controller="location">
-      <%= form_with url: location_path, method: :get, data: { turbo_frame: "location_list" }, local: false do |form| %>
-        <%= form.label :location, "Search Move" %>
-        <%= form.text_field :location, 
-            class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", 
-            required: true, 
-            data: { action: "input->location#search" }
-        %>
-      <% end %>
+      <%= form.label :location, "Search Move" %>
+      <%= form.text_field :location, 
+          class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", 
+          required: true, 
+          data: { action: "input->location#search" }
+      %>
 
       <!-- Turbo Frame to display the locations list -->
       <turbo-frame id="location_list">
-        <% render "moves/location_list" %>
+        <%= render "moves/location_list" %>
       </turbo-frame>
     </div>
-
-    <%# end try %>
-
 
     <div class="my-5">
       <%= form.label "Estado de carga" %>
@@ -71,7 +62,6 @@
           <% move.images.each do |image| %>
             <div class="relative">
               <%= image_tag image, class: "object-cover rounded-lg" %>
-              <!-- Optionally, add a remove button for each image -->
             </div>
           <% end %>
         </div>
@@ -86,10 +76,10 @@
       %>
     </div>
 
-
     <div class="flex gap-2 mb-20">
       <%= form.submit "Guardar", class: "btn-primary" %>
       <%= link_to "Cancelar", moves_path, class: "btn-primary" %>
     </div>
   <% end %>
 </div>
+

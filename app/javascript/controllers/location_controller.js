@@ -6,12 +6,21 @@ export default class extends Controller {
     const query = event.target.value;
 
     // Trigger a Turbo visit to fetch the filtered moves
-    if (query.length > 0) {
+    if (query.length > 2) {
       const url = `/location?location=${encodeURIComponent(query)}`;
       Turbo.visit(url, { action: "replace", frame: "location_list" });
+    } else {
+      this.clearLocationList();
     }
-    console.log("searching for:", query);
   }
+
+  clearLocationList() {
+    const locationList = this.element.querySelector("#location_list");
+    if (locationList) {
+      locationList.innerHTML = ''; // Clear the list
+    }
+  }
+
 
   selectMove(event) {
     const location = event.target.dataset.location;
