@@ -36,11 +36,11 @@
       %>
 
       <!-- Turbo Frame to display the locations list -->
-      <turbo-frame id="location_list">
-        <% if @available_locations.present? %>
+      <%= turbo_frame_tag "location_list" do %>
+        <% unless move.errors.present? || !@available_locations.present? %>
           <%= render "moves/location_list" %>
         <% end %>
-      </turbo-frame>
+      <% end %>
     </div>
 
     <div class="my-5">
