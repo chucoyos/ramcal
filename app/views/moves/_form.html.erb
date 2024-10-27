@@ -23,14 +23,16 @@
       <%= form.label :location_id, "Ubicación" %>
       <%= form.hidden_field :location_id, 
           id: "location-input",
-          required: true
+          required: true,
+          value: @current_location&.id
       %>
       <%= form.text_field :location_search, 
           class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", 
           autocomplete: "off",
           required: true,
           data: { action: "input->location#search" },
-          id: "location-search"
+          id: "location-search",
+          value: @current_location&.location
       %>
 
       <!-- Turbo Frame to display the locations list -->
