@@ -37,7 +37,9 @@
 
       <!-- Turbo Frame to display the locations list -->
       <turbo-frame id="location_list">
-        <%= render "moves/location_list" %>
+        <% if @available_locations.present? %>
+          <%= render "moves/location_list" %>
+        <% end %>
       </turbo-frame>
     </div>
 
