@@ -54,7 +54,7 @@
         <%= button_to "Eliminar", notification, method: :delete, class: "btn-danger", 
             data: { turbo_confirm: "Are you sure?" } %>
         <p class="my-5 text-lg ml-auto hidden md:flex bg-blue-50 px-2 rounded-lg shadow">
-          <%= notification.created_at.strftime("%d/%m/%Y %H:%M") %>
+          <%= notification.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y %H:%M") %>
         </p>
       </div>
     <% end %>
