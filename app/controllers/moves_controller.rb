@@ -29,9 +29,7 @@ class MovesController < ApplicationController
 
   def search_locations
     query = params[:location]
-    Rails.logger.info "Search query: #{query}"  # Add this line to confirm the query
-    # @available_locations = Locations.where("location ILIKE ?", "%#{query}%")
-    @available_locations = Location.where("location ILIKE ?", "%#{query}%").limit(5)
+    @available_locations = Location.available.order(location: :asc).where("location ILIKE ?", "%#{query}%").limit(10)
 
     respond_to do |format|
       format.turbo_stream
