@@ -16,9 +16,17 @@
         </p>
       <% end %>
 
+      <% second_to_last_move = notification.move.container.moves.order(created_at: :desc).offset(1).first %>
+      <% if second_to_last_move && notification.move.move_type == "Reacomodo" %>
+        <p class="my-5 text-lg">
+          <%= second_to_last_move.location&.location %> =>
+        </p>
+      <% end %>
+
       <p class="my-5 text-lg">
         <%= notification.move.location&.location %>
       </p>
+
     </div>
 
     <div class="flex flex-col md:flex-row text-center md:justify-evenly">
