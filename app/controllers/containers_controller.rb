@@ -24,6 +24,16 @@ class ContainersController < ApplicationController
     if params[:user_id].present?
       @containers = @containers.where(user_id: params[:user_id]).page(params[:page]).per(10)
     end
+
+    respond_to do |format|
+      format.html # Render the regular HTML view
+      format.xlsx do
+        # Render Excel using Axlsx
+        send_data generate_excel(@containers),
+                  filename: "containers_#{Date.today}.xlsx",
+                  type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      end
+    end
   end
 
   # GET /containers/1 or /containers/1.json
@@ -92,6 +102,36 @@ class ContainersController < ApplicationController
   end
 
   private
+
+  def generate_excel(containers)
+    package = Axlsx::Package.new
+    workbook = package.workbook
+
+    workbook.add_worksheet(name: "Containers") do |sheet|
+      # Add header row
+      sheet.add_row [ "Cliente", "Número", "Tipo", "Dueño de la carga", "Entrada", "Salida", "Ubicación" ]
+
+      # Add data rows
+      containers.each do |container|
+        entrada_move = container.moves.find_by(move_type: "Entrada")
+        salida_move = container.moves.find_by(move_type: "Salida")
+        # Choose style based on row index (even/odd)
+
+        sheet.add_row [
+          container.user.full_name,
+          container.number,
+          container.container_type,
+          container.cargo_owner,
+          entrada_move&.created_at&.strftime("%d/%m/%Y"),
+          salida_move&.created_at&.strftime("%d/%m/%Y"),
+          container.moves.last&.location&.location
+        ]
+        sheet.add_style "A1:G1", b: true, alignment: { horizontal: :center }, bg_color: "dbeafe", fg_color: "172554"
+      end
+    end
+
+    package.to_stream.read
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_container
       @container = Container.find(params[:id])
