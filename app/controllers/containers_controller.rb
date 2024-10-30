@@ -5,33 +5,34 @@ class ContainersController < ApplicationController
   # GET /containers or /containers.json
   def index
     authorize current_user, :index?, policy_class: ContainerPolicy
+    per_page = params[:per_page] || 10
     if current_user.role.name == "cliente"
-      @containers = Container.where(user_id: current_user.id).order(created_at: :desc).page(params[:page]).per(10)
+      @containers = Container.where(user_id: current_user.id).order(created_at: :desc).page(params[:page]).per(per_page)
     else
-      @containers = Container.order(created_at: :desc).page(params[:page]).per(10)
+      @containers = Container.order(created_at: :desc).page(params[:page]).per(per_page)
     end
     if params[:number].present?
-      @containers = @containers.where("number ILIKE ?", "%#{params[:number]}%").page(params[:page]).per(10)
+      @containers = @containers.where("number ILIKE ?", "%#{params[:number]}%").page(params[:page]).per(per_page)
     end
     if params[:cargo_owner].present?
-      @containers = @containers.where("cargo_owner ILIKE ?", "%#{params[:cargo_owner]}%").page(params[:page]).per(10)
+      @containers = @containers.where("cargo_owner ILIKE ?", "%#{params[:cargo_owner]}%").page(params[:page]).per(per_page)
     end
     if params[:move_type].present? && params[:move_created_at].present?
       @containers = @containers.joins(:moves)
                                .where(moves: { move_type: params[:move_type] })
-                               .where("moves.created_at::date = ?", params[:move_created_at].to_date).page(params[:page]).per(10)
+                               .where("moves.created_at::date = ?", params[:move_created_at].to_date).page(params[:page]).per(per_page)
     end
     if params[:user_id].present?
-      @containers = @containers.where(user_id: params[:user_id]).page(params[:page]).per(10)
+      @containers = @containers.where(user_id: params[:user_id]).page(params[:page]).per(per_page)
     end
-
     respond_to do |format|
       format.html # Render the regular HTML view
       format.xlsx do
         # Render Excel using Axlsx
         send_data generate_excel(@containers),
                   filename: "containers_#{Date.today}.xlsx",
-                  type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                  type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                  disposition: "attachment"
       end
     end
   end
@@ -109,7 +110,7 @@ class ContainersController < ApplicationController
 
     workbook.add_worksheet(name: "Containers") do |sheet|
       # Add header row
-      sheet.add_row [ "Cliente", "Número", "Tipo", "Dueño de la carga", "Entrada", "Salida", "Ubicación" ]
+      sheet.add_row [ "Cliente", "Número", "Tipo", "Dueño de la Carga", "Entrada", "Salida", "Ubicación" ]
 
       # Add data rows
       containers.each do |container|

@@ -45,6 +45,13 @@
         </div>
       </div>
 
+      <div class="input-group w-1/2 lg:w-1/4 mb-2">
+        <div class="flex items-center gap-2">
+          <div><%= f.label :per_page, "Mostrar" %></div>
+          <%= f.select :per_page, options_for_select([5, 10, 25, 50, 100, 500], params[:per_page]), include_blank: false, class: "form-control" %>
+        </div>
+      </div>
+
       <div class="input-group inline">
         <%= f.submit "Buscar", class: "btn-primary" %>
       </div>
@@ -53,7 +60,7 @@
 
   <div class="my-4 flex justify-evenly items-center gap-4 border bg-blue-50 rounded-lg px-6 py-4">
     <%= paginate @containers %>
-    <%= link_to "Descargar Excel", containers_path(format: :xlsx), class: "btn btn-primary" %>
+    <%= link_to "Descargar Excel", containers_path(request.query_parameters.merge(format: :xlsx)), class: "btn-primary" %>
   </div>
 
   <div class="lg:hidden my-8">
