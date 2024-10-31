@@ -75,3 +75,5 @@ gem "prawn-qrcode"
 gem "aws-sdk-s3", "~> 1.167"
 
 gem "caxlsx"
+
+gem "material_icons"

@@ -183,6 +183,8 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.4)
+    material_icons (4.0.0)
+      railties (>= 3.2)
     matrix (0.4.2)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
@@ -398,6 +400,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kaminari
+  material_icons
   pg (~> 1.1)
   prawn (~> 2.5)
   prawn-qrcode
