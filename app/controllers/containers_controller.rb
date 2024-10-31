@@ -128,7 +128,7 @@ class ContainersController < ApplicationController
           container.cargo_owner,
           entrada_move&.created_at&.strftime("%d/%m/%Y"),
           salida_move&.created_at&.strftime("%d/%m/%Y"),
-          container.moves.last&.location&.location
+          current_user == "Client" ? container.moves.last&.location&.location : nil
         ]
         sheet.add_style "A1:G1", b: true, alignment: { horizontal: :center }, bg_color: "dbeafe", fg_color: "172554"
       end
