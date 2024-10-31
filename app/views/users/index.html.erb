@@ -1,8 +1,11 @@
 <div class="flex flex-col gap-4 lg:ml-24 mb-16">
   <h1 class="text-3xl font-bold text-gray-800">Usuarios</h1>
-  
-  <div class="flex justify-end px-8">
-    <%= link_to "Nuevo Usuario", new_user_path, class: "btn-primary w-full lg:w-1/4 text-center ml-2 mb-4 py-2 px-4 rounded-md shadow-md hover:bg-blue-700 transition duration-200" %>
+
+   <div class="flex justify-items-end px-8">
+    <%= link_to new_user_path, class: "flex items-center ml-auto mt-4 btn-primary" do %>
+      <%= material_icon.shape(:add_circle) %>
+      <span class="ml-2">Nuevo</span>
+    <% end %>
   </div>
 
   <% if @users.any? %>
