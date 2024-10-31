@@ -79,7 +79,7 @@
     <%= paginate @containers %>
   </div>
 
-  <%= link_to containers_path(request.query_parameters.merge(format: :xlsx)), class: "btn-primary flex items-center justify-center w-1/12 ml-auto lg:mb-2"  do %>
+  <%= link_to containers_path(request.query_parameters.merge(format: :xlsx)), class: "btn-primary flex items-center justify-center w-1/2 lg:w-1/5 ml-auto lg:mb-2 mb-2"  do %>
     <%= material_icon.shape(:download) %>
     <span>Excel</span>
   <% end %>
