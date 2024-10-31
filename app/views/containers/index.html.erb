@@ -9,6 +9,18 @@
   <div class="border rounded p-4 bg-blue-50 my-8 shadow">
     <%= form_with :url => containers_path, method: :get do |f| %>
 
+      <div class="flex-col lg:flex-row gap-2">
+        <div class="input-group">
+          <%= f.label :from %>
+          <%= f.date_field :from, class: "form-control", value: Date.today.beginning_of_month %>
+        </div>
+
+        <div class="input-group">
+          <%= f.label :to %>
+          <%= f.date_field :to, class: "form-control", value: Date.today %>
+        </div>
+      </div>
+
       <div class="lg:flex gap-2 my-4">
         <div class="input-group">
           <%= f.label :number, "Numero de contenedor" %>
@@ -41,14 +53,14 @@
 
         <div class="input-group">
           <%= f.label :move_created_at, "Fecha del movimiento" %>
-          <%= f.date_field :move_created_at, class: "form-control" %>
+          <%= f.date_field :move_created_at, class: "form-control", value: Date.today %>
         </div>
       </div>
 
-      <div class="input-group w-1/2 lg:w-1/4 mb-2">
+      <div class="input-group w-1/2 lg:w-1/4 my-2">
         <div class="flex items-center gap-2">
           <div><%= f.label :per_page, "Mostrar" %></div>
-          <%= f.select :per_page, options_for_select([5, 10, 25, 50, 100, 500], params[:per_page]), include_blank: false, class: "form-control" %>
+          <%= f.select :per_page, options_for_select([10, 25, 50, 100, 500], params[:per_page]), include_blank: false, class: "form-control" %>
         </div>
       </div>
 

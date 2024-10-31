@@ -11,6 +11,9 @@ class ContainersController < ApplicationController
     else
       @containers = Container.order(created_at: :desc).page(params[:page]).per(per_page)
     end
+    if params[:from].present? && params[:to].present?
+      @containers = @containers.where(created_at: params[:from].to_date.beginning_of_day..params[:to].to_date.end_of_day).page(params[:page]).per(per_page)
+    end
     if params[:number].present?
       @containers = @containers.where("number ILIKE ?", "%#{params[:number]}%").page(params[:page]).per(per_page)
     end
