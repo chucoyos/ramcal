@@ -22,8 +22,8 @@
         <div class="flex flex-col gap-1">
           <p class="text-lg font-medium text-gray-800"><%= role.name %></p>
           <div class="flex gap-2 mt-1">
-            <%= link_to "Editar", edit_role_path(role), class: "btn-primary" %>
             <%= link_to "Ver Rol", role, class: "btn-primary" %>
+            <%= link_to "Editar", edit_role_path(role), class: "btn-primary" %>
             <%= button_to "Eliminar", role, data: { turbo_confirm: "¿Quieres eliminar este rol?" }, method: :delete, class: "btn-danger" %>
           </div>
         </div>
