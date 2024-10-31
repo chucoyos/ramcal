@@ -3,7 +3,10 @@
   <h1 class="">Contenedores</h1>
 
   <div class="flex justify-items-end px-8">
-    <%= link_to "Nuevo Contenedor", new_container_path, class: "ml-auto mt-4 btn-primary" %>
+    <%= link_to new_container_path, class: "flex items-center ml-auto mt-4 btn-primary" do %>
+      <%= material_icon.shape(:add_circle) %>
+      <span class="ml-2">Nuevo</span>
+    <% end %>
   </div>
 
   <div class="border rounded p-4 bg-blue-50 my-8 shadow">
@@ -64,16 +67,22 @@
         </div>
       </div>
 
-      <div class="input-group inline">
-        <%= f.submit "Buscar", class: "btn-primary" %>
-      </div>
+      <div class="btn-primary flex items-center justify-center gap-2 w-1/2 lg:w-1/4">
+        <%= material_icon.shape(:search) %>
+        <%= f.submit "Buscar" %>
+      </div>  
+
     <% end %>
   </div>
 
   <div class="my-4 flex justify-evenly items-center gap-4 border bg-blue-50 rounded-lg px-6 py-4">
     <%= paginate @containers %>
-    <%= link_to "Descargar Excel", containers_path(request.query_parameters.merge(format: :xlsx)), class: "btn-primary" %>
   </div>
+
+  <%= link_to containers_path(request.query_parameters.merge(format: :xlsx)), class: "btn-primary flex items-center justify-center w-1/12 ml-auto lg:mb-2"  do %>
+    <%= material_icon.shape(:download) %>
+    <span>Excel</span>
+  <% end %>
 
   <div class="lg:hidden my-8">
     <% if @containers.empty? %>
