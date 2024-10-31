@@ -6,6 +6,9 @@
     <h1 class="mx-auto">EIR</h1>
   </div>
 
+  <div class="my-4 flex justify-evenly items-center gap-4 border bg-blue-50 rounded-lg px-6 py-4">
+  <%= paginate @eirs %>
+  </div>
   <div id="eirs" class="min-w-full">
     <% @eirs.each do |eir| %>
       <%= render eir %>
@@ -14,5 +17,8 @@
         <%= link_to "Eliminar", eir, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn-danger" %>
       </div>
     <% end %>
+  </div>
+  <div class="my-4 flex justify-evenly items-center gap-4 border bg-blue-50 rounded-lg px-6 py-4">
+    <%= paginate @eirs %>
   </div>
 </div>

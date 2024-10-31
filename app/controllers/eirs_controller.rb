@@ -8,7 +8,7 @@ class EirsController < ApplicationController
     if current_user.role.name == "cliente"
       @eirs = Eir.joins(:container).where(containers: { user_id: current_user.id }).order(created_at: :desc).first(1)
     else
-      @eirs = Eir.order(created_at: :desc)
+      @eirs = Eir.order(created_at: :desc).page(params[:page]).per(5)
     end
   end
 
