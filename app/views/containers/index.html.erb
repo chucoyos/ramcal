@@ -60,7 +60,7 @@
       <div class="input-group w-1/2 lg:w-1/4 my-2">
         <div class="flex items-center gap-2">
           <div><%= f.label :per_page, "Mostrar" %></div>
-          <%= f.select :per_page, options_for_select([10, 25, 50, 100, 500], params[:per_page]), class: "form-control", include_blank: false %>
+          <%= f.select :per_page, options_for_select([10, 25, 50, 100, 500], params[:per_page]), {prompt: "Selecciona"}, class: "rounded", include_blank: false %>
         </div>
       </div>
 
