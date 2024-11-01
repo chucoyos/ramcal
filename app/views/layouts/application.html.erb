@@ -22,7 +22,7 @@
 
   <body class="">
     <%if current_user %>
-      <p class="fixed top-1 bg-blue-50 text-blue-500 shadow right-4 inline-block border rounded-lg py-2 px-3"><%= current_user.username %></p>
+      <p class="fixed top-1 bg-blue-50 text-blue-500 shadow right-4 inline-block rounded-lg"><%= current_user.username %></p>
     <% end %>
     <main class="container mx-auto mt-8">
       <% if notice.present? %>
