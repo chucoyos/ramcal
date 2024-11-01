@@ -60,6 +60,10 @@
         <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%H:%M %p") %>
       </span>
     </p>
+    <p class="field">
+      <strong class="block font-semibold text-gray-700">Creado por:</strong>
+      <span class="text-gray-600"><%= move.created_by&.email %></span>
+    </p>
   </div>
 
   <!-- Images Section -->

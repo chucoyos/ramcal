@@ -79,6 +79,7 @@ class MovesController < ApplicationController
     @move = Move.new(move_params)
     @container = Container.find(@move.container_id)
     @move.location = Location.find(params[:location_id]) if params[:location_id].present?
+    @move.created_by = current_user
 
     if @move.move_type == "Entrada" && Location.available.exists?(params[:location_id])
        @move.location = Location.find(params[:location_id])
@@ -150,6 +151,6 @@ class MovesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def move_params
-      params.require(:move).permit(:container_id, :move_type, :location_id, :status, :mode, :seal, :notes, images: [])
+      params.require(:move).permit(:created_by, :container_id, :move_type, :location_id, :status, :mode, :seal, :notes, images: [])
     end
 end

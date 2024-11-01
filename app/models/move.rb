@@ -1,4 +1,6 @@
 class Move < ApplicationRecord
+  belongs_to :created_by, class_name: "User", optional: true
+
   belongs_to :location, optional: true
   belongs_to :container, optional: false
   belongs_to :location
