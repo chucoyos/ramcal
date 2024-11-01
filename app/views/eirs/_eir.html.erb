@@ -1,5 +1,8 @@
 <div class="p-2 my-5 shadow-lg rounded-lg p-8">
-  <%= link_to "Descargar EIR", eir, class: "btn-primary" %>
+  <div class="flex gap-2">
+    <%= link_to "Descargar EIR", eir, class: "btn-primary" %>
+    <%= link_to "Eliminar", eir, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn-danger" %>
+  </div>
   <div class="field">
     <h2><%= eir.container.number %></h2>
   </div>
