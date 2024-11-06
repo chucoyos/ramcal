@@ -22,6 +22,11 @@
           <%= f.label :to %>
           <%= f.date_field :to, class: "form-control", value: Date.today %>
         </div>
+        
+        <div class="input-group">
+          <%= f.label :container_type, "Tipo de contenedor" %>
+          <%= f.select :container_type, options_for_select(Container::CONTAINER_TYPES), { prompt: "Selecciona" }, class: "form-control" %>
+        </div>
       </div>
 
       <div class="lg:flex gap-2 my-4">

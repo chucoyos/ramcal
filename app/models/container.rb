@@ -1,4 +1,15 @@
 class Container < ApplicationRecord
+  CONTAINER_TYPES = [
+    [ "Estándar", "Estándar" ],
+    [ "Seco", "Seco" ],
+    [ "Refrigerado", "Refrigerado" ],
+    [ "Open Top", "Open Top" ],
+    [ "Flat Rack", "Flat Rack" ],
+    [ "High Cube", "High Cube" ],
+    [ "Tanque", "Tanque" ],
+    [ "Otro", "Otro" ]
+  ].freeze
+
   has_many :eirs, dependent: :destroy
   has_many :moves, dependent: :destroy
   belongs_to :user
