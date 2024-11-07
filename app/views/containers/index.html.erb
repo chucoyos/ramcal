@@ -27,6 +27,10 @@
           <%= f.label :container_type, "Tipo de contenedor" %>
           <%= f.select :container_type, options_for_select(Container::CONTAINER_TYPES), { prompt: "Selecciona" }, class: "form-control" %>
         </div>
+        <div class="input-group">
+          <%= f.label :move_type, "Movimiento" %>
+          <%= f.select :move_type, options_for_select([["Entrada", "Entrada"], ["Salida", "Salida"], ["Reacomodo", "Reacomodo"]]), { prompt: "Selecciona" }, class: "form-control" %>
+        </div>
       </div>
 
       <div class="lg:flex gap-2 my-4">
@@ -53,17 +57,6 @@
         <% end %>
 
       </div>
-      <div class="lg:flex gap-2 my-4 border px-2 py-2 rounded-md bg-slate-200">
-        <div class="input-group">
-          <%= f.label :move_type, "Movimiento" %>
-          <%= f.select :move_type, options_for_select([["Entrada", "Entrada"], ["Salida", "Salida"], ["Reacomodo", "Reacomodo"]]), { prompt: "Selecciona" }, class: "form-control" %>
-        </div>
-
-        <div class="input-group">
-          <%= f.label :move_created_at, "Fecha del movimiento" %>
-          <%= f.date_field :move_created_at, class: "form-control", value: Date.today %>
-        </div>
-      </div>
 
       <div class="input-group w-1/2 lg:w-1/4 my-2">
         <div class="flex items-center gap-2">
@@ -72,10 +65,9 @@
         </div>
       </div>
 
-      <div class="btn-primary flex items-center justify-center gap-2 w-1/2 lg:w-1/4">
+      <%= f.submit "Buscar", class: "btn-primary" do %>
         <%= material_icon.shape(:search) %>
-        <%= f.submit "Buscar" %>
-      </div>  
+      <% end %>
 
     <% end %>
   </div>

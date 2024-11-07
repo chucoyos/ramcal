@@ -6,31 +6,12 @@ class ContainersController < ApplicationController
   def index
     authorize current_user, :index?, policy_class: ContainerPolicy
     per_page = params[:per_page] || 10
-    if current_user.role.name == "cliente"
-      @containers = Container.where(user_id: current_user.id).order(created_at: :desc).page(params[:page]).per(per_page)
-    else
-      @containers = Container.order(created_at: :desc).page(params[:page]).per(per_page)
-    end
-    if params[:from].present? && params[:to].present?
-      @containers = @containers.where(created_at: params[:from].to_date.beginning_of_day..params[:to].to_date.end_of_day).page(params[:page]).per(per_page)
-    end
-    if params[:container_type].present?
-      @containers = @containers.where("container_type ILIKE ?", "%#{params[:container_type]}%").page(params[:page]).per(per_page)
-    end
-    if params[:number].present?
-      @containers = @containers.where("number ILIKE ?", "%#{params[:number]}%").page(params[:page]).per(per_page)
-    end
-    if params[:cargo_owner].present?
-      @containers = @containers.where("cargo_owner ILIKE ?", "%#{params[:cargo_owner]}%").page(params[:page]).per(per_page)
-    end
-    if params[:move_type].present? && params[:move_created_at].present?
-      @containers = @containers.joins(:moves)
-                               .where(moves: { move_type: params[:move_type] })
-                               .where("moves.created_at::date = ?", params[:move_created_at].to_date).page(params[:page]).per(per_page)
-    end
-    if params[:user_id].present?
-      @containers = @containers.where(user_id: params[:user_id]).page(params[:page]).per(per_page)
-    end
+    @containers = base_container_scope
+
+    apply_filters!
+
+    @containers = @containers.order(created_at: :desc).page(params[:page]).per(per_page)
+
     respond_to do |format|
       format.html # Render the regular HTML view
       format.xlsx do
@@ -110,13 +91,50 @@ class ContainersController < ApplicationController
 
   private
 
+  def base_container_scope
+    if current_user.role.name == "cliente"
+      Container.where(user_id: current_user.id)
+    else
+      Container.all
+    end
+  end
+
+  def apply_filters!
+    filter_by_date if params[:from].present? && params[:to].present?
+    filter_by(:container_type, "container_type")
+    filter_by(:number, "number")
+    filter_by(:cargo_owner, "cargo_owner")
+    filter_by_move_type if params[:move_type].present?
+    filter_by_user if params[:user_id].present?
+  end
+
+  def filter_by_date
+    from_date = params[:from].to_date.beginning_of_day
+    to_date = params[:to].to_date.end_of_day
+    @containers = @containers.where(created_at: from_date..to_date)
+  end
+
+  def filter_by(param_name, column_name)
+    value = params[param_name]
+    @containers = @containers.where("#{column_name} ILIKE ?", "%#{value}%") if value.present?
+  end
+
+  def filter_by_move_type
+    @containers = @containers.joins(:moves)
+                             .where("moves.move_type ILIKE ?", "%#{params[:move_type]}%")
+  end
+
+  def filter_by_user
+    @containers = @containers.where(user_id: params[:user_id])
+  end
+
   def generate_excel(containers)
     package = Axlsx::Package.new
     workbook = package.workbook
 
     workbook.add_worksheet(name: "Containers") do |sheet|
       # Add header row
-      sheet.add_row [ "Cliente", "Número", "Tipo", "Dueño de la Carga", "Entrada", "Salida", "Ubicación" ]
+      sheet.add_row [ "Cliente", "Número", "Tipo", "Carga", "Dueño de la Carga", "Entrada", "Salida", "Ubicación" ]
 
       # Add data rows
       containers.each do |container|
@@ -128,9 +146,10 @@ class ContainersController < ApplicationController
           container.user.full_name,
           container.number,
           container.container_type,
+          container.moves.last&.status,
           container.cargo_owner,
-          entrada_move&.created_at&.strftime("%d/%m/%Y"),
-          salida_move&.created_at&.strftime("%d/%m/%Y"),
+          entrada_move&.created_at&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y"),
+          salida_move&.created_at&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y"),
           current_user.role.name != "cliente" ? container.moves.last&.location&.location : nil
         ]
         sheet.add_style "A1:G1", b: true, alignment: { horizontal: :center }, bg_color: "dbeafe", fg_color: "172554"
