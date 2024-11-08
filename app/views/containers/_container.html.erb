@@ -55,6 +55,24 @@
     <% end %>
   <% end %>
 
+  <% traspaleo_moves = container.moves.where(move_type: "Traspaleo").order(:created_at) %>
+  <% if traspaleo_moves.any? %>
+    <% traspaleo_moves.each do |move| %>
+      <p class="field">
+        Traspaleo: <%= move.created_at.strftime("%d/%m/%Y") %>
+      </p>
+    <% end %>
+  <% end %>
+
+  <% lavado_moves = container.moves.where(move_type: "Lavado").order(:created_at) %>
+  <% if lavado_moves.any? %>
+    <% lavado_moves.each do |move| %>
+      <p class="field">
+        Lavado: <%= move.created_at.strftime("%d/%m/%Y") %>
+      </p>
+    <% end %>
+  <% end %>
+
   <p class="field">
     <% salida_move = container.moves.find_by(move_type: "Salida") %>
       <% if salida_move %>

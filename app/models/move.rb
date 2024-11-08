@@ -1,36 +1,35 @@
 class Move < ApplicationRecord
-  belongs_to :created_by, class_name: "User", optional: true
+  MOVE_TYPES = %w[Entrada Salida Reacomodo Traspaleo Lavado].freeze
 
+  belongs_to :created_by, class_name: "User", optional: true
   belongs_to :location, optional: true
   belongs_to :container, optional: false
-  belongs_to :location
-  validates :container_id, presence: true
+
   has_many :notifications, dependent: :destroy
   has_many_attached :images
 
+  validates :container_id, presence: true
+
   validate :single_entry_and_exit
-  validate :different_location_for_reacomodo, if: -> { move_type == "Reacomodo" }
   validate :location_must_be_available, if: -> { location.present? && move_type == "Entrada" }
   validate :no_moves_after_salida, on: :create
 
   before_destroy :mark_location_available, if: -> { location.present? }
-  before_create :mark_previous_location_available, if: -> { move_type == "Reacomodo" || move_type == "Salida" }
-  after_save :mark_location_unavailable, if: -> { location.present? && (move_type == "Entrada" || move_type == "Reacomodo") }
+  before_create :mark_previous_location_available, if: -> { location_changed_for_types? }
+  after_save :mark_location_unavailable, if: -> { location.present? && (move_type == "Entrada" || move_type == "Reacomodo" || location_changed_for_types?) }
   after_save :mark_location_available, if: -> { location.present? && move_type == "Salida" }
 
   private
+
+  def location_changed_for_types?
+    # Check if the location has changed for Traspaleo or Lavado moves
+    (move_type == "Traspaleo" || move_type == "Lavado") && location_id_changed?
+  end
 
   # Validation to ensure no moves are allowed after a "Salida"
   def no_moves_after_salida
     if container.moves.exists?(move_type: "Salida")
       errors.add(:base, "El contenedor ya tiene la salida registrada.")
-    end
-  end
-
-  def different_location_for_reacomodo
-    previous_move = container.moves.where.not(id: id).order(created_at: :desc).first
-    if previous_move && location_id == previous_move.location_id
-      errors.add(:base, "Debe cambiar la ubicación.")
     end
   end
 
@@ -49,11 +48,6 @@ class Move < ApplicationRecord
     return unless previous_move&.location
 
     previous_move.location.update!(available: true)
-  end
-
-  # Mark the current location as available on "Salida"
-  def mark_location_available
-    location.update!(available: true)
   end
 
   # Ensure the location is available before assigning it

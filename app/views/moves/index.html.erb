@@ -26,7 +26,7 @@
       <div class="lg:flex gap-4 my-4 border px-4 py-4 rounded-md bg-slate-200">
         <div class="input-group flex-1">
           <%= f.label :move_type, "Movimiento", class: "font-medium text-gray-700" %>
-          <%= f.select :move_type, options_for_select([["Entrada", "Entrada"], ["Salida", "Salida"], ["Reacomodo", "Reacomodo"]]), { prompt: "Selecciona" }, class: "form-control mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+          <%= f.select :move_type, options_for_select(Move::MOVE_TYPES), { prompt: "Selecciona" }, class: "form-control mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
         </div>
         <div class="input-group flex-1">
           <%= f.label :move_created_at, "Fecha del Movimiento", class: "font-medium text-gray-700" %>
@@ -53,13 +53,17 @@
       <% @moves.each do |move| %>
         <%= link_to move do %>
           <p class="field border-b p-4 hover:bg-blue-50 transition duration-200">
-            <%= move.container.number %> - <%= move.container.size %> ft.
+            <%= move.container.number %>
             <% if move.move_type == "Entrada" %>
               Entrada: <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%b/%y") %>
             <% elsif move.move_type == "Salida" %>
               Salida: <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%b/%y") %>
             <% elsif move.move_type == "Reacomodo" %>
               Reacomodo: <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%b/%y") %>
+            <% elsif move.move_type == "Lavado" %>
+              Lavado: <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%b/%y") %>
+              <% elsif move.move_type == "Traspaleo" %>
+              Traspaleo: <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%b/%y") %>
             <% end %>
           </p>
         <% end %>
@@ -79,6 +83,8 @@
             <th class="border px-2 py-3 text-left">Cliente</th>
             <th class="border px-2 py-3 text-left">Entrada</th>
             <th class="border px-2 py-3 text-left">Reacomodo</th>
+            <th class="border px-2 py-3 text-left">Traspaleo</th>
+            <th class="border px-2 py-3 text-left">Lavado</th>
             <th class="border px-2 py-3 text-left">Salida</th>
             <th class="border px-2 py-3 text-left">Acción</th>
           </tr>
@@ -103,13 +109,27 @@
                 <% end %>
               </td>
               <td class="border px-2 py-4">
-                <% if move.move_type == "Salida" %>
+                <% if move.move_type == "Traspaleo" %>
                   <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
                 <% else %>
                   N/A
                 <% end %>
               </td>
               <td class="border px-2 py-4">
+                <% if move.move_type == "Lavado" %>
+                  <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
+                <% else %>
+                  N/A
+                <% end %>
+              </td>
+              <td class="border px-2 py-4">
+                <% if move.move_type == "Salida" %>
+                  <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
+                <% else %>
+                  N/A
+                <% end %>
+              </td>
+              <td class="flex items-center border px-2 py-4">
                 <%= link_to "Ver", move, class: "underline text-blue-900" %> |
                 <%= link_to "Eliminar", move, data: { turbo_confirm: "¿Estás seguro?", turbo_method: :delete }, class: "underline text-blue-900" %>
               </td>

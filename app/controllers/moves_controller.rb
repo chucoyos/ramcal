@@ -37,6 +37,7 @@ class MovesController < ApplicationController
         render turbo_frame: "location_list", partial: "moves/location_list",
           locals: { available_locations: @available_locations }
       end
+      format.any { head :not_acceptable }
     end
   end
   # GET /moves/new
