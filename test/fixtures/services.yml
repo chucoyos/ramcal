@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  container: one
+  invoice: one
+  name: MyString
+  charge: 9.99
+  start_date: 2024-11-13
+  end_date: 2024-11-13
+  invoiced: false
+
+two:
+  container: two
+  invoice: two
+  name: MyString
+  charge: 9.99
+  start_date: 2024-11-13
+  end_date: 2024-11-13
+  invoiced: false
