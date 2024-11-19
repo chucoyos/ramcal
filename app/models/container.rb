@@ -12,6 +12,7 @@ class Container < ApplicationRecord
 
   has_many :eirs, dependent: :destroy
   has_many :moves, dependent: :destroy
+  has_many :services, dependent: :destroy
   belongs_to :user
   before_save :upcase_number
   validates :number, presence: true, format: { with: /\A[A-Z]{4}\d{7}\z/i,

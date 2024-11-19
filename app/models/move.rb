@@ -18,8 +18,20 @@ class Move < ApplicationRecord
   before_create :mark_previous_location_available, if: -> { location_changed_for_types? }
   after_save :mark_location_unavailable, if: -> { location.present? && (move_type == "Entrada" || move_type == "Reacomodo" || location_changed_for_types?) }
   after_save :mark_location_available, if: -> { location.present? && move_type == "Salida" }
+  after_create :create_related_service
 
   private
+
+  def create_related_service
+    case move_type
+    when "Entrada"
+      self.container.services.create!(name: "Camión a Piso", charge: 100, invoiced: false, start_date: Date.today)
+    when "Salida"
+      self.container.services.create!(name: "Piso a Camión", charge: 100, invoiced: false, start_date: Date.today)
+    when "Traspaleo"
+      self.container.services.create!(name: "Traspaleo", charge: 100, invoiced: false, start_date: Date.today)
+    end
+  end
 
   def location_changed_for_types?
     # Check if the location has changed for Traspaleo or Lavado moves
