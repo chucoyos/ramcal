@@ -1,0 +1,27 @@
+<div id="<%= dom_id pricing %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Client:</strong>
+    <%= pricing.user.full_name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Service:</strong>
+    <%= pricing.service.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Price:</strong>
+    <%= pricing.price %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Grace period days:</strong>
+    <%= pricing.grace_period_days %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Start delay:</strong>
+    <%= pricing.start_delay %>
+  </p>
+
+</div>

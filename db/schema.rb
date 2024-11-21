@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_14_014443) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_21_080641) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -110,6 +110,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_14_014443) do
     t.index ["role_id", "permission_id"], name: "index_permissions_roles_on_role_id_and_permission_id"
   end
 
+  create_table "pricings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "service_id", null: false
+    t.decimal "price", precision: 10, scale: 2
+    t.integer "grace_period_days"
+    t.integer "start_delay"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_id"], name: "index_pricings_on_service_id"
+    t.index ["user_id"], name: "index_pricings_on_user_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -156,6 +168,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_14_014443) do
   add_foreign_key "moves", "containers"
   add_foreign_key "moves", "locations"
   add_foreign_key "notifications", "moves"
+  add_foreign_key "pricings", "services"
+  add_foreign_key "pricings", "users"
   add_foreign_key "services", "containers"
   add_foreign_key "users", "roles"
 end

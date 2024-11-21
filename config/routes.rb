@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :pricings
   resources :services
   get "location", to: "moves#search_locations"
   mount ActionCable.server => "/cable"
