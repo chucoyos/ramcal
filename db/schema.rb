@@ -117,12 +117,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_14_014443) do
   end
 
   create_table "services", force: :cascade do |t|
-    t.bigint "container_id", null: false
+    t.bigint "container_id"
     t.string "name"
     t.decimal "charge", precision: 10, scale: 2
+    t.boolean "invoiced"
     t.date "start_date"
     t.date "end_date"
-    t.boolean "invoiced"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["container_id"], name: "index_services_on_container_id"

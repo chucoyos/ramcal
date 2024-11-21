@@ -23,14 +23,28 @@ class Move < ApplicationRecord
   private
 
   def create_related_service
-    case move_type
-    when "Entrada"
-      self.container.services.create!(name: "Camión a Piso", charge: 100, invoiced: false, start_date: Date.today)
-    when "Salida"
-      self.container.services.create!(name: "Piso a Camión", charge: 100, invoiced: false, start_date: Date.today)
-    when "Traspaleo"
-      self.container.services.create!(name: "Traspaleo", charge: 100, invoiced: false, start_date: Date.today)
+    # Map move_type to service name
+    service_name = case move_type
+    when "Entrada" then "Camión a Piso"
+    when "Salida" then "Piso a Camión"
+    when "Traspaleo" then "Traspaleo"
+    when "Lavado" then "Lavado"
+    else return # Exit if move_type is unknown
     end
+
+    # Find the service template
+    service_template = Service.find_by(name: service_name)
+
+    # Determine the charge (client-specific or default)
+    charge = service_template.charge || 0
+
+    # Create the service for this container
+    self.container.services.create!(
+      name: service_name,
+      charge: charge,
+      invoiced: false,
+      start_date: Date.today
+    )
   end
 
   def location_changed_for_types?

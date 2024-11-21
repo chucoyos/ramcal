@@ -1,5 +1,5 @@
 class Service < ApplicationRecord
   NAMES = [ "Camión a Piso", "Piso a Camión", "Lavado", "Traspaleo", "Almacenaje" ].freeze
 
-  belongs_to :container
+  belongs_to :container, optional: true
 end
