@@ -12,11 +12,6 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :container_id %>
-    <%= form.text_field :container_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
     <%= form.label :name %>
     <%= form.collection_select :name, Service::NAMES, :to_s, :to_s, { include_blank: true }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
@@ -42,6 +37,6 @@
   </div>
 
   <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit class: "btn-primary" %>
   </div>
 <% end %>

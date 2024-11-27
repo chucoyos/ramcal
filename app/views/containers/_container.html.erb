@@ -40,7 +40,7 @@
     <% entrada_move = container.moves.find_by(move_type: "Entrada") %>
       <% if entrada_move %>
         <strong class="font-medium">Entrada:</strong>
-        <span><%= entrada_move.created_at.strftime("%d/%m/%Y") %></span>
+        <span><%= entrada_move.created_at&.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %></span>
       <% else %>
         Entrada: N/A
       <% end %>
@@ -50,7 +50,7 @@
   <% if reacomodo_moves.any? %>
     <% reacomodo_moves.each do |move| %>
       <p class="field">
-        Reacomodo:<%= move.created_at.strftime("%d/%m/%Y") %>
+        Reacomodo:<%= move.created_at&.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
       </p>
     <% end %>
   <% end %>
@@ -59,7 +59,7 @@
   <% if traspaleo_moves.any? %>
     <% traspaleo_moves.each do |move| %>
       <p class="field">
-        Traspaleo: <%= move.created_at.strftime("%d/%m/%Y") %>
+        Traspaleo: <%= move.created_at&.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
       </p>
     <% end %>
   <% end %>
@@ -68,7 +68,7 @@
   <% if lavado_moves.any? %>
     <% lavado_moves.each do |move| %>
       <p class="field">
-        Lavado: <%= move.created_at.strftime("%d/%m/%Y") %>
+        Lavado: <%= move.created_at&.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
       </p>
     <% end %>
   <% end %>
@@ -77,7 +77,8 @@
     <% salida_move = container.moves.find_by(move_type: "Salida") %>
       <% if salida_move %>
         <strong class="font-medium">Salida:</strong>
-        <span><%= salida_move.created_at.strftime("%d/%m/%Y") %></span>
+        <span><%= salida_move.created_at&.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %></span>
+
       <% else %>
         Salida: N/A
       <% end %>

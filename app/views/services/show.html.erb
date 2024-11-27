@@ -5,11 +5,10 @@
     <% end %>
 
     <%= render @service %>
-
-    <%= link_to "Edit this service", edit_service_path(@service), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Back to services", services_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this service", @service, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
+    <% if @service.container.present? %>
+      <%= link_to "Regresar", container_path(@service.container), class: "btn-primary" %>
+    <% else %>
+      <%= link_to "Regesar", services_path, class: "btn-primary" %>
+    <% end %>
   </div>
 </div>

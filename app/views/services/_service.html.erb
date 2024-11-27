@@ -1,32 +1,32 @@
 <div id="<%= dom_id service %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Container:</strong>
-    <%= service.container_id %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= service.name %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Charge:</strong>
-    <%= service.charge %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Start date:</strong>
-    <%= service.start_date %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">End date:</strong>
-    <%= service.end_date %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Invoiced:</strong>
-    <%= service.invoiced %>
-  </p>
+  <div class="flex flex-col gap-4">
+      <table class="table-auto my-5 border-collapse border border-gray-300 w-full">
+        <thead>
+          <tr class="bg-blue-200">
+            <th class="border border-gray-300 px-4 py-2">Contenedor</th>
+            <th class="border border-gray-300 px-4 py-2">Servicio</th>
+            <th class="border border-gray-300 px-4 py-2">Inicio</th>
+            <th class="border border-gray-300 px-4 py-2">Fin</th>
+            <th class="border border-gray-300 px-4 py-2">Invoiced</th>
+            <th class="border border-gray-300 px-4 py-2">Cargo</td>
+            <th class="border border-gray-300 px-4 py-2">Acciones</td>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2"><%= service.container_id %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= service.name %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= service.start_date %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= service.end_date %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= service.invoiced %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= service.charge %></td>
+              <td class="border border-gray-300 px-4 py-2">
+                <%= link_to "Editar", edit_service_path(service), class: "underline" %> |
+                <%= link_to "Eliminar", service, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este servicio?" }, class: "underline" %>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
 
 </div>

@@ -11,11 +11,29 @@
   </div>
 
   <div id="services" class="min-w-full">
-    <% @services.each do |service| %>
-      <%= render service %>
-      <p>
-        <%= link_to "Show this service", service, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
-    <% end %>
+      <div class="flex flex-col gap-4">
+      <table class="table-auto my-5 border-collapse border border-gray-300 w-full">
+        <thead>
+          <tr class="bg-blue-200">
+            <th class="border border-gray-300 px-4 py-2">Servicio</th>
+            <th class="border border-gray-300 px-4 py-2">Cargo</td>
+            <th class="border border-gray-300 px-4 py-2">Acciones</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @services.each do |service| %>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2"><%= service.name %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= service.charge %></td>
+              <td class="border border-gray-300 px-4 py-2">
+                <%= link_to "Ver", service, class: "underline" %> |
+                <%= link_to "Editar", edit_service_path(service), class: "underline" %> |
+                <%= link_to "Eliminar", service, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este servicio?" }, class: "underline" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
