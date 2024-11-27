@@ -14,4 +14,39 @@
       </div>
     </div>
   </div>
+
+  <div class="flex flex-col gap-4 mt-4">
+    <h2 class="text-center">Servicios del Contenedor</h2>
+    <div class="flex flex-col gap-4">
+      <table class="table-auto my-5 border-collapse border border-gray-300 w-full">
+        <thead>
+          <tr class="bg-blue-200">
+            <th class="border border-gray-300 px-4 py-2">Contenedor</th>
+            <th class="border border-gray-300 px-4 py-2">Servicio</th>
+            <th class="border border-gray-300 px-4 py-2">Inicio</th>
+            <th class="border border-gray-300 px-4 py-2">Fin</th>
+            <th class="border border-gray-300 px-4 py-2">Invoiced</th>
+            <th class="border border-gray-300 px-4 py-2">Cargo</td>
+            <th class="border border-gray-300 px-4 py-2">Acciones</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @services.each do |service| %>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2"><%= service.container.number %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= service.name %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= service.start_date %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= service.end_date %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= service.invoiced %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= service.charge %></td>
+              <td class="border border-gray-300 px-4 py-2">
+                <%= link_to "Editar", edit_service_path(service), class: "underline" %> |
+                <%= link_to "Eliminar", service, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este servicio?" }, class: "underline" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

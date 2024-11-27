@@ -27,6 +27,7 @@ class ContainersController < ApplicationController
   # GET /containers/1 or /containers/1.json
   def show
     authorize current_user, :show?, policy_class: ContainerPolicy
+    @services = @container.services
   end
 
   # GET /containers/new
