@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <div class="flex flex-col gap-4 mt-4">
+  <div class="hidden lg:flex lg:flex-col gap-4 mt-4">
     <h2 class="text-center">Servicios del Contenedor</h2>
     <div class="flex flex-col gap-4">
       <table class="table-auto my-5 border-collapse border border-gray-300 w-full">
@@ -48,6 +48,37 @@
           <% end %>
         </tbody>
       </table>
+    </div>
+  </div>
+
+  <div class="lg:hidden flex flex-col gap-4 mt-4 mx-auto w-full">
+    <h2 class="text-center">Servicios del Contenedor</h2>
+    <div class="flex flex-col gap-4">
+      <% @services.each do |service| %>
+        <div class="border border-gray-300 rounded-md p-4">
+          <div class="flex flex-col gap-2">
+            <div>
+              <strong>Servicio:</strong>
+              <span><%= service.name %></span>
+            </div>
+            <div>
+              <strong>Inicio:</strong>
+              <span><%= service.start_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></span>
+            </div>
+            <div>
+              <strong>Fin:</strong>
+              <span><%= service.end_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></span>
+            </div>
+            <div>
+              <strong>Costo:</strong>
+              <span><%= service.charge %></span>
+            </div>
+            <div>
+              <%= link_to "Editar", edit_service_path(service), class: "underline" %>
+              <%= link_to "Eliminar", service, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este servicio?" }, class: "underline ml-2" %>
+            </div>
+          </div>
+      <% end %>
     </div>
   </div>
 </div>
