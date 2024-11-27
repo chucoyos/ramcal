@@ -25,10 +25,10 @@ class Move < ApplicationRecord
   def create_related_service
     # Map move_type to service name
     service_name = case move_type
-    when "Entrada" then "Camión a Piso"
-    when "Salida" then "Piso a Camión"
-    when "Traspaleo" then "Traspaleo"
-    when "Lavado" then "Lavado"
+    when "Entrada" then "Camión-Piso"
+    when "Salida" then "Piso-Camión"
+    when "Traspaleo" then "Camión-Camión"
+    when "Reacomodo" then "Reacomodo"
     else return # Exit if move_type is unknown
     end
 
