@@ -1,14 +1,13 @@
-<div class="w-full lg:w-3/4 mx-auto">
+<div class="flex justify-between items-center px-2 lg:px-0 lg:w-3/4 mx-auto mb-5">
+  <h1 class="font-bold text-4xl">Precio por Cliente-Servicio</h1>
+  <%= link_to "New pricing", new_pricing_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+</div>
+<div class="w-full lg:w-3/4 mx-auto lg:hidden px-2">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
   <% content_for :title, "Pricings" %>
-
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Pricings</h1>
-    <%= link_to "New pricing", new_pricing_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
 
   <div id="pricings" class="min-w-full">
     <% @pricings.each do |pricing| %>
@@ -18,4 +17,34 @@
       </p>
     <% end %>
   </div>
+</div>
+<div class="hidden lg:flex lg:flex-col lg:w-3/4 mx-auto mt-16">
+  <table class="table table-auto w-full border rounded shadow">
+    <thead>
+      <tr class="border bg-blue-200">
+        <th class="px-2 border">Cliente</th>
+        <th class="px-2 border">Nombre</th>
+        <th class="px-2 border">Precio</th>
+        <th class="px-2 border">Dias de Gracia</th>
+        <th class="px-2 border">Inicia en:</th>
+        <th class="px-2 border">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @pricings.each do |pricing| %>
+        <tr class="border-b border-gray-200">
+          <td class="px-2 border"><%= pricing.user.full_name %></td>
+          <td class="px-2 border"><%= pricing.service.name %></td>
+          <td class="px-2 border"><%= pricing.price %></td>
+          <td class="px-2 border"><%= pricing.grace_period_days %></td>
+          <td class="px-2 border"><%= pricing.start_delay %> día</td>
+          <td class="px-2 border text-center">
+            <%= link_to "Show", pricing, class: "text-indigo-600 hover:text-indigo-900" %> |
+            <%= link_to "Edit", edit_pricing_path(pricing), class: "text-indigo-600 hover:text-indigo-900" %> | 
+            <%= link_to "Delete", pricing, data: { turbo_confirm: "Are you sure?", turbo_method: :delete  }, class: "text-indigo-600 hover:text-indigo-900" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

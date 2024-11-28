@@ -3,7 +3,7 @@ class PricingsController < ApplicationController
 
   # GET /pricings or /pricings.json
   def index
-    @pricings = Pricing.all
+    @pricings = Pricing.all.order(:user_id)
   end
 
   # GET /pricings/1 or /pricings/1.json
