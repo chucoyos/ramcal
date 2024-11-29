@@ -8,15 +8,18 @@ class ServicesController < ApplicationController
 
   # GET /services/1 or /services/1.json
   def show
+    @container = Container.find(params[:container_id]) if params[:container_id]
   end
 
   # GET /services/new
   def new
     @service = Service.new
+    @container = Container.find(params[:container_id]) if params[:container_id]
   end
 
   # GET /services/1/edit
   def edit
+    @container = @service.container || Container.find_by(id: params[:container_id])
   end
 
   # POST /services or /services.json
@@ -25,7 +28,7 @@ class ServicesController < ApplicationController
 
     respond_to do |format|
       if @service.save
-        format.html { redirect_to @service, notice: "Service was successfully created." }
+        format.html { redirect_to @service, notice: "Servicio creado exitosamente." }
         format.json { render :show, status: :created, location: @service }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +41,7 @@ class ServicesController < ApplicationController
   def update
     respond_to do |format|
       if @service.update(service_params)
-        format.html { redirect_to @service, notice: "Service was successfully updated." }
+        format.html { redirect_to @service, notice: "Service actualizado exitosamente." }
         format.json { render :show, status: :ok, location: @service }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +55,13 @@ class ServicesController < ApplicationController
     @service.destroy!
 
     respond_to do |format|
-      format.html { redirect_to services_path, status: :see_other, notice: "Service was successfully destroyed." }
+      format.html do
+        if @service.container
+          redirect_to container_path(@service.container), status: :see_other, notice: "Se eliminó el servicio."
+        else
+          redirect_to services_path, status: :see_other, notice: "Se eliminó el servicio."
+        end
+      end
       format.json { head :no_content }
     end
   end

@@ -11,6 +11,12 @@
     </div>
   <% end %>
 
+  <div class="hidden">
+    <%= form.hidden_field :container_id, value: @container&.id || service.container_id %>
+  </div>
+
+  
+
   <div class="my-5">
     <%= form.label :name %>
     <%= form.collection_select :name, Service::NAMES, :to_s, :to_s, { include_blank: true }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>

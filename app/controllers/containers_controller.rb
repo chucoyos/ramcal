@@ -56,7 +56,7 @@ class ContainersController < ApplicationController
 
     respond_to do |format|
       if @container.save
-        format.html { redirect_to @container, notice: "Container was successfully created." }
+        format.html { redirect_to @container, notice: "Contenedor creado exitosamente." }
         format.json { render :show, status: :created, location: @container }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -70,7 +70,7 @@ class ContainersController < ApplicationController
     authorize current_user, :update?, policy_class: ContainerPolicy
     respond_to do |format|
       if @container.update(container_params)
-        format.html { redirect_to @container, notice: "Container was successfully updated." }
+        format.html { redirect_to @container, notice: "Contenedor actualizado exitosamente." }
         format.json { render :show, status: :ok, location: @container }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -85,7 +85,7 @@ class ContainersController < ApplicationController
     @container.destroy!
 
     respond_to do |format|
-      format.html { redirect_to containers_path, status: :see_other, notice: "Container was successfully destroyed." }
+      format.html { redirect_to containers_path, status: :see_other, notice: "Contenedor eliminado exitosamente." }
       format.json { head :no_content }
     end
   end

@@ -49,9 +49,14 @@
         </tbody>
       </table>
     </div>
+    <div>
+     <%= link_to "Nuevo Servicio", new_service_path(container_id: @container.id), class: "btn-primary" %>
+    </div>
   </div>
 
-  <div class="lg:hidden flex flex-col gap-4 mt-4 mx-auto w-full">
+ 
+
+  <div class="lg:hidden flex flex-col gap-4 mt-4 mx-auto w-full my-5">
     <h2 class="text-center">Servicios del Contenedor</h2>
     <div class="flex flex-col gap-4">
       <% @services.each do |service| %>
@@ -78,7 +83,13 @@
               <%= link_to "Eliminar", service, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este servicio?" }, class: "underline ml-2" %>
             </div>
           </div>
+        </div>
       <% end %>
     </div>
+    <div class="px-2">
+     <%= link_to "Nuevo Servicio", new_service_path(container_id: @container.id), class: "btn-primary my-5" %>
+    </div>
   </div>
+
+
 </div>
