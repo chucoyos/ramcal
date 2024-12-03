@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   belongs_to :role
   scope :clients, -> { joins(:role).where(roles: { name: "cliente" }) }
+  has_many :pricings
+  has_many :services, through: :pricings
   validates :email, presence: true, uniqueness: true
   # validates :password, presence: true
   validates :first_name, presence: true

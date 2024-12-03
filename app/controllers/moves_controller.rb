@@ -94,7 +94,7 @@ class MovesController < ApplicationController
         rescue StandardError => e
           puts "Falló la notificacón: #{e.message}"
         end
-        format.html { redirect_to @move, notice: "Se agregó el movimiento." }
+        format.html { redirect_to @move.container, notice: "Se agregó el movimiento." }
         format.json { render :show, status: :created, location: @move }
       else
         @available_locations = Location.available
