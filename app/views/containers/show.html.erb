@@ -17,11 +17,11 @@
 
   <div class="hidden lg:flex lg:flex-col gap-4 mt-4">
     <h2 class="text-center">Servicios del Contenedor</h2>
+    <p class="text-center"><%= @container.number %></p>
     <div class="flex flex-col gap-4">
       <table class="table-auto my-5 border-collapse border border-gray-300 w-full">
         <thead>
           <tr class="bg-blue-200">
-            <th class="border border-gray-300 px-4 py-2">Contenedor</th>
             <th class="border border-gray-300 px-4 py-2">Servicio</th>
             <th class="border border-gray-300 px-4 py-2">Inicio</th>
             <th class="border border-gray-300 px-4 py-2">Fin</th>
@@ -33,7 +33,6 @@
         <tbody>
           <% @services.each do |service| %>
             <tr>
-              <td class="border border-gray-300 px-4 py-2"><%= service.container.number %></td>
               <td class="border border-gray-300 px-4 py-2"><%= service.name %></td>
               <td class="border border-gray-300 px-4 py-2"><%= service.start_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></td>
               <td class="border border-gray-300 px-4 py-2"><%= service.end_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></td>

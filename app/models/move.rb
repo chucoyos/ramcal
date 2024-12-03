@@ -29,6 +29,7 @@ class Move < ApplicationRecord
         create_regular_service(move_type_to_service_name)
       when "Salida"
         create_regular_service("Piso-Camión")
+        create_stay_service
       end
   end
 
@@ -46,7 +47,31 @@ class Move < ApplicationRecord
       name: move_type_to_service_name,
       charge: pricing&.price || charge,
       invoiced: false,
-      start_date: Date.today
+      start_date: Date.today,
+      end_date: Date.today
+    )
+  end
+
+  def create_stay_service
+    entry_move = container.moves.find_by(move_type: "Entrada")
+    nil unless entry_move
+
+    pricing = container.user.pricings.find_by(
+      user_id: container.user.id,
+      service_id: Service.find_by(name: "Almacenaje")&.id
+    )
+
+    calculator = StayServiceCalculator.new(container, pricing)
+
+    charge = calculator.calculate_charge
+
+    # Create the service for this container
+    self.container.services.create!(
+      name: "Almacenaje",
+      charge: charge,
+      invoiced: false,
+      start_date: entry_move.created_at,
+      end_date: Date.today,
     )
   end
 
