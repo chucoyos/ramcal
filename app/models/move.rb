@@ -23,30 +23,41 @@ class Move < ApplicationRecord
   private
 
   def create_related_service
-    # Map move_type to service name
-    def move_type_to_service_name
+      # Map move_type to service name
       case move_type
-      when "Entrada" then "Camión-Piso"
-      when "Salida" then "Piso-Camión"
-      when "Traspaleo" then "Camión-Camión"
-      when "Reacomodo" then "Reacomodo"
+      when "Entrada", "Traspaleo", "Reacomodo"
+        create_regular_service(move_type_to_service_name)
+      when "Salida"
+        create_regular_service("Piso-Camión")
       end
-    end
+  end
 
-    pricing = container.user.pricings.find_by(user_id: container.user.id, service_id: Service.find_by(name: move_type_to_service_name).id)
+  def create_regular_service(service_name)
     # Find the service template
     service_template = Service.find_by(name: move_type_to_service_name)
 
+    pricing = container.user.pricings.find_by(user_id: container.user.id, service_id: Service.find_by(name: move_type_to_service_name).id)
+
     # Determine the charge (client-specific or default)
-    charge = service_template.charge || 0
+    charge = pricing&.price || service_template&.charge || 0
 
     # Create the service for this container
     self.container.services.create!(
-      name: move_type_to_service_name || service_template.name,
+      name: move_type_to_service_name,
       charge: pricing&.price || charge,
       invoiced: false,
       start_date: Date.today
     )
+  end
+
+  # Helper to map move_type to service name
+  def move_type_to_service_name
+    case move_type
+    when "Entrada" then "Camión-Piso"
+    when "Salida" then "Piso-Camión"
+    when "Traspaleo" then "Camión-Camión"
+    when "Reacomodo" then "Reacomodo"
+    end
   end
 
   def location_changed_for_types?
