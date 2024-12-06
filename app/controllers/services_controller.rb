@@ -3,27 +3,32 @@ class ServicesController < ApplicationController
 
   # GET /services or /services.json
   def index
+    authorize current_user, :index?, policy_class: ServicePolicy
     @services = Service.where(container_id: nil)
   end
 
   # GET /services/1 or /services/1.json
   def show
+    authorize current_user, :show?, policy_class: ServicePolicy
     @container = Container.find(params[:container_id]) if params[:container_id]
   end
 
   # GET /services/new
   def new
+    authorize current_user, :create?, policy_class: ServicePolicy
     @service = Service.new
     @container = Container.find(params[:container_id]) if params[:container_id]
   end
 
   # GET /services/1/edit
   def edit
+    authorize current_user, :update?, policy_class: ServicePolicy
     @container = @service.container || Container.find_by(id: params[:container_id])
   end
 
   # POST /services or /services.json
   def create
+    authorize current_user, :create?, policy_class: ServicePolicy
     @service = Service.new(service_params)
 
     respond_to do |format|
@@ -39,6 +44,7 @@ class ServicesController < ApplicationController
 
   # PATCH/PUT /services/1 or /services/1.json
   def update
+    authorize current_user, :update?, policy_class: ServicePolicy
     respond_to do |format|
       if @service.update(service_params)
         format.html { redirect_to @service, notice: "Service actualizado exitosamente." }
@@ -52,6 +58,7 @@ class ServicesController < ApplicationController
 
   # DELETE /services/1 or /services/1.json
   def destroy
+    authorize current_user, :destroy?, policy_class: ServicePolicy
     @service.destroy!
 
     respond_to do |format|
