@@ -115,7 +115,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_21_080641) do
     t.bigint "service_id", null: false
     t.decimal "price", precision: 10, scale: 2
     t.integer "grace_period_days"
-    t.integer "start_delay"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["service_id"], name: "index_pricings_on_service_id"

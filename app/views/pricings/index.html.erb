@@ -26,7 +26,6 @@
         <th class="px-2 border">Nombre</th>
         <th class="px-2 border">Precio</th>
         <th class="px-2 border">Dias de Gracia</th>
-        <th class="px-2 border">Inicia en:</th>
         <th class="px-2 border">Actions</th>
       </tr>
     </thead>
@@ -37,7 +36,6 @@
           <td class="px-2 border"><%= pricing.service.name %></td>
           <td class="px-2 border"><%= pricing.price %></td>
           <td class="px-2 border"><%= pricing.grace_period_days %></td>
-          <td class="px-2 border"><%= pricing.start_delay %> día</td>
           <td class="px-2 border text-center">
             <%= link_to "Show", pricing, class: "text-indigo-600 hover:text-indigo-900" %> |
             <%= link_to "Edit", edit_pricing_path(pricing), class: "text-indigo-600 hover:text-indigo-900" %> | 

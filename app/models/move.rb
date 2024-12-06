@@ -35,7 +35,7 @@ class Move < ApplicationRecord
 
   def create_regular_service(service_name)
     # Find the service template
-    service_template = Service.find_by(name: move_type_to_service_name)
+    service_template = Service.find_by(name: move_type_to_service_name, container_id: nil)
 
     pricing = container.user.pricings.find_by(user_id: container.user.id, service_id: Service.find_by(name: move_type_to_service_name).id)
 

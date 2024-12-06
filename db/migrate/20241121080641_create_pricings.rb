@@ -5,7 +5,6 @@ class CreatePricings < ActiveRecord::Migration[7.2]
       t.references :service, null: false, foreign_key: true
       t.decimal :price, precision: 10, scale: 2
       t.integer :grace_period_days
-      t.integer :start_delay
 
       t.timestamps
     end

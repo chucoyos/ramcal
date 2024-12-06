@@ -6,14 +6,12 @@ class StayServiceCalculator
 
   def calculate_charge
     entry_move = @stay_container.moves.find_by(move_type: "Entrada")
-
     # Default values if pricing is nil
-    start_delay = @stay_pricing&.start_delay || 1
     grace_period_days = @stay_pricing&.grace_period_days || 15
-    daily_rate = @stay_pricing&.price || Service.find_by(name: "Almacenaje")&.charge || 0
+    daily_rate = @stay_pricing&.price || Service.find_by(name: "Almacenaje", container_id: nil)&.charge || 0
 
     # Calculate the stay duration
-    stay_start = entry_move.created_at.to_date + start_delay.days
+    stay_start = entry_move.created_at.to_date
     stay_end = Date.today
     stay_duration = (stay_end - stay_start).to_i
 

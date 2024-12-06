@@ -67,6 +67,6 @@ class PricingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def pricing_params
-      params.require(:pricing).permit(:user_id, :service_id, :price, :grace_period_days, :start_delay)
+      params.require(:pricing).permit(:user_id, :service_id, :price, :grace_period_days)
     end
 end
