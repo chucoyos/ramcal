@@ -17,16 +17,16 @@
   </div>
 
   <div class="my-5">
-  <%= form.label :service_id, "Servicio" %>
-  <%= form.collection_select(
-    :service_id,
-    @services,
-    :id,
-    :name,
-    { prompt: "Seleccione el servicio" },
-    class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full"
-  ) %>
-</div>
+    <%= form.label :service_id, "Servicio" %>
+    <%= form.collection_select(
+      :service_id,
+      @services,
+      :id,
+      :name,
+      { prompt: "Seleccione el servicio" },
+      class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full"
+    ) %>
+  </div>
 
 
   <div class="my-5">

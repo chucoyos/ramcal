@@ -34,23 +34,35 @@ class Move < ApplicationRecord
   end
 
   def create_regular_service(service_name)
-    # Find the service template
-    service_template = Service.find_by(name: move_type_to_service_name, container_id: nil)
+    # Ensure the service name is derived from the move type
+    service_name = move_type_to_service_name
 
-    pricing = container.user.pricings.find_by(user_id: container.user.id, service_id: Service.find_by(name: move_type_to_service_name).id)
+    # Retrieve the service and service ID
+    service = Service.find_by(name: service_name, container_id: nil)
+    service_id = service&.id
 
-    # Determine the charge (client-specific or default)
-    charge = pricing&.price || service_template&.charge || 0
+    # Find client-specific pricing
+    pricing = container.user&.pricings&.find_by(service_id: service_id)
 
-    # Create the service for this container
+    # Determine the charge (prioritize client-specific pricing, then service template charge, fallback to 0)
+    charge = pricing&.price || service&.charge || 0
+
+    # Raise an error if the service is not properly defined
+    unless service
+      Rails.logger.error "Service not found for name: #{service_name}"
+      raise ActiveRecord::RecordNotFound, "Service not found for name: #{service_name}"
+    end
+
+    # Create the service for the container
     self.container.services.create!(
-      name: move_type_to_service_name,
-      charge: pricing&.price || charge,
+      name: service_name,
+      charge: charge,
       invoiced: false,
       start_date: Date.today,
       end_date: Date.today
     )
   end
+
 
   def create_stay_service
     entry_move = container.moves.find_by(move_type: "Entrada")
@@ -87,7 +99,8 @@ class Move < ApplicationRecord
 
   def location_changed_for_types?
     # Check if the location has changed for Traspaleo or Lavado moves
-    (move_type == "Traspaleo" || move_type == "Lavado") && location_id_changed?
+    # (move_type == "Traspaleo" || move_type == "Lavado") && location_id_changed?
+    (move_type == "Traspaleo" || move_type == "Lavado" || move_type == "Reacomodo") && location_id_changed?
   end
 
   # Validation to ensure no moves are allowed after a "Salida"
@@ -111,7 +124,7 @@ class Move < ApplicationRecord
     previous_move = container.moves.where.not(id: id).order(created_at: :desc).first
     return unless previous_move&.location
 
-    previous_move.location.update!(available: true)
+    previous_move.location.update!(available: true) if previous_move.location != location
   end
 
   # Ensure the location is available before assigning it
