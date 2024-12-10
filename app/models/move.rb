@@ -25,7 +25,7 @@ class Move < ApplicationRecord
   def create_related_service
       # Map move_type to service name
       case move_type
-      when "Entrada", "Traspaleo", "Reacomodo"
+      when "Entrada", "Traspaleo", "Lavado"
         create_regular_service(move_type_to_service_name)
       when "Salida"
         create_regular_service("Piso-Camión")
@@ -93,7 +93,7 @@ class Move < ApplicationRecord
     when "Entrada" then "Camión-Piso"
     when "Salida" then "Piso-Camión"
     when "Traspaleo" then "Camión-Camión"
-    when "Reacomodo" then "Reacomodo"
+    when "Lavado" then "Lavado"
     end
   end
 
