@@ -1,5 +1,5 @@
 class Move < ApplicationRecord
-  MOVE_TYPES = %w[Entrada Salida Reacomodo Traspaleo Lavado].freeze
+  MOVE_TYPES = %w[Entrada Reacomodo Traspaleo Lavado Salida].freeze
 
   belongs_to :created_by, class_name: "User", optional: true
   belongs_to :location, optional: true
