@@ -37,7 +37,7 @@
               <td class="border border-gray-300 px-4 py-2"><%= service.start_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></td>
               <td class="border border-gray-300 px-4 py-2"><%= service.end_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></td>
               <td class="border border-gray-300 px-4 py-2"><%= service.invoiced %></td>
-              <td class="border border-gray-300 px-4 py-2"><%= service.charge %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(service.charge, unit: "$", precision: 2) %></td>
               <td class="border border-gray-300 px-4 py-2">
                 <%= link_to "Ver", service, class: "underline" %> |
                 <%= link_to "Editar", edit_service_path(service), class: "underline" %> |
