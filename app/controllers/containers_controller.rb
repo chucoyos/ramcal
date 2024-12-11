@@ -107,6 +107,14 @@ class ContainersController < ApplicationController
     filter_by(:cargo_owner, "cargo_owner")
     filter_by_move_type if params[:move_type].present?
     filter_by_user if params[:user_id].present?
+    filter_by_in_yard if params[:in_yard] == "1"
+  end
+
+  def filter_by_in_yard
+    @containers = @containers
+    .joins(:moves)
+    .where(moves: { move_type: "Entrada" })
+    .where.not(id: Container.joins(:moves).where(moves: { move_type: "Salida" }))
   end
 
   def filter_by_date
