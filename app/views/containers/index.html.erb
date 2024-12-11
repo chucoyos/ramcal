@@ -62,19 +62,19 @@
       <div class="lg:flex items-center gap-4 my-4">
         <!-- Per Page Selection -->
         <div class="w-full lg:w-1/4 lg:mt-2">
-          <div class="flex flex-col lg:flex-row items-start gap-2">
+          <div class="flex flex-col lg:flex-row items-start gap-2 w-full">
             <label for="per_page" class="text-sm font-semibold text-gray-700 hidden"><%= f.label :per_page, "Mostrar" %></label>
             <%= f.select :per_page, 
                   options_for_select([10, 25, 50, 100, 500], params[:per_page]), 
                   {}, 
-                  class: "rounded border-gray-300 shadow-sm focus:ring focus:ring-blue-300 w-full lg:w-auto"
+                  class: "rounded border-gray-300 shadow-sm focus:ring focus:ring-blue-300 w-full cursor-pointer"
             %>
           </div>
         </div>
       
         <!-- In Yard Checkbox -->
-        <div class="input-group flex mt-2 items-center border rounded-lg px-4 py-2 shadow-sm w-full lg:w-1/6">
-          <%= f.check_box :in_yard, { class: "form-checkbox text-blue-600 rounded focus:ring focus:ring-blue-300" }, "1", "0" %>
+        <div class="input-group flex mt-2 items-center border rounded-lg px-4 py-2 shadow-sm w-full lg:w-1/6 ">
+          <%= f.check_box :in_yard, { class: "form-checkbox text-blue-600 rounded focus:ring focus:ring-blue-300 cursor-pointer" }, "1", "0" %>
           <label for="in_yard" class="ml-2 text-sm font-semibold text-gray-700"><%= f.label :in_yard, "En patio" %></label>
         </div>
       </div>
