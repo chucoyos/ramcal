@@ -45,22 +45,28 @@
 
     <div class="my-5">
       <%= form.label "Estado de carga" %>
-      <%= form.select :status, options_for_select([["Vacío", "Vacío"], ["Lleno", "Lleno"]], form.object.status), { prompt: "Selecciona el estado" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", required: true %>
+      <%= form.select :status, 
+                      options_for_select([["Vacío", "Vacío"], ["Lleno", "Lleno"]], @previous_move&.status),
+                      { prompt: "Selecciona el estado" },
+                      class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", 
+                      required: true %>
     </div>
 
     <div class="my-5">
       <%= form.label "Modo" %>
-      <%= form.select :mode, options_for_select([["Full", "Full"], ["Sencillo", "Sencillo"]], form.object.mode), { prompt: "Selecciona el modo" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      <%= form.select :mode, options_for_select([["Full", "Full"], ["Sencillo", "Sencillo"]], @previous_move&.mode), { prompt: "Selecciona el modo" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
 
     <div class="my-5">
       <%= form.label "Número de candado" %>
-      <%= form.text_field :seal, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      <%= form.text_field :seal, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
+                          value: @previous_move&.seal %>
     </div>
 
     <div class="my-5">
       <%= form.label "Notas" %>
-      <%= form.text_area :notes, rows: 4, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      <%= form.text_area :notes, rows: 4, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
+                         value: @previous_move&.notes %>
     </div>
 
     <div class="flex flex-col gap-2 my-5 border border-gray-400 outline-none px-2 py-3 rounded">

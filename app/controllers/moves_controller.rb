@@ -45,6 +45,7 @@ class MovesController < ApplicationController
     authorize current_user, :create?, policy_class: MovePolicy
     @container = Container.find(params[:container_id])
     @move = Move.new(container_id: @container&.id)
+    @previous_move = @container.moves.last
     @current_location = @container.moves.last&.location
     @available_locations = if @current_location
       Location.available.or(Location.where(id: @current_location.id))
