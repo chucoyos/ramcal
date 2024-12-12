@@ -30,7 +30,7 @@
         </div>
         <div class="input-group">
           <%= f.label :move_type, "Movimiento" %>
-          <%= f.select :move_type, options_for_select([["Entrada", "Entrada"], ["Salida", "Salida"], ["Reacomodo", "Reacomodo"]]), { prompt: "Selecciona" }, class: "form-control" %>
+          <%= f.select :move_type, options_for_select(Move::MOVE_TYPES), { prompt: "Selecciona" }, class: "form-control" %>
         </div>
       </div>
 
