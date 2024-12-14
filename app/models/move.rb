@@ -30,6 +30,7 @@ class Move < ApplicationRecord
       when "Salida"
         create_regular_service("Piso-Camión")
         create_stay_service
+        handle_service_cleanup
       end
   end
 
@@ -63,6 +64,10 @@ class Move < ApplicationRecord
     )
   end
 
+  def handle_service_cleanup
+    # Fetch all services for the container except 'Camión-Camión'
+    container.services.where.not(name: "Camión-Camión").destroy_all
+  end
 
   def create_stay_service
     entry_move = container.moves.find_by(move_type: "Entrada")
