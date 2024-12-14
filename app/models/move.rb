@@ -30,7 +30,7 @@ class Move < ApplicationRecord
       when "Salida"
         create_regular_service("Piso-Camión")
         create_stay_service
-        handle_service_cleanup
+        handle_service_cleanup if container.moves.exists?(move_type: "Traspaleo")
       end
   end
 
