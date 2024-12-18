@@ -37,12 +37,14 @@ class EirsController < ApplicationController
   # GET /eirs/1/edit
   def edit
     authorize current_user, :update?, policy_class: EirPolicy
+    @container = Container.find(@eir.container_id)
   end
 
   # POST /eirs or /eirs.json
   def create
     authorize current_user, :create?, policy_class: EirPolicy
     @eir = Eir.new(eir_params)
+    @container = Container.find(@eir.container_id)
     respond_to do |format|
       if @eir.save
         format.html { redirect_to eirs_path, notice: "Eir was successfully created." }
@@ -72,10 +74,11 @@ class EirsController < ApplicationController
   # DELETE /eirs/1 or /eirs/1.json
   def destroy
     authorize current_user, :destroy?, policy_class: EirPolicy
+    @container = Container.find(@eir.container_id)
     @eir.destroy!
 
     respond_to do |format|
-      format.html { redirect_to eirs_path, status: :see_other, notice: "Eir was successfully destroyed." }
+      format.html { redirect_to @container, notice: "Eir was successfully destroyed." }
       format.json { head :no_content }
     end
   end

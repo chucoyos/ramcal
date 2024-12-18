@@ -15,6 +15,7 @@
     </div>
   </div>
 
+  <%# Services for large screen %>
   <div class="hidden lg:flex lg:flex-col gap-4 mt-4">
     <h2 class="text-center">Servicios del Contenedor</h2>
     <p class="text-center"><%= @container.number %></p>
@@ -38,10 +39,16 @@
               <td class="border border-gray-300 px-4 py-2"><%= service.end_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></td>
               <td class="border border-gray-300 px-4 py-2"><%= service.invoiced %></td>
               <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(service.charge, unit: "$", precision: 2) %></td>
-              <td class="border border-gray-300 px-4 py-2">
-                <%= link_to "Ver", service, class: "underline" %> |
-                <%= link_to "Editar", edit_service_path(service), class: "underline" %> |
-                <%= link_to "Eliminar", service, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este servicio?" }, class: "underline" %>
+              <td class="border border-gray-300 px-4 py-2 text-center">
+                <%= link_to service do %>
+                  <%= material_icon.shape(:visibility) %>
+                <% end %>
+                <%= link_to edit_service_path(service) do %>
+                  <%= material_icon.shape(:edit) %>
+                <% end %>
+                <%= link_to service, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este servicio?" } do %>
+                  <%= material_icon.shape(:delete) %>
+                <% end %>
               </td>
             </tr>
           <% end %>
@@ -52,9 +59,10 @@
      <%= link_to "Nuevo Servicio", new_service_path(container_id: @container.id), class: "btn-primary" %>
     </div>
   </div>
+  <%# end services for large devices %>
 
  
-
+  <%# services for small devices  %>
   <div class="lg:hidden flex flex-col gap-4 mt-4 mx-auto w-full my-5">
     <h2 class="text-center">Servicios del Contenedor</h2>
     <div class="flex flex-col gap-4">
@@ -89,6 +97,54 @@
      <%= link_to "Nuevo Servicio", new_service_path(container_id: @container.id), class: "btn-primary my-5" %>
     </div>
   </div>
+  <%# end services for small devices %>
+
+  <%# eirs for large devices %>
+  <div class="hidden lg:flex lg:flex-col gap-4 mt-4">
+    <h2 class="text-center">EIRs del Contenedor</h2>
+    <div class="flex flex-col gap-4">
+      <table class="table-auto my-5 border-collapse border border-gray-300 w-full">
+        <thead>
+          <tr class="bg-blue-200">
+            <th class="border border-gray-300 px-4 py-2">Fecha</th>
+            <th class="border border-gray-300 px-4 py-2">Operador</th>
+            <th class="border border-gray-300 px-4 py-2">Transporte</th>
+            <th class="border border-gray-300 px-4 py-2">Placa</th>
+            <th class="border border-gray-300 px-4 py-2">Económico</th>
+            <th class="border border-gray-300 px-4 py-2">Pesado</th>
+            <th class="border border-gray-300 px-4 py-2">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @eirs.each do |eir| %>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2"><%= eir.created_at&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= eir.operator %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= eir.transport %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= eir.plate %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= eir.fleet_number %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= eir.heavy %></td>
+              <td class="border border-gray-300 px-4 py-2 text-center">
+                <%= link_to eir do %>
+                  <%= material_icon.shape(:cloud_download) %>
+                <% end %>
+
+                <%= link_to eir, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este EIR?" } do %>
+                  <%= material_icon.shape(:delete) %>
+                <% end %>
+              </td>
+                
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div>
+     <%= link_to "Nuevo EIR", new_eir_path(container_id: @container.id), class: "btn-primary" %>
+    </div>
+  </div>
+  <%# end eirs for large devices %>
+
 
 
 </div>

@@ -28,6 +28,7 @@ class ContainersController < ApplicationController
   def show
     authorize current_user, :show?, policy_class: ContainerPolicy
     @services = @container.services
+    @eirs = @container.eirs
   end
 
   # GET /containers/new
