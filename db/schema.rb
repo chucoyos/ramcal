@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_21_080641) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_18_085413) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_21_080641) do
     t.string "cargo_owner"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_containers_on_created_at"
     t.index ["user_id"], name: "index_containers_on_user_id"
   end
 
@@ -86,6 +87,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_21_080641) do
     t.bigint "created_by_id"
     t.index ["container_id"], name: "index_moves_on_container_id"
     t.index ["location_id"], name: "index_moves_on_location_id"
+    t.index ["move_type"], name: "index_moves_on_move_type"
   end
 
   create_table "notifications", force: :cascade do |t|
