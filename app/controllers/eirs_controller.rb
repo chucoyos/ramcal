@@ -6,8 +6,8 @@ class EirsController < ApplicationController
   def index
     authorize current_user, :index?, policy_class: EirPolicy
     if current_user.role.name == "cliente"
-      # @eirs = Eir.joins(container: :user).where("users.id = ?", current_user.id).order(created_at: :desc).page(params[:page]).per(5)
-      @eirs = Eir.includes(container: :user).where("users.id = ?", current_user.id).order(created_at: :desc).page(params[:page]).per(5)
+      @eirs = Eir.joins(container: :user).where("users.id = ?", current_user.id).order(created_at: :desc).page(params[:page]).per(5)
+      # @eirs = Eir.includes(container: :user).where("users.id = ?", current_user.id).order(created_at: :desc).page(params[:page]).per(5)
     else
       # @eirs = Eir.order(created_at: :desc).page(params[:page]).per(5)
       @eirs = Eir.includes(container: :user).order(created_at: :desc).page(params[:page]).per(5)
