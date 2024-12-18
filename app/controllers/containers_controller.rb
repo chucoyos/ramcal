@@ -94,9 +94,12 @@ class ContainersController < ApplicationController
 
   def base_container_scope
     if current_user.role.name == "cliente"
-      Container.where(user_id: current_user.id)
+      # Container.where(user_id: current_user.id)
+      current_user.containers.includes(:user, :eirs, moves: :location)
     else
-      Container.all
+      # Container.all.includes(:moves)
+      # Container.includes(:moves, :eirs, :user)
+      Container.includes(:user, :eirs, moves: :location)
     end
   end
 

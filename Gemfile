@@ -51,6 +51,7 @@ group :development do
   gem "web-console"
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", "6.2.2", require: false
+  gem "bullet"
 end
 
 group :test do

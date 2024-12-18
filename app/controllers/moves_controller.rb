@@ -6,9 +6,11 @@ class MovesController < ApplicationController
   def index
     authorize current_user, :index?, policy_class: MovePolicy
     if current_user.role.name == "cliente"
-      @moves = Move.joins(:container).where(containers: { user_id: current_user.id }).order(created_at: :desc).page(params[:page]).per(10)
+      # @moves = Move.joins(:container).where(containers: { user_id: current_user.id }).order(created_at: :desc).page(params[:page]).per(10)
+      @moves = Move.includes(container: :user).where(containers: { user_id: current_user.id }).order(created_at: :desc).page(params[:page]).per(10)
     else
-      @moves = Move.order(created_at: :desc).page(params[:page]).per(10)
+      # @moves = Move.order(created_at: :desc).page(params[:page]).per(10)
+      @moves = Move.includes(container: :user).order(created_at: :desc).page(params[:page]).per(10)
     end
     if params[:number].present?
       @moves = @moves.joins(:container).where("containers.number ILIKE ?", "%#{params[:number]}%").page(params[:page]).per(10)
