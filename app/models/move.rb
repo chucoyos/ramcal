@@ -19,8 +19,26 @@ class Move < ApplicationRecord
   after_save :mark_location_unavailable, if: -> { location.present? && (move_type == "Entrada" || move_type == "Reacomodo" || location_changed_for_types?) }
   after_save :mark_location_available, if: -> { location.present? && move_type == "Salida" }
   after_create :create_related_service
+  after_create :set_up_invoice, if: -> { move_type == "Salida" }
 
   private
+
+  def set_up_invoice
+    user = container.user
+    services = container.services.where(invoiced: false)
+
+    nil unless user && services.any?
+
+    invoice = Invoice.create!(
+      user: user,
+      total: services.sum(&:charge),
+      status: "Pending",
+      issue_date: Date.today,
+      due_date: Date.today + 30.days
+    )
+
+    services.each { |service| service.update!(invoice: invoice, invoiced: true) }
+  end
 
   def create_related_service
       # Map move_type to service name

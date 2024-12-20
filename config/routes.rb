@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :invoices
   resources :pricings
   resources :services
   get "location", to: "moves#search_locations"
