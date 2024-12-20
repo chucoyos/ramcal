@@ -1,26 +1,26 @@
 <div id="<%= dom_id invoice %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1">User:</strong>
-    <%= invoice.user_id %>
+    <strong class="block font-medium mb-1">Ciente:</strong>
+    <%= invoice.user.full_name %>
   </p>
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Total:</strong>
-    <%= invoice.total %>
+    <%= number_to_currency(invoice.total) %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Status:</strong>
+    <strong class="block font-medium mb-1"> Pago:</strong>
     <%= invoice.status %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Issue date:</strong>
+    <strong class="block font-medium mb-1">Emisión:</strong>
     <%= invoice.issue_date %>
   </p>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Due date:</strong>
+    <strong class="block font-medium mb-1">Límite de Pago</strong>
     <%= invoice.due_date %>
   </p>
 

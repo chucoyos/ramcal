@@ -1,9 +1,14 @@
 class InvoicesController < ApplicationController
   before_action :set_invoice, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /invoices or /invoices.json
   def index
-    @invoices = Invoice.all
+    if current_user.role.name == "cliente"
+      @invoices = current_user.invoices
+    else
+      @invoices = Invoice.includes(:user).all
+    end
   end
 
   # GET /invoices/1 or /invoices/1.json

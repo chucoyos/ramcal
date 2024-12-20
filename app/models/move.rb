@@ -32,7 +32,7 @@ class Move < ApplicationRecord
     invoice = Invoice.create!(
       user: user,
       total: services.sum(&:charge),
-      status: "Pending",
+      status: "Pendiente",
       issue_date: Date.today,
       due_date: Date.today + 30.days
     )
