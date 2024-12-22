@@ -1,8 +1,11 @@
 <div id="<%= dom_id invoice %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Ciente:</strong>
-    <%= invoice.user.full_name %>
-  </p>
+  
+  <%if current_user.role.name != "cliente" %>
+    <p class="my-5">
+      <strong class="block font-medium mb-1">Cliente:</strong>
+      <%= invoice.user.full_name %>
+    </p>
+  <% end %>
 
   <p class="my-5">
     <strong class="block font-medium mb-1">Total:</strong>

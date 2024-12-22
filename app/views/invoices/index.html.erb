@@ -7,7 +7,8 @@
     <%= link_to "New invoice", new_invoice_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
-  <div id="invoices" class="min-w-full">
+  <%# Small devices %>
+  <div id="invoices" class="lg:hidden flex flex-col gap-4 mt-4 mx-auto w-full my-5">
     <% @invoices.each do |invoice| %>
       <%= render invoice %>
       <p>
@@ -15,4 +16,43 @@
       </p>
     <% end %>
   </div>
+  <%# End small devices %>
+
+  <%# Large devices table for invoices %>
+  <div class="hidden lg:flex lg:flex-col gap-4 mt-4">
+    <table class="table-auto my-5 border-collapse border border-gray-300 w-full">
+      <thead>
+        <tr class="bg-blue-200">
+          <% if current_user.role.name != "cliente" %>
+            <th class="border border-gray-300 px-4 py-2">Cliente</th>
+          <% end %>
+          <th class="border border-gray-300 px-4 py-2">Pago</th>
+          <th class="border border-gray-300 px-4 py-2">Emisión</th>
+          <th class="border border-gray-300 px-4 py-2">Vencimiento</th>
+          <th class="border border-gray-300 px-4 py-2">Total</th>
+          <th class="border border-gray-300 px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @invoices.each do |invoice| %>
+          <tr class="hover:bg-gray-100">
+            <% if current_user.role.name != "cliente" %>
+              <td class="border border-gray-300 px-4 py-2"><%= invoice.user.full_name %></td>
+            <% end %>
+            <td class="border border-gray-300 px-4 py-2"><%= invoice.status %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= invoice.issue_date %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= invoice.due_date %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(invoice.total) %></td>
+            <td class="border border-gray-300 px-4 py-2">
+              <%= link_to "Show", invoice, class: "underline mr-2" %>
+              <%= link_to "Edit", edit_invoice_path(invoice), class: "underline mr-2" %>
+              <%= link_to "Delete", invoice, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "underline text-red-500" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%# End large devices table for invoices %>
+
 </div>
