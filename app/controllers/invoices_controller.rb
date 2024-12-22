@@ -5,10 +5,11 @@ class InvoicesController < ApplicationController
   # GET /invoices or /invoices.json
   def index
     if current_user.role.name == "cliente"
-      @invoices = current_user.invoices
+      @invoices = current_user.invoices.order(created_at: :desc).page(params[:page]).per(10)
     else
-      @invoices = Invoice.includes(:user).all
+      @invoices = Invoice.includes(:user).order(user_id: :asc, created_at: :desc).page(params[:page]).per(10)
     end
+    apply_filters!
   end
 
   # GET /invoices/1 or /invoices/1.json
@@ -63,6 +64,20 @@ class InvoicesController < ApplicationController
   end
 
   private
+    def apply_filters!
+      if params[:user_id].present?
+        @invoices = @invoices.where(user_id: params[:user_id])
+      end
+      if params[:status].present?
+        @invoices = @invoices.where(status: params[:status])
+      end
+      if params[:issue_date].present?
+        @invoices = @invoices.where("DATE(issue_date) = ?", params[:issue_date])
+      end
+      if params[:due_date].present?
+        @invoices = @invoices.where("DATE(due_date) = ?", params[:due_date])
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_invoice
       @invoice = Invoice.find(params[:id])
