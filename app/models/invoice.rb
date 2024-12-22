@@ -5,7 +5,7 @@ class Invoice < ApplicationRecord
 
   validates :user_id, presence: true
   validates :status, inclusion: { in: %w[ Pendiente Pagada Vencida ] }
-  after_destroy_commit :update_services
+  before_destroy :update_services
 
   private
 
