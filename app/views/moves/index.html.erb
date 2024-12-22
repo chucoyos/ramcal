@@ -130,8 +130,12 @@
                 <% end %>
               </td>
               <td class="flex items-center border px-2 py-4">
-                <%= link_to "Ver", move, class: "underline text-blue-900" %> |
-                <%= link_to "Eliminar", move, data: { turbo_confirm: "¿Estás seguro?", turbo_method: :delete }, class: "underline text-blue-900" %>
+                <%= link_to move, class: "underline text-blue-600" do %>
+                  <%= material_icon.shape(:visibility) %>
+                <% end %>
+                <%= link_to move, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este movimiento?" }, class: "text-red-600" do %>
+                  <%= material_icon.shape(:delete) %>
+                <% end %>
               </td>
             </tr>
           <% end %>

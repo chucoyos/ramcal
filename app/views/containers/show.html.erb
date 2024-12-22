@@ -40,13 +40,13 @@
               <td class="border border-gray-300 px-4 py-2"><%= service.invoiced %></td>
               <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(service.charge, unit: "$", precision: 2) %></td>
               <td class="border border-gray-300 px-4 py-2 text-center">
-                <%= link_to service do %>
+                <%= link_to service, class: "text-blue-600" do %>
                   <%= material_icon.shape(:visibility) %>
                 <% end %>
-                <%= link_to edit_service_path(service) do %>
+                <%= link_to edit_service_path(service), class: "text-blue-600" do %>
                   <%= material_icon.shape(:edit) %>
                 <% end %>
-                <%= link_to service, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este servicio?" } do %>
+                <%= link_to service, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este servicio?" }, class: "text-red-600" do %>
                   <%= material_icon.shape(:delete) %>
                 <% end %>
               </td>
@@ -125,11 +125,11 @@
               <td class="border border-gray-300 px-4 py-2"><%= eir.fleet_number %></td>
               <td class="border border-gray-300 px-4 py-2"><%= eir.heavy %></td>
               <td class="border border-gray-300 px-4 py-2 text-center">
-                <%= link_to eir do %>
+                <%= link_to eir, class: "text-blue-600" do %>
                   <%= material_icon.shape(:cloud_download) %>
                 <% end %>
 
-                <%= link_to eir, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este EIR?" } do %>
+                <%= link_to eir, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este EIR?" }, class: "text-red-600" do %>
                   <%= material_icon.shape(:delete) %>
                 <% end %>
               </td>

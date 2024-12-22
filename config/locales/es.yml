@@ -1,0 +1,4 @@
+es:
+  date:
+    formats:
+      short_month: "%d/%b/%Y"

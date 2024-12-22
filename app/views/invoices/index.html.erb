@@ -1,4 +1,4 @@
-<div class="w-full mx-auto lg:w-3/4 p-2">
+<div class="w-full mx-auto lg:w-3/4 py-2">
 
   <% content_for :title, "Invoices" %>
 
@@ -26,6 +26,7 @@
           <% if current_user.role.name != "cliente" %>
             <th class="border border-gray-300 px-4 py-2">Cliente</th>
           <% end %>
+          <th class="border border-gray-300 px-4 py-2">Contenedor</th>
           <th class="border border-gray-300 px-4 py-2">Pago</th>
           <th class="border border-gray-300 px-4 py-2">Emisión</th>
           <th class="border border-gray-300 px-4 py-2">Vencimiento</th>
@@ -39,14 +40,20 @@
             <% if current_user.role.name != "cliente" %>
               <td class="border border-gray-300 px-4 py-2"><%= invoice.user.full_name %></td>
             <% end %>
+            <td class="border border-gray-300 px-4 py-2 underline text-blue-900">
+              <%= link_to invoice.services.first.container.number, invoice.services.first&.container %>
+            </td>
             <td class="border border-gray-300 px-4 py-2"><%= invoice.status %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= invoice.issue_date %></td>
-            <td class="border border-gray-300 px-4 py-2"><%= invoice.due_date %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= invoice.issue_date.strftime("%d/%m/%y") %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= invoice.due_date.strftime("%d/%m/%y") %></td>
             <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(invoice.total) %></td>
             <td class="border border-gray-300 px-4 py-2">
-              <%= link_to "Show", invoice, class: "underline mr-2" %>
-              <%= link_to "Edit", edit_invoice_path(invoice), class: "underline mr-2" %>
-              <%= link_to "Delete", invoice, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "underline text-red-500" %>
+              <%= link_to edit_invoice_path(invoice), class: "text-blue-600" do %>
+                <%= material_icon.shape(:edit) %>
+              <% end %>
+              <%= link_to invoice, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar esta factura?" }, class: "text-red-600" do %>
+                <%= material_icon.shape(:delete) %>
+              <% end %>
             </td>
           </tr>
         <% end %>
