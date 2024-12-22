@@ -26,7 +26,7 @@
             <th class="border border-gray-300 px-4 py-2">Servicio</th>
             <th class="border border-gray-300 px-4 py-2">Inicio</th>
             <th class="border border-gray-300 px-4 py-2">Fin</th>
-            <th class="border border-gray-300 px-4 py-2">Invoiced</th>
+            <th class="border border-gray-300 px-4 py-2">Facturado</th>
             <th class="border border-gray-300 px-4 py-2">Cargo</td>
             <th class="border border-gray-300 px-4 py-2">Acciones</td>
           </tr>
@@ -37,7 +37,13 @@
               <td class="border border-gray-300 px-4 py-2"><%= service.name %></td>
               <td class="border border-gray-300 px-4 py-2"><%= service.start_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></td>
               <td class="border border-gray-300 px-4 py-2"><%= service.end_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></td>
-              <td class="border border-gray-300 px-4 py-2"><%= service.invoiced %></td>
+              <td class="border border-gray-300 px-4 py-2 text-center">
+                <% if service.invoiced %>
+                  <%= material_icon.shape(:check) %>
+                <% else %>
+                  <%= material_icon.shape(:close) %>
+                <% end %>
+              </td>
               <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(service.charge, unit: "$", precision: 2) %></td>
               <td class="border border-gray-300 px-4 py-2 text-center">
                 <%= link_to service, class: "text-blue-600" do %>
@@ -55,8 +61,9 @@
         </tbody>
       </table>
     </div>
-    <div>
+    <div class="flex justify-between px-2">
      <%= link_to "Nuevo Servicio", new_service_path(container_id: @container.id), class: "btn-primary" %>
+     <%= button_to "Facturar", create_invoice_container_services_container_path(@container), method: :post, class: "btn-primary", data: { turbo_confirm: "¿Facturar todos los servicios del contenedor?" } %>
     </div>
   </div>
   <%# end services for large devices %>
@@ -82,6 +89,16 @@
               <span><%= service.end_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></span>
             </div>
             <div>
+              <strong>Facturado:</strong>
+              <span>
+                <% if service.invoiced %>
+                  <%= material_icon.shape(:check) %>
+                <% else %>
+                  <%= material_icon.shape(:close) %>
+                <% end %>
+              </span>
+            </div>
+            <div>
               <strong>Cargo:</strong>
               <span><%= service.charge %></span>
             </div>
@@ -93,8 +110,9 @@
         </div>
       <% end %>
     </div>
-    <div class="px-2">
-     <%= link_to "Nuevo Servicio", new_service_path(container_id: @container.id), class: "btn-primary my-5" %>
+    <div class="flex flex-col gap-2 px-2">
+      <%= link_to "Nuevo Servicio", new_service_path(container_id: @container.id), class: "btn-primary w-1/2" %>
+      <%= button_to "Facturar", create_invoice_container_services_container_path(@container), method: :post, class: "btn-primary", data: { turbo_confirm: "¿Facturar todos los servicios del contenedor?" } %>
     </div>
   </div>
   <%# end services for small devices %>

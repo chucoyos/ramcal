@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   resources :moves
 
   resources :eirs
-  resources :containers
+  resources :containers do
+    post :create_invoice_container_services, on: :member
+  end
   resources :permissions
   resources :roles
 

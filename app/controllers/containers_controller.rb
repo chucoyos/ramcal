@@ -1,6 +1,28 @@
 class ContainersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_container, only: %i[ show edit update destroy ]
+  before_action :set_container, only: %i[ show edit update destroy create_invoice_container_services ]
+
+  def create_invoice_container_services
+    services = @container.services.where(invoiced: false)
+
+    if services.any?
+      invoice = Invoice.create!(
+        user: @container.user,
+        total: services.sum(&:charge),
+        status: "Pendiente",
+        issue_date: Date.today,
+        due_date: Date.today + 30.days
+      )
+
+      services.each { |service| service.update!(invoice: invoice, invoiced: true) }
+
+      flash[:notice] = "Factura creada exitosamente."
+    else
+      flash[:alert] = "No se encontraron servicios pendientes para facturar."
+    end
+
+    redirect_to @container
+  end
 
   # GET /containers or /containers.json
   def index
