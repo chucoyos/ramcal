@@ -56,7 +56,7 @@ class PaymentsController < ApplicationController
     @payment.destroy!
 
     respond_to do |format|
-      format.html { redirect_to payments_path, status: :see_other, notice: "Payment was successfully destroyed." }
+      format.html { redirect_to invoices_path, status: :see_other, notice: "El pago se eliminó correctamente." }
       format.json { head :no_content }
     end
   end

@@ -6,8 +6,15 @@ class InvoicesController < ApplicationController
   def index
     if current_user.role.name == "cliente"
       @invoices = current_user.invoices.order(created_at: :desc).page(params[:page]).per(10)
+      # @payments = current_user.invoices.payments.order(invoice_id: :asc, created_at: :desc).page(params[:page]).per(10)
+      # @payments = Payment.includes(invoice: { user: {}, services: :container }).order(invoice_id: :asc, created_at: :desc).page(params[:page]).per(10)
+      @payments = Payment.includes(invoice: { services: :container })
+                   .where(invoice_id: current_user.invoices.select(:id))
+                   .order(invoice_id: :asc, created_at: :desc)
+                   .page(params[:page]).per(10)
     else
       @invoices = Invoice.includes(:user).order(user_id: :asc, created_at: :desc).page(params[:page]).per(10)
+      @payments = Payment.includes(:invoice).order(invoice_id: :asc, created_at: :desc).page(params[:page]).per(10)
     end
     apply_filters!
   end

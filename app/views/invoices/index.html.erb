@@ -2,13 +2,14 @@
 
   <% content_for :title, "Invoices" %>
 
-  <div class="flex justify-center items-center">
+  <div class="flex items-center">
     <h1 class="font-bold text-4xl">Estados de Cuenta</h1>
   </div>
 
   <%# Start search form for filters def apply_filters! %>
 
   <div class="border rounded p-4 bg-blue-50 my-8 shadow">
+    <h2 class="text-lg font-semibold">Filtrar Estados de Cuenta</h2>
     <%= form_with url: invoices_path, method: :get do |f| %>
       <div class="flex flex-col lg:flex-row gap-2">
         <% if current_user.role.name != "cliente" %>
@@ -58,7 +59,7 @@
   <%# End small devices %>
 
   <%# Large devices table for invoices %>
-  <div class="hidden lg:flex lg:flex-col gap-4 mt-4">
+  <div class="hidden lg:flex lg:flex-col gap-4 mt-4 bg-blue-50 p-4 rounded-lg my-8">
     <div class="my-4 flex justify-evenly items-center gap-4 border bg-blue-50 rounded-lg px-6 py-4">
       <%= paginate @invoices %>
     </div>
@@ -93,10 +94,10 @@
               <%= link_to new_payment_path(invoice_id: invoice.id), class: "text-indigo-600", title: "Registrar Pago" do %>
                 <%= material_icon.shape(:payment) %>
               <% end %>
-              <%= link_to edit_invoice_path(invoice), class: "text-blue-600", title: "Editar" do %>
+              <%= link_to edit_invoice_path(invoice), class: "text-blue-600", title: "Editar", title: "Editar estado de cuenta" do %>
                 <%= material_icon.shape(:edit) %>
               <% end %>
-              <%= link_to invoice, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar esta factura?" }, class: "text-red-600", title: "Eliminar" do %>
+              <%= link_to invoice, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar esta factura?" }, class: "text-red-600", title: "Eliminar estado de cuenta" do %>
                 <%= material_icon.shape(:delete) %>
               <% end %>
             </td>
@@ -106,5 +107,43 @@
     </table>
   </div>
   <%# End large devices table for invoices %>
+
+  <%# Payments table for large devices %>
+  <h3 class="font-bold text-4xl">Pagos</h3>
+
+  <div class="hidden lg:flex lg:flex-col gap-4 mt-4 bg-blue-50 p-4 rounded-lg">
+    <table class="table-auto my-5 border-collapse border border-gray-300 w-full">
+      <thead>
+        <tr class="bg-blue-200">
+          <th class="border border-gray-300 px-4 py-2">Cliente</th>
+          <th class="border border-gray-300 px-4 py-2">Estado de Cuenta</th>
+          <th class="border border-gray-300 px-4 py-2">Fecha de Pago</th>
+          <th class="border border-gray-300 px-4 py-2">Monto</th>
+          <th class="border border-gray-300 px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @payments.each do |payment| %>
+          <tr class="hover:bg-gray-100">
+            <td class="border border-gray-300 px-4 py-2"><%= payment.invoice.user.full_name %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= payment.invoice.services.first.container.number %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= payment.payment_date.strftime("%d/%m/%y") %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(payment.amount) %></td>
+            <td class="border border-gray-300 px-4 py-2">
+              <%= link_to edit_payment_path(payment), class: "text-blue-600", title: "Editar", title: "Editar pago" do %>
+                <%= material_icon.shape(:edit) %>
+              <% end %>
+              <%= link_to payment, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este pago?" }, class: "text-red-600", title: "Eliminar pago" do %>
+                <%= material_icon.shape(:delete) %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="my-4 flex justify-evenly items-center gap-4 border bg-blue-50 rounded-lg px-6 py-4">
+      <%= paginate @payments %>
+    </div>
+  </div>
 
 </div>

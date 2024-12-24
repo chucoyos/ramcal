@@ -19,7 +19,7 @@
 
     <div class="my-5">
       <%= form.label "Pesado" %>
-      <%= form.select :heavy, options_for_select([["Pesado", "Pesado"], ["Normal", "Normal"]], form.object.heavy), { prompt: "Selecciona pesado si irá adelante en el full" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", required: true %>
+      <%= form.select :heavy, options_for_select([["Pesado", "Pesado"], ["Normal", "Normal"]], form.object.heavy), { prompt: "Selecciona pesado si irá adelante en el full" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", title: "El pesado irá al frente y el normal atrás en el full", required: true %>
     </div>
 
     <div class="my-5">
