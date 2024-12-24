@@ -24,9 +24,9 @@
     <%= form.date_field :payment_date, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :payment_means %>
-    <%= form.text_field :payment_means, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+  <div class="my-5 flex flex-col">
+    <%= form.label "Forma de Pago" %>
+    <%= form.collection_select :payment_means, Payment::MEANS, :to_s, :humanize, {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="inline">

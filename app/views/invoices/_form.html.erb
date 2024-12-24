@@ -11,19 +11,17 @@
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+  <%# hidden field for :user_id %>
+  <%= form.hidden_field :user_id, value: current_user.id %>
 
   <div class="my-5">
     <%= form.label :total %>
     <%= form.text_field :total, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="my-5">
+  <div class="my-5 flex flex-col">
     <%= form.label :status %>
-    <%= form.collection_select :status, Invoice::STATUSES, :to_s, :humanize, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.collection_select :status, Invoice::STATUSES, :to_s, :humanize, {}, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="my-5">
