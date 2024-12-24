@@ -6,20 +6,7 @@
     <h1 class="font-bold text-4xl">Estados de Cuenta</h1>
   </div>
 
-  <%# Start search form for filters def apply_filters!
-      if params[:user_id].present?
-        @invoices = @invoices.where(user_id: params[:user_id])
-      end
-      if params[:status].present?
-        @invoices = @invoices.where(status: params[:status])
-      end
-      if params[:issue_date].present?
-        @invoices = @invoices.where(issue_date: params[:issue_date])
-      end
-      if params[:due_date].present?
-        @invoices = @invoices.where(due_date: params[:due_date])
-      end
-    end %>
+  <%# Start search form for filters def apply_filters! %>
 
   <div class="border rounded p-4 bg-blue-50 my-8 shadow">
     <%= form_with url: invoices_path, method: :get do |f| %>
@@ -103,10 +90,13 @@
             <td class="border border-gray-300 px-4 py-2"><%= invoice.due_date.strftime("%d/%m/%y") %></td>
             <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(invoice.total) %></td>
             <td class="border border-gray-300 px-4 py-2">
-              <%= link_to edit_invoice_path(invoice), class: "text-blue-600" do %>
+              <%= link_to new_payment_path(invoice_id: invoice.id), class: "text-indigo-600", title: "Registrar Pago" do %>
+                <%= material_icon.shape(:payment) %>
+              <% end %>
+              <%= link_to edit_invoice_path(invoice), class: "text-blue-600", title: "Editar" do %>
                 <%= material_icon.shape(:edit) %>
               <% end %>
-              <%= link_to invoice, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar esta factura?" }, class: "text-red-600" do %>
+              <%= link_to invoice, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar esta factura?" }, class: "text-red-600", title: "Eliminar" do %>
                 <%= material_icon.shape(:delete) %>
               <% end %>
             </td>

@@ -79,7 +79,7 @@
         </div>
       </div>
 
-      <%= f.submit "Buscar", class: "btn-primary" do %>
+      <%= f.submit "Filtrar", class: "btn-primary" do %>
         <%= material_icon.shape(:search) %>
       <% end %>
 
@@ -91,7 +91,10 @@
     <%= paginate @containers %>
   </div>
 
-  <%= link_to containers_path(request.query_parameters.merge(format: :xlsx)), class: "btn-primary flex items-center justify-center w-1/2 lg:w-1/5 ml-auto lg:mb-2 mb-2"  do %>
+  <%= link_to containers_path(
+        request.query_parameters.merge(format: :xlsx)), 
+        class: "btn-primary flex items-center justify-center w-1/2 lg:w-1/5 ml-auto lg:mb-2 mb-2", 
+        title: "Exportar a Excel" do %>
     <%= material_icon.shape(:download) %>
     <span>Excel</span>
   <% end %>
@@ -150,7 +153,7 @@
                 <% end %>
               </td>
               <td class="border px-2 text-center">
-                <%= link_to container, class: "text-blue-600" do %>
+                <%= link_to container, class: "text-blue-600", title: "Ver detalles" do %>
                   <%= material_icon.shape(:visibility) %>
                 <% end %>
               </td>

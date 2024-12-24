@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_20_053238) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_24_035422) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -110,6 +110,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_20_053238) do
     t.index ["move_id"], name: "index_notifications_on_move_id"
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.bigint "invoice_id", null: false
+    t.decimal "amount", precision: 10, scale: 2
+    t.date "payment_date"
+    t.string "payment_means"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invoice_id"], name: "index_payments_on_invoice_id"
+  end
+
   create_table "permissions", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -183,6 +193,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_20_053238) do
   add_foreign_key "moves", "containers"
   add_foreign_key "moves", "locations"
   add_foreign_key "notifications", "moves"
+  add_foreign_key "payments", "invoices"
   add_foreign_key "pricings", "services"
   add_foreign_key "pricings", "users"
   add_foreign_key "services", "containers"

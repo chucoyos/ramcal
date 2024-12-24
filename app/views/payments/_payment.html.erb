@@ -1,0 +1,22 @@
+<div id="<%= dom_id payment %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Folio:</strong>
+    <%= payment.invoice_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Monto:</strong>
+    <%= payment.amount %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Fecha de Pago:</strong>
+    <%= payment.payment_date %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Medio de Pago:</strong>
+    <%= payment.payment_means %>
+  </p>
+
+</div>
