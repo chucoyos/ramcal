@@ -4,10 +4,9 @@ class InvoicesController < ApplicationController
 
   # GET /invoices or /invoices.json
   def index
+    authorize current_user, :index?, policy_class: InvoicePolicy
     if current_user.role.name == "cliente"
       @invoices = current_user.invoices.order(created_at: :desc).page(params[:page]).per(10)
-      # @payments = current_user.invoices.payments.order(invoice_id: :asc, created_at: :desc).page(params[:page]).per(10)
-      # @payments = Payment.includes(invoice: { user: {}, services: :container }).order(invoice_id: :asc, created_at: :desc).page(params[:page]).per(10)
       @payments = Payment.includes(invoice: { services: :container })
                    .where(invoice_id: current_user.invoices.select(:id))
                    .order(invoice_id: :asc, created_at: :desc)
@@ -21,19 +20,23 @@ class InvoicesController < ApplicationController
 
   # GET /invoices/1 or /invoices/1.json
   def show
+    authorize current_user, :show?, policy_class: InvoicePolicy
   end
 
   # GET /invoices/new
   def new
+    authorize current_user, :create?, policy_class: InvoicePolicy
     @invoice = Invoice.new
   end
 
   # GET /invoices/1/edit
   def edit
+    authorize current_user, :update?, policy_class: InvoicePolicy
   end
 
   # POST /invoices or /invoices.json
   def create
+    authorize current_user, :create?, policy_class: InvoicePolicy
     @invoice = Invoice.new(invoice_params)
 
     respond_to do |format|
@@ -49,6 +52,7 @@ class InvoicesController < ApplicationController
 
   # PATCH/PUT /invoices/1 or /invoices/1.json
   def update
+    authorize current_user, :update?, policy_class: InvoicePolicy
     respond_to do |format|
       if @invoice.update(invoice_params)
         format.html { redirect_to @invoice, notice: "Invoice was successfully updated." }
@@ -62,6 +66,7 @@ class InvoicesController < ApplicationController
 
   # DELETE /invoices/1 or /invoices/1.json
   def destroy
+    authorize current_user, :destroy?, policy_class: InvoicePolicy
     @invoice.destroy!
 
     respond_to do |format|
