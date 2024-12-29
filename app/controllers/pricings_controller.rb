@@ -4,7 +4,7 @@ class PricingsController < ApplicationController
   # GET /pricings or /pricings.json
   def index
     authorize current_user, :index?, policy_class: PricingPolicy
-    @pricings = Pricing.all.order(:user_id)
+    @pricings = Pricing.includes(:user, :service).order(:user_id)
   end
 
   # GET /pricings/1 or /pricings/1.json
