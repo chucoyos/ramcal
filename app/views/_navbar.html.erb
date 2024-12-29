@@ -8,19 +8,13 @@
           </li>
         <% end %>
 
-        <%= link_to users_path do %>
+        <%= link_to invoices_path do %>
           <li class="flex flex-col items-center">
-            <%= material_icon.shape(:people_outline) %>
-            <span class="text-sm">Users</span>
+            <%= material_icon.shape(:receipt_long) %>
+            <span class="text-sm">Fact</span>
           </li>
         <% end %>
 
-        <%= link_to roles_path do %>
-          <li class="flex flex-col items-center">
-            <%= material_icon.shape(:engineering) %>
-            <span class="text-sm">Roles</span>
-          </li>
-        <% end %>
 
         <%= link_to containers_path do %>
           <li class="flex flex-col items-center">
@@ -49,6 +43,13 @@
           <li class="flex flex-col items-center">
             <%= material_icon.shape(:notifications) %>
             <span class="text-sm">Notif</span>
+          </li>
+        <% end %>
+
+        <%= link_to settings_path do %>
+          <li class="flex flex-col items-center">
+            <%= material_icon.shape(:settings) %>
+            <span class="text-sm">Config</span>
           </li>
         <% end %>
 

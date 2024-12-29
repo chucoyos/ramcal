@@ -2,9 +2,8 @@
 
   <% content_for :title, "Invoices" %>
 
-  <div class="flex items-center">
-    <h1 class="font-bold text-4xl">Estados de Cuenta</h1>
-  </div>
+  <h1 class="font-bold text-4xl">Estados de Cuenta</h1>
+ 
 
   <%# Start search form for filters def apply_filters! %>
 
@@ -44,6 +43,8 @@
   </div>
   <%# End search form for filters %>
 
+  <h3 class="font-bold text-3xl">Estados de Cuenta</h3>
+
   <%# Small devices %>
   <div id="invoices" class="lg:hidden flex flex-col gap-4 mt-4 mx-auto w-full p-4">
     <div class="my-4 flex justify-evenly items-center gap-4 border bg-blue-50 rounded-lg px-6 py-4">
@@ -60,9 +61,7 @@
 
   <%# Large devices table for invoices %>
   <div class="hidden lg:flex lg:flex-col gap-4 mt-4 bg-blue-50 p-4 rounded-lg my-8">
-    <div class="my-4 flex justify-evenly items-center gap-4 border bg-blue-50 rounded-lg px-6 py-4">
-      <%= paginate @invoices %>
-    </div>
+    
     <table class="table-auto my-5 border-collapse border border-gray-300 w-full">
       <thead>
         <tr class="bg-blue-200">
@@ -105,11 +104,14 @@
         <% end %>
       </tbody>
     </table>
+    <div class="my-4 flex justify-evenly items-center gap-4 border bg-blue-50 rounded-lg px-6 py-4">
+      <%= paginate @invoices %>
+    </div>
   </div>
   <%# End large devices table for invoices %>
 
   <%# Payments table for large devices %>
-  <h3 class="font-bold text-4xl">Pagos</h3>
+  <h3 class="font-bold text-3xl">Pagos</h3>
 
   <div class="hidden lg:flex lg:flex-col gap-4 mt-4 bg-blue-50 p-4 rounded-lg">
     <table class="table-auto my-5 border-collapse border border-gray-300 w-full">
