@@ -3,27 +3,32 @@ class PaymentsController < ApplicationController
 
   # GET /payments or /payments.json
   def index
+    authorize current_user, :index?, policy_class: PaymentPolicy
     @payments = Payment.all
   end
 
   # GET /payments/1 or /payments/1.json
   def show
+    authorize current_user, :show?, policy_class: PaymentPolicy
   end
 
   # GET /payments/new
   def new
+    authorize current_user, :create?, policy_class: PaymentPolicy
     @payment = Payment.new(invoice_id: params[:invoice_id])
     @invoice = Invoice.find(params[:invoice_id])
   end
 
   # GET /payments/1/edit
   def edit
+    authorize current_user, :update?, policy_class: PaymentPolicy
     @payment = Payment.find(params[:id])
     @invoice = @payment.invoice
   end
 
   # POST /payments or /payments.json
   def create
+    authorize current_user, :create?, policy_class: PaymentPolicy
     @payment = Payment.new(payment_params)
     @invoice = @payment.invoice
 
@@ -40,6 +45,7 @@ class PaymentsController < ApplicationController
 
   # PATCH/PUT /payments/1 or /payments/1.json
   def update
+    authorize current_user, :update?, policy_class: PaymentPolicy
     respond_to do |format|
       if @payment.update(payment_params)
         format.html { redirect_to @payment, notice: "Payment was successfully updated." }
@@ -53,6 +59,7 @@ class PaymentsController < ApplicationController
 
   # DELETE /payments/1 or /payments/1.json
   def destroy
+    authorize current_user, :destroy?, policy_class: PaymentPolicy
     @payment.destroy!
 
     respond_to do |format|

@@ -11,6 +11,10 @@ class ContainerPolicy < ApplicationPolicy
     @record = record
   end
 
+  def create_invoice_container_services?
+    user.role.name == "administrador" || user.role.permissions.where(name: "crear servicios").any?
+  end
+
   def index?
     user.role.name == "administrador" || user.role.permissions.where(name: "ver contenedores").any?
   end

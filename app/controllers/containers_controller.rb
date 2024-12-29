@@ -3,6 +3,7 @@ class ContainersController < ApplicationController
   before_action :set_container, only: %i[ show edit update destroy create_invoice_container_services ]
 
   def create_invoice_container_services
+    authorize current_user, :create_invoice_container_services?, policy_class: ContainerPolicy
     services = @container.services.where(invoiced: false)
 
     if services.any?
