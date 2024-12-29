@@ -3,26 +3,32 @@
   <div class="flex flex-wrap gap-4 justify-center rounded-lg bg-gray-200 p-4">
 
     <%= link_to users_path do %>
-      <div class="flex flex-col gap-4 text-lg items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1 w-1/3">
+      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1 w-1/3">
           <%= material_icon.shape(:people_outline) %>
-        <span class="text-md font-bold">Usuarios</span>
-        <span class="text-sm">Administra usuarios y clientes</span>
+        <div class="flex flex-col items-center">
+          <span class="font-bold text-lg">Usuarios</span>
+          <span class="text-sm">Administra usuarios y clientes</span>
+        </div>
       </div>
     <% end %>
 
     <%= link_to roles_path do %>
-      <div class="flex flex-col gap-4 text-lg items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1 w-1/3">
+      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1 w-1/3">
           <%= material_icon.shape(:engineering) %>
-        <span class="text-md font-bold">Roles</span>
-        <span class="text-sm">Añade, edita o elimina roles d</span>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold">Roles</span>
+          <span class="text-sm">Añade, edita o elimina roles d</span>
+        </div>
       </div>
     <% end %>
 
     <%= link_to permissions_path do %>
-      <div class="flex flex-col gap-4 text-lg items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1 w-1/3">
+      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1 w-1/3">
           <%= material_icon.shape(:lock_open) %>
-        <span class="text-md font-bold">Permisos</span>
-        <span class="text-sm">Administra permisos de usuario</span>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold">Permisos</span>
+          <span class="text-sm">Administra permisos de usuario</span>
+        </div>
       </div>
     <% end %>
   
@@ -32,26 +38,32 @@
   <div class="flex flex-wrap gap-4 justify-center rounded-lg bg-gray-200 p-4">
 
     <%= link_to services_path do %>
-      <div class="flex flex-col gap-4 text-lg items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1 w-1/3">
+      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1 w-1/3">
           <%= material_icon.shape(:handyman) %>
-        <span class="text-md font-bold">Servicios</span>
-        <span class="text-sm">Administra los servicios prest</span>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold">Servicios</span>
+          <span class="text-sm">Administra los servicios prest</span>
+        </div>
       </div>
     <% end %>
 
     <%= link_to pricings_path do %>
-      <div class="flex flex-col gap-4 text-lg items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1 w-1/3">
+      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1 w-1/3">
           <%= material_icon.shape(:price_check) %>
-        <span class="text-md font-bold">Precios</span>
-        <span class="text-sm">Añade, edita o elimina precios</span>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold">Precios</span>
+          <span class="text-sm">Añade, edita o elimina precios</span>
+        </div>
       </div>
     <% end %>
 
     <%= link_to locations_path do %>
-      <div class="flex flex-col gap-4 text-lg items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1 w-1/3">
+      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1 w-1/3">
           <%= material_icon.shape(:pin_drop) %>
-        <span class="text-md font-bold">Ubicaciones</span>
-        <span class="text-sm">Añade, edita o elimina ubicaci</span>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold">Ubicaciones</span>
+          <span class="text-sm">Añade, edita o elimina ubicaci</span>
+        </div>
       </div>
     <% end %>
 
