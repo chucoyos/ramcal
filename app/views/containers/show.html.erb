@@ -37,7 +37,7 @@
               <td class="border border-gray-300 px-4 py-2"><%= service.name %></td>
               <td class="border border-gray-300 px-4 py-2"><%= service.start_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></td>
               <td class="border border-gray-300 px-4 py-2"><%= service.end_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></td>
-              <td class="border border-gray-300 px-4 py-2 text-center">
+              <td class="border border-gray-300 px-4 py-2 text-center text-blue-600 hover:text-blue-800">
                 <% if service.invoiced %>
                   <%= material_icon.shape(:check) %>
                 <% else %>
@@ -46,15 +46,19 @@
               </td>
               <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(service.charge, unit: "$", precision: 2) %></td>
               <td class="border border-gray-300 px-4 py-2 text-center">
-                <%= link_to service, class: "text-blue-600" do %>
+                <%= link_to service, class: "text-blue-600", title: "Ver" do %>
                   <%= material_icon.shape(:visibility) %>
                 <% end %>
-                <%= link_to edit_service_path(service), class: "text-blue-600" do %>
+                <%= link_to edit_service_path(service), class: "text-blue-600", title: "Editar" do %>
                   <%= material_icon.shape(:edit) %>
                 <% end %>
-                <%= link_to service, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este servicio?" }, class: "text-red-600" do %>
+                <%= link_to service, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este servicio?" }, class: "text-red-600", title: "Eliminar" do %>
                   <%= material_icon.shape(:delete) %>
                 <% end %>
+                <%= link_to service.invoice, class: "text-blue-600", title: "Ver Factura" do %>
+                  <%= material_icon.shape(:receipt_long) %>
+                <% end %>
+
               </td>
             </tr>
           <% end %>

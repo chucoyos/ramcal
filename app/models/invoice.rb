@@ -1,6 +1,7 @@
 class Invoice < ApplicationRecord
   STATUSES = %w[ Pendiente Pagada Vencida ].freeze
   belongs_to :user
+  belongs_to :container
   has_many :services
   has_many :payments, dependent: :destroy
 

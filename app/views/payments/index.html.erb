@@ -21,32 +21,32 @@
     <table class="min-w-full">
       <thead>
         <tr>
-          <th class="text-left">Edo. Cta.</th>
           <th class="text-left">Monto</th>
           <th class="text-left">Fecha de pago</th>
+          <th class="text-left">Forma de pago</th>
           <th class="text-left">Actions</th>
         </tr>
       </thead>
       <tbody>
         <% @payments.each do |payment| %>
           <tr>
-            <td>
-              <%= link_to invoice_path(payment.invoice), class: "text-blue-500" do %>
-                <%= payment.invoice.id %>
-              <% end %>
-            </td>
             <td><%= payment.amount %></td>
             <td><%= payment.payment_date %></td>
+            <td><%= payment.payment_means %></td>
             <td>
-              <%= link_to payment, class: "text-blue-500" do %>
+              <%= link_to payment, class: "text-blue-500", title: "Ver" do %>
                 <i class="material-icons">visibility</i>
               <% end %>
-              <%= link_to edit_payment_path(payment), class: "text-blue-500" do %>
+              <%= link_to edit_payment_path(payment), class: "text-blue-500", title: "Editar" do %>
                 <i class="material-icons">edit</i>
               <% end %>
-              <%= link_to payment, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "text-red-500" do %>
+              <%= link_to payment, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "text-red-500", title: "Eliminar" do %>
                 <i class="material-icons">delete</i>
               <% end %>
+              <%= link_to payment.invoice, class: "text-blue-500", title: "Ver factura" do %>
+                <i class="material-icons">receipt</i>
+              <% end %>
+
             </td>
           </tr>
         <% end %>

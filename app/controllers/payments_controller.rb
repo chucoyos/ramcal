@@ -4,7 +4,11 @@ class PaymentsController < ApplicationController
   # GET /payments or /payments.json
   def index
     authorize current_user, :index?, policy_class: PaymentPolicy
-    @payments = Payment.all
+    if current_user.role.name == "cliente"
+      @payments = Payment.includes(invoice: :container).where(invoices: { user_id: current_user.id })
+    else
+      @payments = Payment.includes(:invoice).all
+    end
   end
 
   # GET /payments/1 or /payments/1.json

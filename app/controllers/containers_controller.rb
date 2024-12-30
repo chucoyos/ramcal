@@ -50,7 +50,7 @@ class ContainersController < ApplicationController
   # GET /containers/1 or /containers/1.json
   def show
     authorize current_user, :show?, policy_class: ContainerPolicy
-    @services = @container.services
+    @services = @container.services.includes(:invoice)
     @eirs = @container.eirs
   end
 

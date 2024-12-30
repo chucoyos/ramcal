@@ -1,5 +1,8 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
+<div class="mx-auto md:w-3/4 w-full flex flex-col gap-4">
+  <h3 class="font-bold text-3xl text-center">Estado de Cuenta</h3>
+
+  <%# small devices %>
+  <div class="mx-auto lg:hidden w-full p-4">
 
     <%= render @invoice %>
 
@@ -9,4 +12,95 @@
       <%= button_to "Destroy this invoice", @invoice, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
     </div>
   </div>
+  <%# End small devices %>
+
+  <%# Large devices table for invoices %>
+  <div class="hidden lg:flex lg:flex-col gap-4 mt-4 bg-blue-50 rounded-lg p-4 mx-auto">
+
+    <table class="table-auto my-5 border-collapse border border-gray-300 w-full">
+      <thead>
+        <tr class="bg-blue-200">
+          <th class="border border-gray-300 px-4 py-2">Folio</th>
+          <% if current_user.role.name != "cliente" %>
+            <th class="border border-gray-300 px-4 py-2">Cliente</th>
+          <% end %>
+          <th class="border border-gray-300 px-4 py-2">Contenedor</th>
+          <th class="border border-gray-300 px-4 py-2">Pago</th>
+          <th class="border border-gray-300 px-4 py-2">Emisión</th>
+          <th class="border border-gray-300 px-4 py-2">Vence</th>
+          <th class="border border-gray-300 px-4 py-2">Total</th>
+          <th class="border border-gray-300 px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="hover:bg-gray-100">
+          <td class="border border-gray-300 px-4 py-2">
+            <%= @invoice.id %>
+          </td>
+          <% if current_user.role.name != "cliente" %>
+            <td class="border border-gray-300 px-4 py-2"><%= @invoice.user.full_name %></td>
+          <% end %>
+          <td class="border border-gray-300 px-4 py-2">
+            <%= link_to @invoice.services.first.container.number, @invoice.services.first.container, class: "underline text-blue-900" %>
+          </td>
+             
+          <td class="border border-gray-300 px-4 py-2"><%= @invoice.status %></td>
+          <td class="border border-gray-300 px-4 py-2"><%= @invoice.issue_date.strftime("%d/%m/%y") %></td>
+          <td class="border border-gray-300 px-4 py-2"><%= @invoice.due_date.strftime("%d/%m/%y") %></td>
+          <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(@invoice.total) %></td>
+          <td class="border border-gray-300 px-4 py-2">
+            <%= link_to new_payment_path(invoice_id: @invoice.id), class: "text-indigo-600", title: "Registrar Pago" do %>
+              <%= material_icon.shape(:payment) %>
+            <% end %>
+            <%= link_to edit_invoice_path(@invoice), class: "text-blue-600", title: "Editar", title: "Editar estado de cuenta" do %>
+              <%= material_icon.shape(:edit) %>
+            <% end %>
+            <%= link_to @invoice, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar esta factura?" }, class: "text-red-600", title: "Eliminar estado de cuenta" do %>
+              <%= material_icon.shape(:delete) %>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <%# Invoice payments table for large devices %>
+  <div class="hidden lg:flex lg:flex-col gap-4 mt-4 bg-blue-50 rounded-lg p-4 mx-auto">
+    <h3 class="font-bold text-3xl text-center">Pagos</h3>
+    <table class="table-auto my-5 border-collapse border border-gray-300 w-full">
+      <thead>
+        <tr class="bg-blue-200">
+          <th class="border border-gray-300 px-4 py-2">Fecha</th>
+          <th class="border border-gray-300 px-4 py-2">Monto</th>
+          <th class="border border-gray-300 px-4 py-2">Forma de Pago</th>
+          <th class="border border-gray-300 px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @invoice.payments.each do |payment| %>
+          <tr class="hover:bg-gray-100">
+            <td class="border border-gray-300 px-4 py-2">
+              <%= payment.payment_date.strftime("%d/%m/%y") %>
+            </td>
+            <td class="border border-gray-300 px-4 py-2">
+              <%= number_to_currency(payment.amount) %>
+            </td>
+            <td class="border border-gray-300 px-4 py-2">
+              <%= payment.payment_means %>
+            </td>
+            <td class="border border-gray-300 px-4 py-2">
+              <%= link_to edit_payment_path(payment), class: "text-blue-600", title: "Editar" do %>
+                <%= material_icon.shape(:edit) %>
+              <% end %>
+              <%= link_to payment, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este pago?" }, class: "text-red-600", title: "Eliminar" do %>
+                <%= material_icon.shape(:delete) %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+
 </div>

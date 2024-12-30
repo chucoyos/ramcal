@@ -1,0 +1,5 @@
+class AddContainerIdToInvoices < ActiveRecord::Migration[7.2]
+  def change
+    add_reference :invoices, :container, foreign_key: true
+  end
+end
