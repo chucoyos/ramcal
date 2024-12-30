@@ -7,24 +7,27 @@ class ContainersController < ApplicationController
     services = @container.services.where(invoiced: false)
 
     if services.any?
-      invoice = Invoice.create!(
+      invoice = Invoice.new(
         user: @container.user,
+        container: @container,
         total: services.sum(&:charge),
         status: "Pendiente",
         issue_date: Date.today,
         due_date: Date.today + 30.days
       )
 
-      services.each { |service| service.update!(invoice: invoice, invoiced: true) }
-
-      flash[:notice] = "Factura creada exitosamente."
+      if invoice.save
+        services.each { |service| service.update(invoice: invoice, invoiced: true) }
+        flash[:notice] = "Factura creada exitosamente."
+      else
+        flash[:alert] = "No se pudo crear la factura: #{invoice.errors.full_messages.join(', ')}"
+      end
     else
       flash[:alert] = "No se encontraron servicios pendientes para facturar."
     end
 
     redirect_to @container
   end
-
   # GET /containers or /containers.json
   def index
     authorize current_user, :index?, policy_class: ContainerPolicy

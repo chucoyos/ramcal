@@ -67,7 +67,7 @@
     </div>
     <div class="flex justify-between px-2">
      <%= link_to "Nuevo Servicio", new_service_path(container_id: @container.id), class: "btn-primary" %>
-     <%= button_to "Facturar", create_invoice_container_services_container_path(@container), method: :post, class: "btn-primary", data: { turbo_confirm: "¿Facturar todos los servicios del contenedor?" } %>
+     <%= button_to "Facturar", create_invoice_container_services_container_path(@container), class: "btn-primary", data: { turbo_method: :post, turbo_confirm: "¿Facturar todos los servicios del contenedor?" } %>
     </div>
   </div>
   <%# end services for large devices %>

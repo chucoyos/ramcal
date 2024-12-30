@@ -21,6 +21,7 @@
     <table class="min-w-full">
       <thead>
         <tr>
+          <th class="text-left">Contenedor</th>
           <th class="text-left">Monto</th>
           <th class="text-left">Fecha de pago</th>
           <th class="text-left">Forma de pago</th>
@@ -30,6 +31,7 @@
       <tbody>
         <% @payments.each do |payment| %>
           <tr>
+            <td><%= payment.invoice.container&.number %></td>
             <td><%= payment.amount %></td>
             <td><%= payment.payment_date %></td>
             <td><%= payment.payment_means %></td>

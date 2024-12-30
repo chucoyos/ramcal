@@ -7,7 +7,7 @@ class PaymentsController < ApplicationController
     if current_user.role.name == "cliente"
       @payments = Payment.includes(invoice: :container).where(invoices: { user_id: current_user.id })
     else
-      @payments = Payment.includes(:invoice).all
+      @payments = Payment.includes(invoice: :container).all
     end
   end
 
