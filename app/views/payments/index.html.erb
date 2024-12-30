@@ -1,11 +1,12 @@
-<div class="w-full lg:w-3/4 mx-auto">
+<div class="w-full lg:w-3/4 mx-auto lg:p-8 p-2">
   <% content_for :title, "Payments" %>
 
   <div class="flex justify-center items-center">
     <h1 class="font-bold text-4xl">Pagos</h1>
   </div>
 
-  <div id="payments" class="min-w-full">
+  <%# Small devices %>
+  <div id="payments" class="min-w-full lg:hidden">
     <% @payments.each do |payment| %>
       <%= render payment %>
       <p>
@@ -13,4 +14,44 @@
       </p>
     <% end %>
   </div>
+
+  <%# Large devices table %>
+  <div id="payments" class="min-w-full
+    hidden lg:flex lg:flex-col lg:items-center lg:justify-center">
+    <table class="min-w-full">
+      <thead>
+        <tr>
+          <th class="text-left">Edo. Cta.</th>
+          <th class="text-left">Monto</th>
+          <th class="text-left">Fecha de pago</th>
+          <th class="text-left">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @payments.each do |payment| %>
+          <tr>
+            <td>
+              <%= link_to invoice_path(payment.invoice), class: "text-blue-500" do %>
+                <%= payment.invoice.id %>
+              <% end %>
+            </td>
+            <td><%= payment.amount %></td>
+            <td><%= payment.payment_date %></td>
+            <td>
+              <%= link_to payment, class: "text-blue-500" do %>
+                <i class="material-icons">visibility</i>
+              <% end %>
+              <%= link_to edit_payment_path(payment), class: "text-blue-500" do %>
+                <i class="material-icons">edit</i>
+              <% end %>
+              <%= link_to payment, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "text-red-500" do %>
+                <i class="material-icons">delete</i>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <%# End large devices view %>
 </div>

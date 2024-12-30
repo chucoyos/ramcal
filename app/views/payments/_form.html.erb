@@ -16,12 +16,12 @@
 
   <div class="my-5">
     <%= form.label :amount %>
-    <%= form.text_field :amount, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.text_field :amount, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", value: @invoice.total %>
   </div>
 
   <div class="my-5">
     <%= form.label :payment_date %>
-    <%= form.date_field :payment_date, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.date_field :payment_date, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", value: Date.today %>
   </div>
 
   <div class="my-5 flex flex-col">
