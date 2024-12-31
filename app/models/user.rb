@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :pricings
   has_many :services, through: :pricings
   has_many :invoices
-  has_many :containers
+  has_many :containers, dependent: :destroy
   validates :email, presence: true, uniqueness: true
   # validates :password, presence: true
   validates :first_name, presence: true
