@@ -5,9 +5,9 @@ class PaymentsController < ApplicationController
   def index
     authorize current_user, :index?, policy_class: PaymentPolicy
     if current_user.role.name == "cliente"
-      @payments = Payment.includes(invoice: :container).where(invoices: { user_id: current_user.id })
+      @payments = Payment.includes(invoice: :container).where(invoices: { user_id: current_user.id }).page(params[:page]).per(10)
     else
-      @payments = Payment.includes(invoice: :container).all
+      @payments = Payment.includes(invoice: :container).all.page(params[:page]).per(10)
     end
   end
 
