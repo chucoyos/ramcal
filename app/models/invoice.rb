@@ -7,11 +7,16 @@ class Invoice < ApplicationRecord
 
   validates :user_id, presence: true
   validates :status, inclusion: { in: %w[ Pendiente Pagada Vencida ] }
-  before_destroy :update_services
+  before_destroy :prevent_destroy
+
+  def clear_services
+    services.update_all(invoice_id: nil, invoiced: false) if services.exists?
+  end
 
   private
 
-  def update_services
-    services.update_all(invoice_id: nil, invoiced: false) if services.exists?
+  def prevent_destroy
+    errors.add(:base, "Debe eliminar los pagos antes de eliminar la factura") if payments.exists?
+    throw(:abort) if errors.present?
   end
 end

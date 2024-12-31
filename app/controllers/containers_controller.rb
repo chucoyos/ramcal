@@ -26,7 +26,7 @@ class ContainersController < ApplicationController
       flash[:alert] = "No se encontraron servicios pendientes para facturar."
     end
 
-    redirect_to @container
+    redirect_to invoice_path(invoice)
   end
   # GET /containers or /containers.json
   def index

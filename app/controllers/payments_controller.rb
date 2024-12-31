@@ -38,7 +38,7 @@ class PaymentsController < ApplicationController
 
     respond_to do |format|
       if @payment.save
-        format.html { redirect_to invoices_path, notice: "Pago registrado correctamente." }
+        format.html { redirect_to @invoice, notice: "El pago se creó correctamente." }
         format.json { render :show, status: :created, location: @payment }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -67,7 +67,8 @@ class PaymentsController < ApplicationController
     @payment.destroy!
 
     respond_to do |format|
-      format.html { redirect_to invoices_path, status: :see_other, notice: "El pago se eliminó correctamente." }
+      # format.html { redirect_to invoices_path, status: :see_other, notice: "El pago se eliminó correctamente." } redirect_to invoice
+      format.html { redirect_to @payment.invoice, status: :see_other, notice: "El pago se eliminó correctamente." }
       format.json { head :no_content }
     end
   end

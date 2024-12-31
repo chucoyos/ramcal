@@ -67,11 +67,23 @@ class InvoicesController < ApplicationController
   # DELETE /invoices/1 or /invoices/1.json
   def destroy
     authorize current_user, :destroy?, policy_class: InvoicePolicy
-    @invoice.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to invoices_path, status: :see_other, notice: "Invoice was successfully destroyed." }
-      format.json { head :no_content }
+    if @invoice.payments.exists?
+      flash[:alert] = "Debe eliminar los pagos antes de eliminar la factura"
+      redirect_to @invoice and return
+    end
+
+    @invoice.clear_services
+    if @invoice.destroy
+      respond_to do |format|
+        format.html { redirect_to invoices_path, status: :see_other, notice: "Se eliminó la factura correctamente." }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to invoices_path, status: :unprocessable_entity, notice: "Np se pudo eliminar la factura" }
+        format.json { render json: @invoice.errors, status: :unprocessable_entity }
+      end
     end
   end
 
