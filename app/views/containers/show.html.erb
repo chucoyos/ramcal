@@ -1,6 +1,8 @@
 <div class="flex flex-col mx-auto md:w-2/3 w-full mb-16">
   <h1 class="text-center">Contenedor</h1>
-  <div class="mx-auto">
+
+  <%# small devices %>
+  <div class="mx-auto lg:hidden">
     <%= render @container %>
     <div class="flex flex-col gap-4 ml-2">
       <div class="">
@@ -14,6 +16,24 @@
       </div>
     </div>
   </div>
+  <%# end small devices %>
+
+  <%# large devices %>
+  <div class="hidden lg:flex lg:flex-col gap-4 mt-4">
+    <%= render @container %>
+    <div class="flex justify-between px-2">
+      <div class="flex gap-4">
+        <%= link_to "<-", containers_path, class: "btn-primary" %>
+        <%= link_to "Editar", edit_container_path(@container), class: "btn-primary" %>
+        <%= link_to "Eliminar", @container, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este contenedor?" }, class: "btn-danger" %>
+      </div>
+      <div class="flex gap-4">
+        <%= link_to "Crear EIR", new_eir_path(container_id: @container.id), class: "btn-primary" %>
+        <%= link_to "Nuevo movimiento", new_move_path(container_id: @container.id), class: "btn-primary" %>
+      </div>
+    </div>
+  </div>
+  <%# end large devices %>
 
   <%# Services for large screen %>
   <div class="hidden lg:flex lg:flex-col gap-4 mt-4">
@@ -39,12 +59,12 @@
               <td class="border border-gray-300 px-4 py-2"><%= service.end_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></td>
               <td class="border border-gray-300 px-4 py-2 text-center text-blue-600">
                 <% if service.invoiced %>
-                  <span class="text-green-600">
-                    <%= material_icon.shape(:check) %>
+                  <span class="text-green-500">
+                    <%= material_icon.shape(:check_circle) %>
                   </span>
                 <% else %>
                   <span class="text-red-600">
-                    <%= material_icon.shape(:close) %>
+                    <%= material_icon.shape(:cancel) %>
                   </span>
                 <% end %>
               </td>
@@ -78,51 +98,68 @@
 
  
   <%# services for small devices  %>
-  <div class="lg:hidden flex flex-col gap-4 mt-4 mx-auto w-full my-5">
-    <h2 class="text-center">Servicios del Contenedor</h2>
-    <div class="flex flex-col gap-4">
-      <% @services.each do |service| %>
-        <div class="border border-gray-300 rounded-md p-4">
-          <div class="flex flex-col gap-2">
+  <div class="lg:hidden flex flex-col gap-6 mt-6 mx-auto w-full">
+  <h2 class="text-center text-2xl font-semibold text-gray-800">Servicios del Contenedor</h2>
+  
+  <div class="flex flex-col gap-6 p-4">
+    <% @services.each do |service| %>
+      <div class="border border-gray-200 rounded-lg shadow-lg p-4 my-2 bg-slate-200">
+        <div class="flex flex-col gap-3">
+          <div>
+            <p class="text-lg text-center font-semibold text-gray-800"><%= service.name %></p>
+          </div>
+          <div class="flex justify-between">
             <div>
-              <strong>Servicio:</strong>
-              <span><%= service.name %></span>
+              <p class="text-sm font-medium text-gray-600">Inicio:</p>
+              <p class="text-gray-800"><%= service.start_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></p>
             </div>
             <div>
-              <strong>Inicio:</strong>
-              <span><%= service.start_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></span>
+              <p class="text-sm font-medium text-gray-600">Fin:</p>
+              <p class="text-gray-800"><%= service.end_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></p>
             </div>
-            <div>
-              <strong>Fin:</strong>
-              <span><%= service.end_date&.in_time_zone("America/Mexico_City")&.strftime("%d/%m/%Y") %></span>
-            </div>
-            <div>
-              <strong>Facturado:</strong>
-              <span>
+          </div>
+
+          <div class="flex justify-between my-2 bg-gray-100 p-2 rounded-lg">
+
+            <div class="flex flex-col gap-2 items-center">
+              <p class="text-sm font-medium text-gray-600">Facturado:</p>
+              <span class="text-lg">
                 <% if service.invoiced %>
-                  <%= material_icon.shape(:check) %>
+                  <i class="text-green-500 material-icons">check_circle</i>
                 <% else %>
-                  <%= material_icon.shape(:close) %>
+                  <i class="text-red-500 material-icons">cancel</i>
                 <% end %>
               </span>
             </div>
-            <div>
-              <strong>Cargo:</strong>
-              <span><%= service.charge %></span>
+
+            <div class="flex flex-col gap-2 items-center">
+              <p class="text-sm font-medium text-gray-600">Cargo:</p>
+              <p class="text-lg font-semibold text-gray-800"><%= number_to_currency(service.charge, unit: "$", precision: 2) %></p>
             </div>
-            <div>
-              <%= link_to "Editar", edit_service_path(service), class: "underline" %>
-              <%= link_to "Eliminar", service, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este servicio?" }, class: "underline ml-2" %>
-            </div>
+
           </div>
+
+          <div class="flex gap-4 p-2 rounded-lg">
+            <%= link_to edit_service_path(service), class: "justify-self-center shadow-lg px-4 py-2 rounded-lg bg-blue-50 text-blue-500" do %>
+              <%= material_icon.shape(:edit) %>
+            <% end %>
+
+            <%= link_to service, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este servicio?" }, class: "justify-self-center shadow-lg px-4 py-2 rounded-lg bg-red-50 text-red-500" do %>
+              <%= material_icon.shape(:delete) %>
+            <% end %>
+          </div>
+
         </div>
-      <% end %>
-    </div>
-    <div class="flex flex-col gap-2 px-2">
-      <%= link_to "Nuevo Servicio", new_service_path(container_id: @container.id), class: "btn-primary w-1/2" %>
-      <%= button_to "Facturar", create_invoice_container_services_container_path(@container), method: :post, class: "btn-primary", data: { turbo_confirm: "¿Facturar todos los servicios del contenedor?" } %>
-    </div>
+      </div>
+    <% end %>
   </div>
+
+  <div class="flex flex-col items-center gap-4 px-4">
+    <%= link_to "Nuevo Servicio", new_service_path(container_id: @container.id), class: "w-full text-center py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700" %>
+    <%= button_to "Facturar", create_invoice_container_services_container_path(@container), method: :post, class: "btn-primary", data: { turbo_confirm: "¿Facturar todos los servicios del contenedor?" } %>
+  </div>
+</div>
+
   <%# end services for small devices %>
 
   <%# eirs for large devices %>
