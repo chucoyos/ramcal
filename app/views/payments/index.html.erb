@@ -47,7 +47,7 @@
             <td class="px-6 py-2 text-sm text-gray-800 border"><%= payment.payment_means %></td>
             <td class="px-6 py-2 flex gap-2 justify-center border">
               <%= link_to payment, class: "text-blue-500 hover:text-blue-800", title: "Ver" do %>
-                <i class="material-icons">visibility</i>
+                <%= material_icon.shape(:visibility) %>
               <% end %>
               <%= link_to edit_payment_path(payment), class: "text-blue-500 hover:text-blue-800", title: "Editar" do %>
                 <%= material_icon.shape(:edit) %>
