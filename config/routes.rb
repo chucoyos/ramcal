@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :roles
 
   root "pages#index"
-  get "settings" => "pages#settings", as: :settings
+  get "catalogs" => "pages#catalogs", as: :catalogs
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
   get "users/new" => "users#new", as: :new_user
   get "users/:id" => "users#show", as: :user

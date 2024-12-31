@@ -2,6 +2,6 @@ class PagesController < ApplicationController
   def index
   end
 
-  def settings
+  def catalogs
   end
 end
