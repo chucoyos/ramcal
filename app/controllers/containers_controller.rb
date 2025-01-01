@@ -19,14 +19,14 @@ class ContainersController < ApplicationController
       if invoice.save
         services.each { |service| service.update(invoice: invoice, invoiced: true) }
         flash[:notice] = "Factura creada exitosamente."
+        redirect_to invoice_path(invoice)
       else
         flash[:alert] = "No se pudo crear la factura: #{invoice.errors.full_messages.join(', ')}"
       end
     else
       flash[:alert] = "No se encontraron servicios pendientes para facturar."
+      redirect_to @container
     end
-
-    redirect_to invoice_path(invoice)
   end
   # GET /containers or /containers.json
   def index
