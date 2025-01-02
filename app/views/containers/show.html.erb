@@ -52,6 +52,7 @@
           </tr>
         </thead>
         <tbody>
+          <% total_charge = 0 %>
           <% @services.each do |service| %>
             <tr>
               <td class="border border-gray-300 px-4 py-2"><%= service.name %></td>
@@ -76,18 +77,34 @@
                 <%= link_to service, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este servicio?" }, class: "text-red-600", title: "Eliminar" do %>
                   <%= material_icon.shape(:delete) %>
                 <% end %>
-                <%= link_to service.invoice, class: "text-blue-600", title: "Ver Factura" do %>
-                  <%= material_icon.shape(:receipt_long) %>
+                <% if service.invoiced %>
+                  <%= link_to service.invoice, class: "text-blue-600", title: "Ver Factura" do %>
+                    <%= material_icon.shape(:receipt_long) %>
+                  <% end %>
+                <% else %>
+                  <span class="text-blue-600">
+                    <%= material_icon.shape(:receipt_long) %>
+                  </span>
                 <% end %>
               </td>
             </tr>
+            <% total_charge += service.charge %>
           <% end %>
         </tbody>
+        <tfoot>
+          <tr class="bg-blue-200">
+            <td colspan="4" class="border border-gray-300 px-4 py-2 text-right font-semibold">Total:</td>
+            <td class="border border-gray-300 px-4 py-2 font-semibold"><%= number_to_currency(total_charge, unit: "$", precision: 2) %></td>
+            <td class="border border-gray-300 px-4 py-2"></td>
+          </tr>
+        </tfoot>
       </table>
     </div>
     <div class="flex justify-between px-2">
      <%= link_to "Nuevo Servicio", new_service_path(container_id: @container.id), class: "btn-primary" %>
-     <%= button_to "Facturar", create_invoice_container_services_container_path(@container), class: "btn-primary", data: { turbo_method: :post, turbo_confirm: "¿Facturar todos los servicios del contenedor?" } %>
+     <% if @services.any? { |service| !service.invoiced } %>
+       <%= button_to "Facturar", create_invoice_container_services_container_path(@container), class: "btn-primary", data: { turbo_method: :post, turbo_confirm: "¿Facturar todos los servicios del contenedor?" } %>
+      <% end %>
     </div>
   </div>
   <%# end services for large devices %>

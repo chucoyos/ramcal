@@ -47,6 +47,10 @@
 
   <%# Large devices table for invoices %>
   <div class="hidden lg:flex lg:flex-col gap-4 mt-4 bg-blue-50 p-4 rounded-lg my-8">
+
+    <div class="my-4 flex justify-evenly items-center gap-4 border bg-blue-50 rounded-lg px-6 py-4">
+      <%= paginate @invoices %>
+    </div>
     
     <table class="table-auto my-5 border-collapse border border-gray-300 w-full">
       <thead>
@@ -58,11 +62,12 @@
           <th class="border border-gray-300 px-4 py-2">Pago</th>
           <th class="border border-gray-300 px-4 py-2">Emisión</th>
           <th class="border border-gray-300 px-4 py-2">Vence</th>
-          <th class="border border-gray-300 px-4 py-2">Total</th>
+          <th class="border border-gray-300 px-4 py-2">Cargo</th>
           <th class="border border-gray-300 px-4 py-2">Actions</th>
         </tr>
       </thead>
       <tbody>
+        <% invoices_total = 0 %>
         <% @invoices.each do |invoice| %>
           <tr class="hover:bg-gray-100">
             <% if current_user.role.name != "cliente" %>
@@ -81,12 +86,25 @@
               <% end %>
             </td>
           </tr>
+          <% invoices_total += invoice.total %>
         <% end %>
       </tbody>
+      <tfoot>
+        <tr class="bg-blue-200">
+          <td class="border border-gray-300 px-4 py-2"></td>
+          <td class="border border-gray-300 px-4 py-2"></td>
+          <td class="border border-gray-300 px-4 py-2"></td>
+          <td class="border border-gray-300 px-4 py-2"></td>
+          <td class="border border-gray-300 px-4 py-2 font-semibold text-center">Total</td>
+          <td class="border border-gray-300 px-4 py-2 font-semibold" colspan="5"><%= number_to_currency(invoices_total) %></td>
+        </tr>
+      </tfoot>
     </table>
+
     <div class="my-4 flex justify-evenly items-center gap-4 border bg-blue-50 rounded-lg px-6 py-4">
       <%= paginate @invoices %>
     </div>
+    
   </div>
   <%# End large devices table for invoices %>
 
@@ -131,8 +149,8 @@
               </div>
 
               <div class="flex flex-col gap-2 items-center">
-                <p class="text-sm font-medium text-gray-600">Total:</p>
-                <p class="text-lg font-semibold text-gray-800"><%= number_to_currency(invoice.total) %></p>
+                <p class="text-sm font-medium text-gray-600">Saldo:</p>
+                <p class="text-lg font-semibold text-gray-800"><%= number_to_currency(invoice.total-invoice.payments.sum(:amount)) %></p>
               </div>
             </div>
 
