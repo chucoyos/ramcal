@@ -113,11 +113,11 @@
     <% end %>
   </div>
 
-  <div class="hidden lg:flex flex-col gap-4">
+  <div class="hidden lg:flex flex-col gap-4 bg-white shadow-md rounded-lg p-6">
     <% if @containers.empty? %>
       <p class="text-gray-600">No hay resultados para la búsqueda</p>
     <% else %>
-      <table class="table-auto w-full">
+      <table class="table-auto w-full border-collapse border border-gray-300 rounded-lg shadow-lg">
         <thead class="bg-slate-200">
           <tr>
             <th class="px-2">Cliente</th>
