@@ -71,13 +71,13 @@
     </div>
 
     <!-- Desktop view for moves -->
-    <div class="my-4 flex justify-center border bg-blue-50 rounded-lg px-6 py-2">
+    <div class="my-4 flex justify-center bg-blue-50 rounded-lg px-6 py-2 border border-gray-300 rounded-lg shadow">
       <%= paginate @moves %>
     </div>
 
     <div class="hidden lg:flex flex-col gap-4 bg-white shadow-md rounded-lg p-6">
       <table class="table-auto w-full border-collapse border border-gray-300 rounded-lg shadow-lg">
-        <thead class="bg-slate-200">
+        <thead class="bg-blue-50 text-gray-700">
           <tr>
             <th class="border px-2 text-left">Num.</th>
             <th class="border px-2 text-left">Cliente</th>
@@ -108,7 +108,7 @@
                   N/A
                 <% end %>
               </td>
-              <td class="border px-2 py">
+              <td class="border px-2">
                 <% if move.move_type == "Traspaleo" %>
                   <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
                 <% else %>
@@ -142,7 +142,7 @@
         </tbody>
       </table>
     </div>
-    <div class="my-4 flex justify-center border bg-blue-50 rounded-lg px-6 py-2">
+    <div class="my-4 flex justify-center bg-blue-50 rounded-lg px-6 py-2 border border-gray-300 rounded-lg shadow">
       <%= paginate @moves %>
     </div>
     

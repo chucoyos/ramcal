@@ -10,11 +10,11 @@
 
   <% if @users.any? %>
     <div class="hidden lg:flex lg:flex-col">
-      <div class="my-4 flex justify-center border bg-blue-50 rounded-lg px-6 py-2">
+      <div class="my-4 flex justify-center bg-blue-50 rounded-lg px-6 py-2 border border-gray-300 rounded-lg shadow">
         <%= paginate @users %>
       </div>
       <table class="min-w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">
-        <thead class="bg-slate-200">
+        <thead class="bg-blue-50 text-gray-700">
           <tr>
             <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Nombre</th>
             <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">A. Paterno</th>
@@ -39,13 +39,13 @@
           <% end %>
         </tbody>
       </table>
-      <div class="my-4 flex justify-center border bg-blue-50 rounded-lg px-6 py-2">
+      <div class="my-4 flex justify-center bg-blue-50 rounded-lg px-6 py-2 border border-gray-300 rounded-lg shadow">
         <%= paginate @users %>
       </div>
     </div>
 
     <div class="lg:hidden my-8">
-      <div class="my-4 flex justify-center border bg-blue-50 rounded-lg px-6 py-2">
+      <div class="my-4 flex justify-center bg-blue-50 rounded-lg px-6 py-2 border border-gray-300 rounded-lg shadow">
         <%= paginate @users %>
       </div>
       <% @users.each do |user| %>

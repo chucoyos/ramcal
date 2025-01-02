@@ -97,7 +97,7 @@
     <span>Excel</span>
   <% end %>
 
-  <div class="my-4 flex justify-evenly items-center gap-4 border bg-blue-50 rounded-lg px-6 py-4">
+  <div class="my-4 flex justify-center bg-blue-50 rounded-lg px-6 py-2 border border-gray-300 rounded-lg shadow">
     <%= paginate @containers %>
   </div>
 
@@ -118,7 +118,7 @@
       <p class="text-gray-600">No hay resultados para la búsqueda</p>
     <% else %>
       <table class="table-auto w-full border-collapse border border-gray-300 rounded-lg shadow-lg">
-        <thead class="bg-slate-200">
+        <thead class="bg-blue-50 text-gray-700">
           <tr>
             <th class="px-2">Cliente</th>
             <th class="px-2">Numero</th>
@@ -166,6 +166,6 @@
     <% end %>
 </div>
 
-<div class="my-4 flex justify-center border bg-blue-50 rounded-lg px-6 py-2">
+<div class="my-4 flex justify-center bg-blue-50 rounded-lg px-6 py-2 border border-gray-300 rounded-lg shadow">
   <%= paginate @containers %>
 </div>
