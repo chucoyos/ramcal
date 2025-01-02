@@ -73,15 +73,14 @@
         </div>
       
         <!-- In Yard Checkbox -->
-        <div class="input-group flex mt-2 items-center border rounded-lg px-4 py-2 shadow-sm w-full lg:w-1/6 bg-blue-50">
+        <div class="input-group flex mt-2 items-center border rounded-lg px-4 py-2 shadow-sm w-full lg:w-1/6 btn-primary">
+          <label for="in_yard" class="ml-2 text-sm"><%= f.label :in_yard, "En patio" %></label>
           <%= f.check_box :in_yard, { class: "form-checkbox text-blue-600 rounded focus:ring focus:ring-blue-300 cursor-pointer" }, "1", "0" %>
-          <label for="in_yard" class="ml-2 text-sm font-semibold text-gray-700"><%= f.label :in_yard, "En patio" %></label>
         </div>
+          <%= f.submit "Filtrar", class: "btn-primary ml-auto" do %>
+            <%= material_icon.shape(:search) %>
+          <% end %>
       </div>
-
-      <%= f.submit "Filtrar", class: "btn-primary" do %>
-        <%= material_icon.shape(:search) %>
-      <% end %>
 
     <% end %>
   </div>
