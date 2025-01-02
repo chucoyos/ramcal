@@ -3,11 +3,6 @@
   <%= link_to "New pricing", new_pricing_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
 </div>
 <div class="w-full lg:w-3/4 mx-auto lg:hidden px-2">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
-  <% content_for :title, "Pricings" %>
 
   <div id="pricings" class="min-w-full">
     <% @pricings.each do |pricing| %>
@@ -18,7 +13,8 @@
     <% end %>
   </div>
 </div>
-<div class="hidden lg:flex lg:flex-col lg:w-3/4 mx-auto mt-16">
+
+<div class="hidden lg:flex flex-col gap-4 bg-white shadow-md rounded-lg p-6">
   <table class="table table-auto w-full border rounded shadow">
     <thead>
       <tr class="border bg-blue-200">
