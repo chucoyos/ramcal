@@ -10,7 +10,14 @@ class Invoice < ApplicationRecord
   before_destroy :prevent_destroy
 
   def clear_services
-    services.update_all(invoice_id: nil, invoiced: false) if services.exists?
+    if frozen?
+      errors.add(:base, "Cannot clear services for a frozen invoice.")
+      throw(:abort)
+    end
+
+    if services.exists?
+      services.update_all(invoice_id: nil, invoiced: false)
+    end
   end
 
   private

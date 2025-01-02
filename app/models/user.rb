@@ -3,7 +3,7 @@ class User < ApplicationRecord
   scope :clients, -> { joins(:role).where(roles: { name: "cliente" }) }
   has_many :pricings
   has_many :services, through: :pricings
-  has_many :invoices
+  has_many :invoices, dependent: :restrict_with_error
   has_many :containers, dependent: :destroy
   validates :email, presence: true, uniqueness: true
   # validates :password, presence: true

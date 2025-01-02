@@ -54,7 +54,7 @@ class ContainersController < ApplicationController
   def show
     authorize current_user, :show?, policy_class: ContainerPolicy
     @services = @container.services.includes(:invoice)
-    @eirs = @container.eirs
+    @eirs = @container.eirs.order(created_at: :desc)
   end
 
   # GET /containers/new
@@ -109,11 +109,17 @@ class ContainersController < ApplicationController
   # DELETE /containers/1 or /containers/1.json
   def destroy
     authorize current_user, :destroy?, policy_class: ContainerPolicy
-    @container.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to containers_path, status: :see_other, notice: "Contenedor eliminado exitosamente." }
-      format.json { head :no_content }
+    if @container.invoices.exists? || Service.where(container_id: @container.id, invoiced: true).exists?
+      redirect_to @container, alert: "Debe eliminar la factura antes de eliminar el contenedor."
+      return
+    end
+    if @container.destroy
+      respond_to do |format|
+        format.html { redirect_to containers_path, status: :see_other, notice: "Contenedor eliminado exitosamente." }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to containers_path, alert: @container.errors.full_messages.join(", ")
     end
   end
 

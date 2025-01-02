@@ -69,22 +69,13 @@
               <td class="border border-gray-300 px-4 py-2"><%= invoice.user.full_name %></td>
             <% end %>
             <td class="border border-gray-300 px-4 py-2 underline text-blue-900">
-              <%= link_to invoice.services.first.container.number, invoice.services.first&.container %>
+              <%= link_to invoice.services.first&.container&.number || "N/A", invoice.services.first&.container %>
             </td>
             <td class="border border-gray-300 px-4 py-2"><%= invoice.status %></td>
             <td class="border border-gray-300 px-4 py-2"><%= invoice.issue_date.strftime("%d/%m/%y") %></td>
             <td class="border border-gray-300 px-4 py-2"><%= invoice.due_date.strftime("%d/%m/%y") %></td>
             <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(invoice.total) %></td>
-            <td class="border border-gray-300 px-4 py-2">
-              <%= link_to new_payment_path(invoice_id: invoice.id), class: "text-indigo-600", title: "Registrar Pago" do %>
-                <%= material_icon.shape(:payment) %>
-              <% end %>
-              <%= link_to edit_invoice_path(invoice), class: "text-blue-600", title: "Editar", title: "Editar estado de cuenta" do %>
-                <%= material_icon.shape(:edit) %>
-              <% end %>
-              <%= link_to invoice, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar esta factura?" }, class: "text-red-600", title: "Eliminar estado de cuenta" do %>
-                <%= material_icon.shape(:delete) %>
-              <% end %>
+            <td class="border border-gray-300 px-4 py-2 text-center">
               <%= link_to invoice, class: "text-blue-600", title: "Ver Detalles" do %>
                 <%= material_icon.shape(:receipt_long) %>
               <% end %>
@@ -118,7 +109,7 @@
             <div>
               <p class="text-sm font-medium text-gray-600">Contenedor:</p>
               <p class="text-lg underline text-blue-900">
-                <%= link_to invoice.services.first.container.number, invoice.services.first&.container %>
+                <%= link_to invoice.services&.first&.container&.number, invoice.services.first&.container %>
               </p>
             </div>
 

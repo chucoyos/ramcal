@@ -34,7 +34,7 @@
             <td class="border border-gray-300 px-4 py-2"><%= @invoice.user.full_name %></td>
           <% end %>
           <td class="border border-gray-300 px-4 py-2">
-            <%= link_to @invoice.services.first.container.number, @invoice.services.first.container, class: "underline text-blue-900" %>
+            <%= link_to @invoice.services.first&.container&.number, @invoice.services.first&.container, class: "underline text-blue-900" %>
           </td>
              
           <td class="border border-gray-300 px-4 py-2"><%= @invoice.status %></td>

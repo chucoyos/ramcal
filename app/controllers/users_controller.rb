@@ -48,8 +48,11 @@ class UsersController < ApplicationController
   def destroy
     authorize current_user, :destroy?, policy_class: UserPolicy
     @user = User.find(params[:id])
-    @user.destroy
-    redirect_to users_path, notice: "User was successfully deleted."
+    if @user.destroy
+      redirect_to users_path, notice: "User was successfully deleted."
+    else
+      redirect_to users_path, alert: @user.errors.full_messages.to_sentence
+    end
   end
 
   private
