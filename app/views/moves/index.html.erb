@@ -75,61 +75,61 @@
       <%= paginate @moves %>
     </div>
 
-    <div class="hidden lg:flex lg:flex-col gap-2">
-      <table class="table w-full border border-gray-300">
+    <div class="hidden lg:flex flex-col gap-4 bg-white shadow-md rounded-lg p-6">
+      <table class="table-auto w-full border-collapse border border-gray-300 rounded-lg shadow-lg">
         <thead class="bg-slate-200">
           <tr>
-            <th class="border px-2 py-3 text-left">Num.</th>
-            <th class="border px-2 py-3 text-left">Cliente</th>
-            <th class="border px-2 py-3 text-left">Entrada</th>
-            <th class="border px-2 py-3 text-left">Reacomodo</th>
-            <th class="border px-2 py-3 text-left">Traspaleo</th>
-            <th class="border px-2 py-3 text-left">Lavado</th>
-            <th class="border px-2 py-3 text-left">Salida</th>
-            <th class="border px-2 py-3 text-left">Acción</th>
+            <th class="border px-2 text-left">Num.</th>
+            <th class="border px-2 text-left">Cliente</th>
+            <th class="border px-2 text-left">Entrada</th>
+            <th class="border px-2 text-left">Reacomodo</th>
+            <th class="border px-2 text-left">Traspaleo</th>
+            <th class="border px-2 text-left">Lavado</th>
+            <th class="border px-2 text-left">Salida</th>
+            <th class="border px-2 text-left">Acción</th>
           </tr>
         </thead>
         <tbody>
           <% @moves.each do |move| %>
             <tr class="bg-white">
-              <td class="border px-2 py-4"><%= move.container.number %></td>
-              <td class="border px-2 py-4"><%= move.container.user.full_name %></td>
-              <td class="border px-2 py-4">
+              <td class="border px-2"><%= move.container.number %></td>
+              <td class="border px-2"><%= move.container.user.full_name %></td>
+              <td class="border px-2">
                 <% if move.move_type == "Entrada" %>
                   <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
                 <% else %>
                   N/A
                 <% end %>
               </td>
-              <td class="border px-2 py-4">
+              <td class="border px-2">
                 <% if move.move_type == "Reacomodo" %>
                   <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
                 <% else %>
                   N/A
                 <% end %>
               </td>
-              <td class="border px-2 py-4">
+              <td class="border px-2 py">
                 <% if move.move_type == "Traspaleo" %>
                   <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
                 <% else %>
                   N/A
                 <% end %>
               </td>
-              <td class="border px-2 py-4">
+              <td class="border px-2">
                 <% if move.move_type == "Lavado" %>
                   <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
                 <% else %>
                   N/A
                 <% end %>
               </td>
-              <td class="border px-2 py-4">
+              <td class="border px-2">
                 <% if move.move_type == "Salida" %>
                   <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
                 <% else %>
                   N/A
                 <% end %>
               </td>
-              <td class="flex items-center border px-2 py-4">
+              <td class="border px-2 text-center">
                 <%= link_to move, class: "underline text-blue-600" do %>
                   <%= material_icon.shape(:visibility) %>
                 <% end %>
@@ -141,9 +141,9 @@
           <% end %>
         </tbody>
       </table>
-      <div class="my-4 flex justify-center border bg-blue-50 rounded-lg px-6 py-2">
-        <%= paginate @moves %>
-      </div>
+    </div>
+    <div class="my-4 flex justify-center border bg-blue-50 rounded-lg px-6 py-2">
+      <%= paginate @moves %>
     </div>
     
   </div>
