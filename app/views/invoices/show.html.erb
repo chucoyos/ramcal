@@ -1,4 +1,4 @@
-<div class="mx-auto md:w-3/4 w-full flex flex-col gap-4">
+<div class="mx-auto w-full flex flex-col gap-4">
   <h3 class="font-bold text-3xl text-center">Estado de Cuenta</h3>
 
   <%# small devices %>
@@ -8,12 +8,11 @@
   <%# End small devices %>
 
   <%# Large devices table for invoices %>
-  <div class="hidden lg:flex lg:flex-col gap-4 mt-4 bg-blue-50 rounded-lg p-4 mx-auto">
+  <div class="hidden lg:flex flex-col gap-4 bg-white shadow-md rounded-lg p-6">
 
     <table class="table-auto my-5 border-collapse border border-gray-300 w-full">
       <thead>
         <tr class="bg-blue-200">
-          <th class="border border-gray-300 px-4 py-2">Folio</th>
           <% if current_user.role.name != "cliente" %>
             <th class="border border-gray-300 px-4 py-2">Cliente</th>
           <% end %>
@@ -28,9 +27,6 @@
       </thead>
       <tbody>
         <tr class="hover:bg-gray-100">
-          <td class="border border-gray-300 px-4 py-2">
-            <%= @invoice.id %>
-          </td>
           <% if current_user.role.name != "cliente" %>
             <td class="border border-gray-300 px-4 py-2"><%= @invoice.user.full_name %></td>
           <% end %>
@@ -59,7 +55,7 @@
     </table>
   </div>
 
-  <%# Invoice payments table for large devices %>
+  <%# Payments table for large devices %>
   <div class="hidden lg:flex lg:flex-col gap-4 mt-4 bg-blue-50 rounded-lg p-4 mx-auto">
     <h3 class="font-bold text-3xl text-center">Pagos</h3>
     <table class="table-auto my-5 border-collapse border border-gray-300 w-full">
