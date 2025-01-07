@@ -1,12 +1,12 @@
 class Invoice < ApplicationRecord
-  STATUSES = %w[ Pendiente Pagada Vencida ].freeze
+  STATUSES = %w[ Pendiente Pagada Parcial Vencida ].freeze
   belongs_to :user
   belongs_to :container, optional: true
   has_many :services
   has_many :payments, dependent: :destroy
 
   validates :user_id, presence: true
-  validates :status, inclusion: { in: %w[ Pendiente Pagada Vencida ] }
+  validates :status, inclusion: { in: %w[ Pendiente Pagada Parcial Vencida ] }
   before_destroy :prevent_destroy
 
   def clear_services

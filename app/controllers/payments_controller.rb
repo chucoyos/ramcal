@@ -21,6 +21,7 @@ class PaymentsController < ApplicationController
     authorize current_user, :create?, policy_class: PaymentPolicy
     @payment = Payment.new(invoice_id: params[:invoice_id])
     @invoice = Invoice.find(params[:invoice_id])
+    @amount_due = @invoice.total - @invoice.payments.sum(:amount)
   end
 
   # GET /payments/1/edit
@@ -28,6 +29,7 @@ class PaymentsController < ApplicationController
     authorize current_user, :update?, policy_class: PaymentPolicy
     @payment = Payment.find(params[:id])
     @invoice = @payment.invoice
+    @amount_due = @invoice.total - @invoice.payments.sum(:amount)
   end
 
   # POST /payments or /payments.json
