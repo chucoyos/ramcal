@@ -54,6 +54,7 @@
     <table class="table-auto w-full border-collapse border border-gray-300 rounded-lg shadow-lg">
       <thead class="bg-blue-50 text-gray-700">
         <tr>
+          <th class="border border-gray-300 px-4 py-2">Folio</th>
           <% if current_user.role.name != "cliente" %>
             <th class="border border-gray-300 px-4 py-2">Cliente</th>
           <% end %>
@@ -69,6 +70,7 @@
         <% invoices_total = 0 %>
         <% @invoices.each do |invoice| %>
           <tr class="hover:bg-gray-100">
+            <td class="border border-gray-300 px-4 py-2"><%= invoice.id %></td>
             <% if current_user.role.name != "cliente" %>
               <td class="border border-gray-300 px-4 py-2"><%= invoice.user.full_name %></td>
             <% end %>
