@@ -6,8 +6,12 @@
     <div class="flex flex-col gap-3">
       <div>
         <p class="text-sm font-medium text-gray-600">Contenedor:</p>
-        <%= link_to payment.invoice.container do %>
-          <p class="text-lg font-semibold text-blue-600 underline"><%= payment.invoice.container.number %></p>
+        <% if payment.invoice&.container %>
+          <%= link_to payment.invoice.container do %>
+            <p class="text-lg font-semibold text-blue-600 underline"><%= payment.invoice.container.number %></p>
+          <% end %>
+        <% else %>
+          <p class="text-lg font-semibold text-gray-800">Sin contenedor asignado</p>
         <% end %>
       </div>
 

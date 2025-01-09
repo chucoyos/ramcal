@@ -35,8 +35,12 @@
         <% @payments.each do |payment| %>
           <tr class="even:bg-gray-50 hover:bg-gray-100">
             <td class="px-6 py-2 text-sm text-blue-600 border underline">
-              <%= link_to payment.invoice.container do %>
-                <%= payment.invoice.container&.number%>
+              <% if payment.invoice&.container %>
+                <%= link_to payment.invoice.container do %>
+                  <%= payment.invoice.container&.number%>
+                <% end %>
+              <% else %>
+                <%= "Sin contenedor asignado" %>
               <% end %>
             </td>
             <td class="px-6 py-2 text-sm text-gray-800 border"><%= number_to_currency(payment.amount, unit: "$") %></td>
