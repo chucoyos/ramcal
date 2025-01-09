@@ -1,7 +1,36 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl">Editing location</h1>
 
-  <%= render "form", location: @location %>
+  <%# render "form", location: @location %>
+
+<%# temporary solution to the malformed route location.:id %>
+  <%= form_with model: @location, url: update_location_path(@location), method: :patch do |form| %>
+    <% if @location.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+        <h2><%= pluralize(@location.errors.count, "error") %> impiden guardar la ubicación:</h2>
+
+        <ul>
+          <% @location.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="my-5">
+      <%= form.label :location %>
+      <%= form.text_field :location, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label "Disponible" %>
+      <%= form.check_box :available, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="inline">
+      <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    </div>
+  <% end %>
 
   <%= link_to "Show this location", @location, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   <%= link_to "Back to locations", locations_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>

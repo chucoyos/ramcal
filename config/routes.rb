@@ -29,7 +29,11 @@ Rails.application.routes.draw do
   patch "users/:id" => "users#update"
   post "staff" => "users#create", as: :members
   delete "staff/:id" => "users#destroy", as: :delete_member
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+  # temporary routes as solution to the problem of the location_id in the link =====> "locations.:id"
+  delete "locations.:id" => "locations#destroy", as: :delete_location
+  patch "locations.:id" => "locations#update", as: :update_location
+  # end of temporary routes
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

@@ -31,7 +31,7 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       if @location.save
-        format.html { redirect_to @location, notice: "La ubicación ha sido creada." }
+        format.html { redirect_to locations_path, notice: "La ubicación ha sido creada." }
         format.json { render :show, status: :created, location: @location }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -45,7 +45,7 @@ class LocationsController < ApplicationController
     authorize current_user, :update?, policy_class: LocationPolicy
     respond_to do |format|
       if @location.update(location_params)
-        format.html { redirect_to @location, notice: "La ubicación ha sido actualizada." }
+        format.html { redirect_to locations_path, notice: "La ubicación ha sido actualizada." }
         format.json { render :show, status: :ok, location: @location }
       else
         format.html { render :edit, status: :unprocessable_entity }
