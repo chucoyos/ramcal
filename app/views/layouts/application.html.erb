@@ -20,21 +20,21 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-gray-100">
+  <body class="w-full h-full">
     <%if current_user %>
       <p class="fixed top-1 bg-blue-50 text-blue-500 shadow right-4 inline-block rounded-lg"><%= current_user.username %></p>
     <% end %>
-    <main class="container mx-auto mt-8">
+    <main class="relative h-screen w-full">
       <% if notice.present? %>
-      <div class="fixed top-0 right-0">
-        <p class="text-center py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block"><%= notice %></p>
-      </div>
-    <% end %>
-    <% if alert.present? %>
-      <div class="fixed top-0 right-0">
-        <p class="py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block"><%= alert %></p>
-      </div>
-    <% end %>
+        <div class="fixed top-0 right-0">
+          <p class="text-center py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block"><%= notice %></p>
+        </div>
+      <% end %>
+      <% if alert.present? %>
+        <div class="fixed top-0 right-0">
+          <p class="py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block"><%= alert %></p>
+        </div>
+      <% end %>
       <%= yield %>
     </main>
     <%= render "/navbar" %>
