@@ -24,7 +24,7 @@
     <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
       <thead class="bg-blue-50 text-gray-700">
         <tr>
-          <th class="text-left px-6 py-2 text-sm font-semibold border text-center">Contenedor</th>
+          <th class="text-left px-6 py-2 text-sm font-semibold border text-center">Edo. Cta.</th>
           <th class="text-left px-6 py-2 text-sm font-semibold border text-center">Monto</th>
           <th class="text-left px-6 py-2 text-sm font-semibold border text-center">Fecha de pago</th>
           <th class="text-left px-6 py-2 text-sm font-semibold border text-center">Forma de pago</th>
@@ -34,15 +34,12 @@
       <tbody>
         <% @payments.each do |payment| %>
           <tr class="even:bg-gray-50 hover:bg-gray-100">
-            <td class="px-6 py-2 text-sm text-blue-600 border underline">
-              <% if payment.invoice&.container %>
-                <%= link_to payment.invoice.container do %>
-                  <%= payment.invoice.container&.number%>
-                <% end %>
-              <% else %>
-                <%= "Sin contenedor asignado" %>
+            <td class="px-6 py-2 text-sm text-gray-800 border text-center">
+              <%= link_to payment.invoice, class: "text-blue-600 underline", title: "Ver estado de cuenta" do %>
+                <%= payment.invoice&.id %></td>
               <% end %>
             </td>
+             
             <td class="px-6 py-2 text-sm text-gray-800 border"><%= number_to_currency(payment.amount, unit: "$") %></td>
             <td class="px-6 py-2 text-sm text-gray-800 border"><%= payment.payment_date.strftime("%d-%m-%Y") %></td>
             <td class="px-6 py-2 text-sm text-gray-800 border"><%= payment.payment_means %></td>
@@ -56,7 +53,7 @@
               <%= link_to payment, data: { turbo_method: :delete, turbo_confirm: "¿Está seguro?" }, class: "text-red-500 hover:text-red-900", title: "Eliminar" do %>
                 <%= material_icon.shape(:delete) %>
               <% end %>
-              <%= link_to payment.invoice, class: "text-blue-500 hover:text-blue-800", title: "Ver factura" do %>
+              <%= link_to payment.invoice, class: "text-blue-500 hover:text-blue-800", title: "Ver estado de cuenta" do %>
                 <%= material_icon.shape(:receipt_long) %>
               <% end %>
             </td>

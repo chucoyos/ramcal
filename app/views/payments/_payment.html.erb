@@ -5,14 +5,12 @@
   <div class="border border-gray-300 rounded-lg shadow-lg p-4 bg-slate-200 my-2">
     <div class="flex flex-col gap-3">
       <div>
-        <p class="text-sm font-medium text-gray-600">Contenedor:</p>
-        <% if payment.invoice&.container %>
-          <%= link_to payment.invoice.container do %>
-            <p class="text-lg font-semibold text-blue-600 underline"><%= payment.invoice.container.number %></p>
+        <p class="text-sm font-medium text-gray-600">Edo Cta:</p>
+        <p class="text-lg font-semibold underline ">
+          <%= link_to payment.invoice, class: "text-blue-600 underline" do %>
+            <%= payment.invoice&.id %>
           <% end %>
-        <% else %>
-          <p class="text-lg font-semibold text-gray-800">Sin contenedor asignado</p>
-        <% end %>
+        </p>
       </div>
 
       <div>

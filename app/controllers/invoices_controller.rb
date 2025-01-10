@@ -17,7 +17,6 @@ class InvoicesController < ApplicationController
     end
     apply_filters!
   end
-
   # GET /invoices/1 or /invoices/1.json
   def show
     authorize current_user, :show?, policy_class: InvoicePolicy
