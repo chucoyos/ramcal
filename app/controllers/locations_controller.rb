@@ -45,6 +45,7 @@ class LocationsController < ApplicationController
     authorize current_user, :update?, policy_class: LocationPolicy
     respond_to do |format|
       if @location.update(location_params)
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@location, partial: "locations/location", locals: { location: @location }) }
         format.html { redirect_to locations_path, notice: "La ubicación ha sido actualizada." }
         format.json { render :show, status: :ok, location: @location }
       else
@@ -57,13 +58,23 @@ class LocationsController < ApplicationController
   # DELETE /locations/1 or /locations/1.json
   def destroy
     authorize current_user, :destroy?, policy_class: LocationPolicy
-    @location.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to locations_path, status: :see_other, notice: "La ubicación ha sido eliminada." }
-      format.json { head :no_content }
+    if @location.moves.any?
+      respond_to do |format|
+        format.html { redirect_to locations_path, alert: "No se puede eliminar la ubicación, está asociada a movimientos." }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@location, partial: "locations/location", locals: { location: @location }) }
+        format.json { render json: { error: "No se puede eliminar la ubicación, está asociada a movimientos." }, status: :unprocessable_entity }
+      end
+    else
+      @location.destroy!
+      respond_to do |format|
+        format.html { redirect_to locations_path, status: :see_other, notice: "La ubicación ha sido eliminada." }
+        format.turbo_stream { render turbo_stream: turbo_stream.remove(@location) }
+        format.json { head :no_content }
+      end
     end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

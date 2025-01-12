@@ -4,33 +4,53 @@
   <%# render "form", location: @location %>
 
 <%# temporary solution to the malformed route location.:id %>
-  <%= form_with model: @location, url: update_location_path(@location), method: :patch do |form| %>
-    <% if @location.errors.any? %>
-      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-        <h2><%= pluralize(@location.errors.count, "error") %> impiden guardar la ubicación:</h2>
+  <%= turbo_frame_tag @location do %>
+    <%= form_with model: @location, url: update_location_path(@location), method: :patch do |form| %>
+      <% if @location.errors.any? %>
+        <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+          <h2><%= pluralize(@location.errors.count, "error") %> impiden guardar la ubicación:</h2>
 
-        <ul>
-          <% @location.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
+          <ul>
+            <% @location.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="flex flex-col gap-4 py-2 px-4 bg-gray-100 shadow rounded-lg">
+        <table class="table-auto border-collapse shadow-lg border rounded my-4">
+          <thead>
+            <tr class="bg-blue-50">
+              <th class="border border-gray-300 px-2 py-2">Ubicación</th>
+              <th class="border border-gray-300 px-2 py-2">Disponible</th>
+              <th class="border border-gray-300 px-2 py-2">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 px-2 py-2", style="max-width: 120px;">
+                <%= form.text_field :location, class: "shadow rounded-md border border-gray-400 outline-none mt-2", style: "width: 100%" %>
+              </td>
+              <td class="border border-gray-300 px-2  text-center">
+                <%= form.check_box :available, class: "form-checkbox mt-2" %>
+              </td>
+              <td class=" flex gap-4 px-4">
+                <div class="text-blue-600 cursor-pointer mt-6">
+                  <%= form.submit "💾", class: "cursor-pointer" %>
+                </div>
+                <%= link_to locations_path, data: { turbo_frame: "_top" } do %>
+                  <div class="text-blue-600 cursor-pointer mt-6">
+                      <%= material_icon.shape(:subdirectory_arrow_left) %>
+                  </div>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+
     <% end %>
-
-    <div class="my-5">
-      <%= form.label :location %>
-      <%= form.text_field :location, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-    </div>
-
-    <div class="my-5 flex gap-4 items-center">
-      <%= form.label "Disponible", class: "mt-2" %>
-      <%= form.check_box :available, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2" %>
-    </div>
-
-    <div class="flex gap-4">
-      <%= form.submit "Guardar", class: "btn-primary" %>
-      <%= link_to "Cancelar", locations_path, class: "btn-primary" %>
-    </div>
   <% end %>
 
 </div>
