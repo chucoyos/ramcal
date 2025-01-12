@@ -1,6 +1,8 @@
-<div class="flex flex-col mb-16">
-  <h1 class="my-4">Catálogos</h1>
-  <div class="flex flex-wrap gap-4 justify-center rounded-lg bg-gray-200 p-4">
+<div class="flex flex-col"
+      style="background: linear-gradient(360deg,rgb(249, 251, 252),rgb(88, 118, 201));">
+ >
+  <h1 class="my-4 text-white">Catálogos</h1>
+  <div class="flex flex-wrap gap-4 justify-center rounded-lg p-4">
 
     <%= link_to users_path do %>
       <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
@@ -35,7 +37,7 @@
   </div>
 
 
-  <div class="flex flex-wrap gap-4 justify-center rounded-lg bg-gray-200 p-4">
+  <div class="flex flex-wrap gap-4 justify-center rounded-lg p-4">
 
 
     <%= link_to pricings_path do %>
@@ -70,7 +72,7 @@
 
   </div>
 
-  <div class="flex flex-wrap gap-4 justify-center rounded-lg bg-gray-200 p-4">
+  <div class="flex flex-wrap gap-4 justify-center rounded-lg p-4">
 
     
     <%= link_to locations_path do %>
@@ -79,6 +81,16 @@
         <div class="flex flex-col items-center">
           <span class="text-lg font-bold">Ubicaciones</span>
           <span class="text-sm">Añade, edita o elimina ubicacio</span>
+        </div>
+      </div>
+    <% end %>
+
+    <%= link_to root_path do %>
+      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
+          <%= material_icon.shape(:house) %>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold">Home</span>
+          <span class="text-sm">YACO Yard Containers Controla,</span>
         </div>
       </div>
     <% end %>
