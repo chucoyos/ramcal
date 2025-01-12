@@ -11,13 +11,15 @@
     <tbody>
       <tr>
         <td class="border border-gray-300 px-4 py-2"><%= location.location %></td>
-        <td class="border border-gray-300 px-4 py-2">
+        <td class="border border-gray-300 px-4 py-2 text-center">
           <% if location.available %>
-            <div class="text-green-600">
+            <div class="text-green-500">
               <%= material_icon.shape(:check_circle) %>
             </div>
           <% else %>
-            <%= material_icon.shape(:cancel) %>
+            <div class="text-red-500">
+              <%= material_icon.shape(:cancel) %>
+            </div>
           <% end %>
         </td>
         

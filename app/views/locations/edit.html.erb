@@ -29,18 +29,18 @@
           </thead>
           <tbody>
             <tr>
-              <td class="border border-gray-300 px-2 py-2", style="max-width: 120px;">
-                <%= form.text_field :location, class: "shadow rounded-md border border-gray-400 outline-none mt-2", style: "width: 100%" %>
+              <td class="border border-gray-300 px-4", style="max-width: 130px;">
+                <%= form.text_field :location, class: "rounded-md border border-gray-400 outline-none", style: "width: 100%" %>
               </td>
-              <td class="border border-gray-300 px-2  text-center">
-                <%= form.check_box :available, class: "form-checkbox mt-2" %>
+              <td class="border border-gray-300 text-center px-4">
+                <%= form.check_box :available, class: "form-checkbox" %>
               </td>
-              <td class=" flex gap-4 px-4">
-                <div class="text-blue-600 cursor-pointer mt-6">
-                  <%= form.submit "💾", class: "cursor-pointer" %>
+              <td class="flex gap-2 items-center px-4 my-2">
+                <div class="text-blue-600 cursor-pointer">
+                  <%= form.submit "💾" %>
                 </div>
                 <%= link_to locations_path, data: { turbo_frame: "_top" } do %>
-                  <div class="text-blue-600 cursor-pointer mt-6">
+                  <div class="text-blue-600 cursor-pointer mt-2 px-2">
                       <%= material_icon.shape(:subdirectory_arrow_left) %>
                   </div>
                 <% end %>
