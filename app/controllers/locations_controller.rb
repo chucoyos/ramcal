@@ -5,7 +5,11 @@ class LocationsController < ApplicationController
   # GET /locations or /locations.json
   def index
     authorize current_user, :index?, policy_class: LocationPolicy
-    @locations = Location.order(:location).page(params[:page]).per(10)
+    @locations = Location.all
+    apply_filters!
+
+    # Keep filtered results and apply sorting and pagination
+    @locations = @locations.order(:location).page(params[:page]).per(10)
   end
 
   # GET /locations/1 or /locations/1.json
@@ -77,6 +81,20 @@ class LocationsController < ApplicationController
 
 
   private
+
+    def apply_filters!
+      filter_by_location if params[:location].present?
+      filter_by_available if params[:available].present?
+    end
+
+    def filter_by_location
+      @locations = @locations.where("location ILIKE ?", "%#{params[:location]}%")
+    end
+
+    def filter_by_available
+      # Ensure checkbox properly works by handling boolean conversion
+      @locations = @locations.where(available: ActiveModel::Type::Boolean.new.cast(params[:available]))
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_location
       @location = Location.find(params[:id])
