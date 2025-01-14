@@ -15,6 +15,7 @@ class InvoicesController < ApplicationController
       @invoices = Invoice.includes(:user).order(user_id: :asc, created_at: :desc).page(params[:page]).per(10)
       @payments = Payment.includes(:invoice).order(invoice_id: :asc, created_at: :desc).page(params[:page]).per(10)
     end
+    apply_current_day_filter unless params_present_for_filtering?
     apply_filters!
   end
   # GET /invoices/1 or /invoices/1.json
@@ -91,6 +92,15 @@ class InvoicesController < ApplicationController
     filter_by_user if params[:user_id].present?
     filter_by_status if params[:status].present?
     filter_by_date_range if params[:from_date].present? && params[:to_date].present?
+  end
+
+  def apply_current_day_filter
+    today = Date.current.all_day
+    @invoices = @invoices.where(created_at: today)
+  end
+
+  def params_present_for_filtering?
+    params[:from_date].present? || params[:to_date].present? || params[:user_id].present? || params[:status].present?
   end
 
   def filter_by_user
