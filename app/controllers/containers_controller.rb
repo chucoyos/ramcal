@@ -34,6 +34,9 @@ class ContainersController < ApplicationController
     per_page = params[:per_page] || 10
     @containers = base_container_scope
 
+    # Apply current-day filter if no filters are provided
+    apply_current_day_filter! unless filters_applied?
+
     apply_filters!
 
     @containers = @containers.order(created_at: :desc).page(params[:page]).per(per_page)
@@ -125,14 +128,21 @@ class ContainersController < ApplicationController
 
   private
 
+  def filters_applied?
+    params[:from].present? || params[:to].present? ||
+    params[:container_type].present? || params[:number].present? ||
+    params[:cargo_owner].present? || params[:move_type].present? ||
+    params[:user_id].present? || params[:in_yard] == "1"
+  end
+
+  def apply_current_day_filter!
+    @containers = @containers.where(created_at: Date.today.all_day)
+  end
+
   def base_container_scope
     if current_user.role.name == "cliente"
-      # Container.where(user_id: current_user.id)
-      # current_user.containers.includes(:user, :eirs, moves: :location)
       Container.includes(:user, :eirs, moves: :location).where(user_id: current_user.id)
     else
-      # Container.all.includes(:moves)
-      # Container.includes(:moves, :eirs, :user)
       Container.includes(:user, :eirs, moves: :location)
     end
   end
