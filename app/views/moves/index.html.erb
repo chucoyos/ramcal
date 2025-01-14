@@ -3,41 +3,46 @@
   <h1 class="text-3xl font-bold text-center text-gray-800 my-6">Movimientos</h1>
 
   <div class="border rounded-lg p-4 bg-blue-50 my-8 shadow-md">
-    <%= form_with :url => moves_path, method: :get do |f| %>
-      <div class="lg:flex gap-4 my-4">
-        <div class="input-group flex-1">
-          <%= f.label :number, "Número de Contenedor", class: "font-medium text-gray-700" %>
-          <%= f.text_field :number, class: "form-control mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
-        </div>
+    <%= form_with url: moves_path, method: :get do |f| %>
+  <div class="lg:flex gap-4 my-4">
+    <div class="input-group flex-1">
+      <%= f.label :number, "Número de Contenedor", class: "font-medium text-gray-700" %>
+      <%= f.text_field :number, class: "form-control mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
 
-        <% if current_user.role.name != "cliente" %>
-          <div class="input-group flex-1">
-            <%= f.label :user_id, "Cliente", class: "font-medium text-gray-700" %>
-            <%= f.select :user_id,
-                  options_from_collection_for_select(
-                    User.joins(:role).where(roles: { name: 'cliente' }),
-                    :id,
-                    :full_name,
-                  ), { prompt: "Selecciona" }, class: "form-control mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
-          </div>
-        <% end %>
-      </div>
-
-      <div class="lg:flex gap-4 my-4 border px-4 py-4 rounded-md bg-slate-200">
-        <div class="input-group flex-1">
-          <%= f.label :move_type, "Movimiento", class: "font-medium text-gray-700" %>
-          <%= f.select :move_type, options_for_select(Move::MOVE_TYPES), { prompt: "Selecciona" }, class: "form-control mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
-        </div>
-        <div class="input-group flex-1">
-          <%= f.label :move_created_at, "Fecha del Movimiento", class: "font-medium text-gray-700" %>
-          <%= f.date_field :move_created_at, class: "form-control mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
-        </div>
-      </div>
-
-      <div class="input-group inline">
-        <%= f.submit "Buscar", class: "btn-primary py-2 px-4 rounded-md shadow-md transition duration-200" %>
+    <% if current_user.role.name != "cliente" %>
+      <div class="input-group flex-1">
+        <%= f.label :user_id, "Cliente", class: "font-medium text-gray-700" %>
+        <%= f.select :user_id,
+              options_from_collection_for_select(
+                User.joins(:role).where(roles: { name: 'cliente' }),
+                :id,
+                :full_name,
+              ), { prompt: "Selecciona" }, class: "form-control mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
       </div>
     <% end %>
+  </div>
+
+  <div class="lg:flex gap-4 my-4 border px-4 py-4 rounded-md bg-slate-200">
+    <div class="input-group flex-1">
+      <%= f.label :move_type, "Movimiento", class: "font-medium text-gray-700" %>
+      <%= f.select :move_type, options_for_select(Move::MOVE_TYPES), { prompt: "Selecciona" }, class: "form-control mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+    <div class="input-group flex-1">
+      <%= f.label :from_date, "Inicio", class: "font-medium text-gray-700" %>
+      <%= f.date_field :from_date, class: "form-control mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500", value: Date.today.beginning_of_month %>
+    </div>
+    <div class="input-group flex-1">
+      <%= f.label :to_date, "Fin", class: "font-medium text-gray-700" %>
+      <%= f.date_field :to_date, class: "form-control mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500", value: Date.today %>
+    </div>
+  </div>
+
+  <div class="input-group inline">
+    <%= f.submit "Buscar", class: "btn-primary py-2 px-4 rounded-md shadow-md transition duration-200" %>
+  </div>
+<% end %>
+
   </div>
 
   <div id="moves" class="min-w-full">

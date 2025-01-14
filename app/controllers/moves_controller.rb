@@ -5,22 +5,18 @@ class MovesController < ApplicationController
   # GET /moves or /moves.json
   def index
     authorize current_user, :index?, policy_class: MovePolicy
-    if current_user.role.name == "cliente"
-      # @moves = Move.joins(:container).where(containers: { user_id: current_user.id }).order(created_at: :desc).page(params[:page]).per(10)
-      @moves = Move.includes(container: :user).where(containers: { user_id: current_user.id }).order(created_at: :desc).page(params[:page]).per(10)
-    else
-      # @moves = Move.order(created_at: :desc).page(params[:page]).per(10)
-      @moves = Move.includes(container: :user).order(created_at: :desc).page(params[:page]).per(10)
-    end
-    if params[:number].present?
-      @moves = @moves.joins(:container).where("containers.number ILIKE ?", "%#{params[:number]}%").page(params[:page]).per(10)
-    end
-    if params[:move_type].present? && params[:move_created_at].present?
-      @moves = @moves.joins(:container).where(move_type: params[:move_type]).where("moves.created_at::date = ?", params[:move_created_at].to_date).page(params[:page]).per(10)
-    end
-    if params[:user_id].present?
-      @moves = @moves.joins(:container).where(containers: { user_id: params[:user_id] }).page(params[:page]).per(10)
-    end
+    per_page = params[:per_page] || 10
+
+    # Base moves query
+    @moves = base_move_scope
+
+    # Apply current-day filter if no filters are applied
+    apply_current_day_filter! unless filters_applied?
+
+    # Apply additional filters
+    apply_filters!
+
+    @moves = @moves.order(created_at: :desc).page(params[:page]).per(per_page)
   end
 
   # GET /moves/1 or /moves/1.json
@@ -135,6 +131,51 @@ class MovesController < ApplicationController
   end
 
   private
+
+  def base_move_scope
+    if current_user.role.name == "cliente"
+      Move.includes(container: :user).where(containers: { user_id: current_user.id })
+    else
+      Move.includes(container: :user)
+    end
+  end
+
+  def apply_current_day_filter!
+    @moves = @moves.where(created_at: Date.today.all_day)
+  end
+
+  def filters_applied?
+    params[:number].present? || params[:move_type].present? ||
+    params[:move_created_at].present? || params[:user_id].present?
+  end
+
+  def apply_filters!
+    filter_by_number if params[:number].present?
+    filter_by_move_type if params[:move_type].present?
+    filter_by_date_range if params[:from_date].present? && params[:to_date].present?
+    filter_by_user if params[:user_id].present?
+  end
+
+  def filter_by_move_type
+    @moves = @moves.where(move_type: params[:move_type])
+  end
+
+  def filter_by_date_range
+    from_date = params[:from_date].to_date.beginning_of_day
+    to_date = params[:to_date].to_date.end_of_day
+    @moves = @moves.where(created_at: from_date..to_date)
+  end
+
+  def filter_by_user
+    @moves = @moves.joins(:container).where(containers: { user_id: params[:user_id] })
+  end
+
+  def filter_by_number
+    @moves = @moves.joins(:container).where("containers.number ILIKE ?", "%#{params[:number]}%")
+  end
+
+
+
   def send_notification(move)
     notification = Notification.new(
       message: "#{move.move_type}-#{move.container.number}",
