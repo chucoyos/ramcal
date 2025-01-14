@@ -1,14 +1,15 @@
 class PaymentsController < ApplicationController
   before_action :set_payment, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /payments or /payments.json
   def index
     authorize current_user, :index?, policy_class: PaymentPolicy
-    if current_user.role.name == "cliente"
-      @payments = Payment.includes(:invoice).where(invoices: { user_id: current_user.id }).page(params[:page]).per(10)
-    else
-      @payments = Payment.includes(:invoice).all.page(params[:page]).per(10)
-    end
+    @payments = base_payment_scope
+  apply_filters!
+  apply_current_day_filter if no_filters_applied?
+
+  @payments = @payments.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   # GET /payments/1 or /payments/1.json
@@ -77,13 +78,39 @@ class PaymentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_payment
-      @payment = Payment.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def payment_params
-      params.require(:payment).permit(:invoice_id, :amount, :payment_date, :payment_means)
+
+  def base_payment_scope
+    if current_user.role.name == "cliente"
+      Payment.includes(:invoice).where(invoices: { user_id: current_user.id })
+    else
+      Payment.includes(:invoice).all
     end
+  end
+
+  def apply_filters!
+    filter_by_date_range if params[:from].present? && params[:to].present?
+  end
+
+  def filter_by_date_range
+    from_date = params[:from].to_date.beginning_of_day
+    to_date = params[:to].to_date.end_of_day
+    @payments = @payments.where(created_at: from_date..to_date)
+  end
+
+  def apply_current_day_filter
+    @payments = @payments.where(created_at: Time.zone.now.all_day)
+  end
+
+  def no_filters_applied?
+    params[:from].blank? && params[:to].blank?
+  end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_payment
+    @payment = Payment.find(params[:id])
+  end
+  # Only allow a list of trusted parameters through.
+  def payment_params
+    params.require(:payment).permit(:invoice_id, :amount, :payment_date, :payment_means)
+  end
 end
