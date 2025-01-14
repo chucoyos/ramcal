@@ -10,36 +10,39 @@
   <div class="border rounded px-4 bg-blue-50 my-8 shadow mx-2">
     <h2 class="text-lg font-semibold">Filtrar Estados de Cuenta</h2>
     <%= form_with url: invoices_path, method: :get do |f| %>
-      <div class="flex flex-col lg:flex-row gap-2">
-        <% if current_user.role.name != "cliente" %>
-          <div class="input-group">
-            <%= f.label :user_id, "Cliente" %>
-            <%= f.select :user_id, 
-              options_from_collection_for_select(User.joins(:role).where(roles: { name: 'cliente' }), :id, :full_name), 
-              { prompt: "Selecciona" }, 
-              class: "form-control" 
-            %>
-          </div>
-        <% end %>
-
-        <div class="input-group">
-          <%= f.label :status, "Estado" %>
-          <%= f.select :status, options_for_select(Invoice::STATUSES), { prompt: "Selecciona" }, class: "form-control" %>
-        </div>
-        <div class="input-group">
-          <%= f.label :issue_date, "Fecha de emisión" %>
-          <%= f.date_field :issue_date, class: "form-control" %>
-        </div>
-        <div class="input-group">
-          <%= f.label :due_date, "Fecha de vencimiento" %>
-          <%= f.date_field :due_date, class: "form-control" %>
-        </div>
-      </div>
-       
-      <div class="flex justify-center mt-4">
-        <%= f.submit "Filtrar", class: "btn-primary" %>
+  <div class="flex flex-col lg:flex-row gap-2">
+    <% if current_user.role.name != "cliente" %>
+      <div class="input-group">
+        <%= f.label :user_id, "Cliente" %>
+        <%= f.select :user_id, 
+          options_from_collection_for_select(User.joins(:role).where(roles: { name: 'cliente' }), :id, :full_name), 
+          { prompt: "Selecciona" }, 
+          class: "form-control" 
+        %>
       </div>
     <% end %>
+
+    <div class="input-group">
+      <%= f.label :status, "Estado" %>
+      <%= f.select :status, options_for_select(Invoice::STATUSES), { prompt: "Selecciona" }, class: "form-control" %>
+    </div>
+
+    <div class="input-group">
+      <%= f.label :from_date, "Inicio" %>
+      <%= f.date_field :from_date, class: "form-control", value: Date.today.beginning_of_month %>
+    </div>
+
+    <div class="input-group">
+      <%= f.label :to_date, "Fin" %>
+      <%= f.date_field :to_date, class: "form-control", value: Date.today.end_of_month %>
+    </div>
+  </div>
+
+  <div class="flex justify-center mt-4">
+    <%= f.submit "Filtrar", class: "btn-primary" %>
+  </div>
+<% end %>
+
   </div>
   <%# End search form for filters %>
 

@@ -87,20 +87,25 @@ class InvoicesController < ApplicationController
   end
 
   private
-    def apply_filters!
-      if params[:user_id].present?
-        @invoices = @invoices.where(user_id: params[:user_id])
-      end
-      if params[:status].present?
-        @invoices = @invoices.where(status: params[:status])
-      end
-      if params[:issue_date].present?
-        @invoices = @invoices.where("DATE(issue_date) = ?", params[:issue_date])
-      end
-      if params[:due_date].present?
-        @invoices = @invoices.where("DATE(due_date) = ?", params[:due_date])
-      end
-    end
+  def apply_filters!
+    filter_by_user if params[:user_id].present?
+    filter_by_status if params[:status].present?
+    filter_by_date_range if params[:from_date].present? && params[:to_date].present?
+  end
+
+  def filter_by_user
+    @invoices = @invoices.where(user_id: params[:user_id])
+  end
+
+  def filter_by_status
+    @invoices = @invoices.where(status: params[:status])
+  end
+
+  def filter_by_date_range
+    from_date = params[:from_date].to_date.beginning_of_day
+    to_date = params[:to_date].to_date.end_of_day
+    @invoices = @invoices.where(created_at: from_date..to_date)
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_invoice
       @invoice = Invoice.find(params[:id])
