@@ -1,6 +1,8 @@
 class Move < ApplicationRecord
   MOVE_TYPES = %w[Entrada Reacomodo Traspaleo Lavado Salida].freeze
 
+  Time.zone = "America/Mexico_City"
+
   belongs_to :created_by, class_name: "User", optional: true
   belongs_to :location, optional: true
   belongs_to :container, optional: false
@@ -33,8 +35,8 @@ class Move < ApplicationRecord
       user: user,
       total: services.sum(&:charge),
       status: "Pendiente",
-      issue_date: Date.today,
-      due_date: Date.today + 30.days
+      issue_date: Time.zone.today,
+      due_date: Time.zone.today + 30.days
     )
 
     services.each { |service| service.update!(invoice: invoice, invoiced: true) }
