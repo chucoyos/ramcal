@@ -12,9 +12,15 @@ class ApplicationController < ActionController::Base
     render file: "#{Rails.root}/public/404.html", status: :not_found
   end
 
+  around_action :set_time_zone
+
   private
   def user_not_authorized
     flash[:alert] = "No tienes autorización para realizar esta acción."
     redirect_to(request.referrer || root_path)
+  end
+
+  def set_time_zone(&block)
+    Time.use_zone("America/Mexico_City", &block)
   end
 end
