@@ -21,9 +21,9 @@ class Eir < ApplicationRecord
       pdf.text "Folio: #{id}", color: "00008B", size: 10, align: :left
       pdf.text "#{status}", style: :bold, size: 16, align: :right, color: "00008B"
       pdf.move_down 10
-      pdf.image "#{Rails.root}/app/assets/images/logo.jpeg", width: 200, position: :center
+      pdf.image "#{Rails.root}/app/assets/images/logo.jpeg", width: 100, position: :center
       pdf.move_down 10
-      pdf.text "EIR - Logística y Transporte Sago", size: 20, style: :bold, align: :center, color: "00008B"
+      pdf.text "EIR - Logística y Transporte Yaco", size: 20, style: :bold, align: :center, color: "00008B"
       pdf.move_down 10
       pdf.stroke_horizontal_rule
       pdf.move_down 20
