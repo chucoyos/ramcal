@@ -38,3 +38,5 @@ Things you may want to cover:
 * Create locations
 
 * Create services
+
+* Edit manifest.json to change app name
