@@ -23,6 +23,11 @@
     <% end %>
 
     <div class="input-group">
+      <%= f.label :number, "Contenedor" %>
+      <%= f.text_field :number, class: "form-control" %>
+    </div>  
+
+    <div class="input-group">
       <%= f.label :status, "Estado" %>
       <%= f.select :status, options_for_select(Invoice::STATUSES), { prompt: "Selecciona" }, class: "form-control" %>
     </div>

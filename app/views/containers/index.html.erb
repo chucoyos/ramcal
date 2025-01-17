@@ -126,6 +126,7 @@
             <th class="px-2">Dueño</th>
             <th class="px-2">Entrada</th>
             <th class="px-2">Salida</th>
+            <th class="px-2">Factura</th>
             <th class="px-2">Acción</th>
           </tr>
         </thead>
@@ -151,6 +152,13 @@
                   <span><%= entrada_move.created_at.strftime("%d/%m/%Y") %></span>
                 <% else %>
                   N/A
+                <% end %>
+              </td>
+              <td class="border px-2">
+                <% if container&.services&.first&.invoice %>
+                  <%= link_to container&.services&.first&.invoice&.status, container&.services&.first&.invoice, class: "text-blue-600 underline", title: "Ver factura" %>
+                <% else %>
+                  Sin facturar
                 <% end %>
               </td>
               <td class="border px-2 text-center">

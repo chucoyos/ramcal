@@ -92,6 +92,7 @@ class InvoicesController < ApplicationController
     filter_by_user if params[:user_id].present?
     filter_by_status if params[:status].present?
     filter_by_date_range if params[:from_date].present? && params[:to_date].present?
+    filter_by_container_number if params[:number].present?
   end
 
   def apply_current_day_filter
@@ -101,6 +102,14 @@ class InvoicesController < ApplicationController
 
   def params_present_for_filtering?
     params[:from_date].present? || params[:to_date].present? || params[:user_id].present? || params[:status].present?
+  end
+
+  def filter_by_container_number
+    return unless params[:number].present? # Ensure param exists
+
+    @invoices = @invoices.joins(services: :container)
+                         .where("containers.number ILIKE ?", "%#{params[:number]}%")
+                         .distinct
   end
 
   def filter_by_user

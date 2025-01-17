@@ -1,4 +1,4 @@
-<div class="my-5 mx-5">
+<div class="mx-auto p-4">
   <%= form_with(model: move, class: "contents", local: true) do |form| %> <!-- Set local: true for full form submission -->
     <% if move.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
@@ -92,9 +92,9 @@
       %>
     </div>
 
-    <div class="flex gap-2 mb-20">
-      <%= form.submit "Guardar", class: "btn-primary" %>
-      <%= link_to "Cancelar", containers_path, class: "btn-primary" %>
+    <div class="flex gap-2", style="padding-bottom: 20px; padding-top: 20px; padding-left: 10px; padding-right: 10px;">
+      <%= form.submit "Guardar", class: "btn-primary mb-16" %>
+      <%= link_to "Cancelar", containers_path, class: "btn-primary mb-16" %>
     </div>
   <% end %>
 </div>
