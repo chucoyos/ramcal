@@ -18,6 +18,12 @@ Things you may want to cover:
 * Deployment instructions
   Heroku run rails db:migrate
   Set storage.yml env vars
+  heroku config:set
+  heroku config:set AWS_ACCESS_KEY_ID=your-access-key-id
+  heroku config:set AWS_SECRET_ACCESS_KEY=your-secret-access-key
+  heroku config:set AWS_REGION=your-region
+  heroku config:set AWS_BUCKET=your-bucket-name
+  
   Create administrador role rails console
   Create admin user rails console
 
