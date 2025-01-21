@@ -27,6 +27,8 @@ Things you may want to cover:
 
 * Create and migrate database
 
+* Precompile assets
+
 * Create administrador Role rails console
 
 * Create admin user rails console
