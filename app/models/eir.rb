@@ -23,7 +23,7 @@ class Eir < ApplicationRecord
       pdf.move_down 10
       pdf.image "#{Rails.root}/app/assets/images/logo.jpeg", width: 100, position: :center
       pdf.move_down 10
-      pdf.text "EIR - Logística y Transporte Yaco", size: 20, style: :bold, align: :center, color: "00008B"
+      pdf.text "EIR - Ramcal Patio de Maniobras", size: 20, style: :bold, align: :center, color: "00008B"
       pdf.move_down 10
       pdf.stroke_horizontal_rule
       pdf.move_down 20
@@ -72,7 +72,7 @@ class Eir < ApplicationRecord
     end
   end
   def generate_qr_code
-    qr = RQRCode::QRCode.new("https://demo-yard-afc019775ff2.herokuapp.com/containers/#{container_id}")
+    qr = RQRCode::QRCode.new("https://ramcal-aae0c2913427.herokuapp.com/containers/#{container_id}")
     qr.as_png(size: 200)
   end
 end
