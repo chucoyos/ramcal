@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <div class="flex gap-4 mt-4 mx-auto">
+  <div class="flex gap-4 mt-6 mx-auto">
     <%= link_to "Editar", edit_user_path(@user), class: "btn-primary px-4 py-2 rounded-md shadow-md" %>
     <%= link_to "Eliminar", delete_member_path(@user), 
       data: { turbo_method: :delete, 
@@ -53,18 +53,18 @@
   </div>
 
   <% if @user.role&.name == "cliente" %>
-    <div class="mb-20 mx-auto hidden md:flex flex-col gap-6">
-      <h1 class="text-3xl font-bold text-gray-800 mt-6 mb-4">Estados de Cuenta</h1>
+    <div class="my-4 mx-auto hidden md:flex flex-col gap-4">
       <div class="flex gap-4 justify-between my-4">
         <div>
-          <h3 class="text-xl font-bold text-gray-800 mt-6 mb-4">Limite de Crédito</h3>
+          <h3 class="text-xl font-bold text-gray-800">Limite de Crédito</h3>
           <h3 class="font-bold text-gray-800 text-center"><%= number_to_currency(@user.credit_limit) %></h3>
         </div>
         <div>
-          <h3 class="text-xl font-bold text-gray-800 mt-6 mb-4">Crédito Disponible</h3>
+          <h3 class="text-xl font-bold text-gray-800">Crédito Disponible</h3>
           <h3 class="font-bold text-gray-800 text-center"><%= number_to_currency(@user.available_credit) %></h3>
         </div>
       </div>
+      <h1 class="text-3xl font-bold text-gray-800">Estados de Cuenta</h1>
       <table class="min-w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">
         <thead class="bg-slate-200">
           <tr class="border">

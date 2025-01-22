@@ -9,7 +9,7 @@ class Payment < ApplicationRecord
   after_destroy_commit :update_invoice if -> { invoice.payments.sum(:amount) < invoice.total }
 
   after_commit :update_user_credit, on: :create
-  # after_create :update_user_credit
+
   private
 
   def update_user_credit

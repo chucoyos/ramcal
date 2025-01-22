@@ -8,8 +8,6 @@ class Invoice < ApplicationRecord
   after_create :update_user_credit
   after_update :update_user_credit, if: -> { saved_change_to_status? }
 
-  # after_save :update_user_credit
-
   validates :user_id, presence: true
   validates :status, inclusion: { in: %w[ Pendiente Pagada Parcial Vencida ] }
   before_destroy :prevent_destroy

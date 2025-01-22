@@ -19,37 +19,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   def update_available_credit
-   self.available_credit = credit_limit - invoices.where(status: "Pendiente").sum(:total)
-   save
+    pending_total = invoices.where(status: "Pendiente").sum(:total)
+    partial_total = invoices.where(status: "Parcial").sum { |invoice| invoice.total - invoice.payments.sum(:amount).to_f }
+
+    self.available_credit = credit_limit - (pending_total + partial_total)
+    save!
   end
-
-  # def update_available_credit
-  #   pending_total = invoices.where(status: "Pendiente").sum(:total)
-  #   partial_total = invoices.where(status: "Parcial").sum { |invoice| invoice.total - invoice.payments.sum(:amount).to_f }
-
-  #   self.available_credit = credit_limit - (pending_total + partial_total)
-  #   save!
-  # end
-
-  # def update_available_credit
-  #   pending_total = invoices.where(status: "Pendiente").sum(:total)
-  #   partial_total = invoices.where(status: "Parcial").sum { |invoice| invoice.total - invoice.payments.sum(:amount) }
-
-  #   new_available_credit = credit_limit - (pending_total + partial_total)
-
-  #   Rails.logger.info "Updating available credit: Old: #{available_credit}, New: #{new_available_credit}"
-
-  #   update!(available_credit: new_available_credit)
-  # end
-
-  # def update_available_credit
-  #   pending_total = invoices.where(status: "Pendiente").sum(:total).to_f
-  #   partial_total = invoices.where(status: "Parcial").sum { |invoice| invoice.total - invoice.payments.sum(:amount).to_f }
-
-  #   new_available_credit = credit_limit - (pending_total + partial_total)
-
-  #   update_column(:available_credit, new_available_credit) # Direct DB update
-  # end
 
   def full_name
     "#{first_name} #{last_name} #{second_last_name}"
