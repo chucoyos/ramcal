@@ -68,7 +68,7 @@
 
       <div class="input-group">
         <%= f.label :credit_limit %>
-        <%= f.number_field :credit_limit, class: "form-control", step: "0.01", min: "0" %>
+        <%= f.number_field :credit_limit, class: "form-control", step: "0.01", value: @user.credit_limit || 0 %>
       </div>
       
       <div class="flex gap-2 mt-3">
