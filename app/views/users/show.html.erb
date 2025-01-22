@@ -1,4 +1,4 @@
-<div class="flex flex-col mx-2 lg:mx-24 mt-6">
+<div class="flex flex-col mx-auto mt-6 lg:w-3/4">
   <h1 class="text-3xl font-bold text-gray-800 mb-4">Detalles del Usuario</h1>
   
   <div class="hidden lg:flex flex-col">
@@ -43,16 +43,54 @@
     </div>
   </div>
 
-  <div class="flex gap-4 mt-4">
+  <div class="flex gap-4 mt-4 mx-auto">
     <%= link_to "Editar", edit_user_path(@user), class: "btn-primary px-4 py-2 rounded-md shadow-md" %>
     <%= link_to "Eliminar", delete_member_path(@user), 
       data: { turbo_method: :delete, 
               turbo_confirm: "¿Estás seguro de eliminar a #{@user.first_name} #{@user.last_name}? También se perderá la información relacionada a este usuario." }, 
       class: "btn-danger px-4 py-2 rounded-md shadow-md" %>
-  </div>
-
-  <div class="mt-4">
     <%= link_to "Regresar", users_path, class: "btn-primary px-4 py-2 rounded-md shadow-md" %>
   </div>
+
+  <% if @user.role&.name == "cliente" %>
+    <div class="mb-20 mx-auto hidden md:flex flex-col gap-6">
+      <h1 class="text-3xl font-bold text-gray-800 mt-6 mb-4">Estados de Cuenta</h1>
+      <div class="flex gap-4 justify-between my-4">
+        <div>
+          <h3 class="text-xl font-bold text-gray-800 mt-6 mb-4">Limite de Crédito</h3>
+          <h3 class="font-bold text-gray-800 text-center"><%= number_to_currency(@user.credit_limit) %></h3>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-gray-800 mt-6 mb-4">Crédito Disponible</h3>
+          <h3 class="font-bold text-gray-800 text-center"><%= number_to_currency(@user.available_credit) %></h3>
+        </div>
+      </div>
+      <table class="min-w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">
+        <thead class="bg-slate-200">
+          <tr class="border">
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Folio</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Emisión</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Total</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Status</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @user.invoices.each do |invoice| %>
+            <tr class="border hover:bg-blue-50 transition duration-150">
+              <td class="px-4 py-2"><%= invoice.id %></td>
+              <td class="px-4 py-2"><%= invoice.issue_date.strftime("%d/%m/%Y") %></td>
+              <td class="px-4 py-2"><%= number_to_currency(invoice.total) %></td>
+              <td class="px-4 py-2"><%= invoice.status %></td>
+              <td class="px-4 py-2">
+                <%= link_to "Ver", invoice, class: "btn-primary px-4 py-2 rounded-md shadow-md" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+
 </div>
 
