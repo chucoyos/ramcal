@@ -1,6 +1,6 @@
 class Location < ApplicationRecord
   has_many :moves
-  validates :location, presence: true
+  validates :location, presence: true, uniqueness: true
 
   scope :available, -> { where(available: true) }
 
