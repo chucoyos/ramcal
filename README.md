@@ -53,4 +53,4 @@ Things you may want to cover:
 
 * Paginate invoices in users show and search filters
 
-* Test edit payment will update available credit
+* Add reports policy

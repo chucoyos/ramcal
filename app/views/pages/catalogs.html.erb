@@ -1,5 +1,5 @@
 <div class="flex flex-col"
-      style="background: linear-gradient(360deg,rgb(249, 251, 252),rgb(88, 118, 201));">
+      style="background: linear-gradient(360deg,rgb(249, 251, 252),rgb(88, 118, 201));"
  >
   <h1 class="my-4 text-white">Catálogos</h1>
   <div class="flex flex-wrap gap-4 justify-center rounded-lg p-4">
@@ -40,12 +40,12 @@
   <div class="flex flex-wrap gap-4 justify-center rounded-lg p-4">
 
 
-    <%= link_to pricings_path do %>
+    <%= link_to reports_path do %>
       <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
-          <%= material_icon.shape(:price_check) %>
+          <%= material_icon.shape(:bar_chart) %>
         <div class="flex flex-col items-center">
-          <span class="text-lg font-bold">Precios</span>
-          <span class="text-sm">Precio especial a cada cliente</span>
+          <span class="text-lg font-bold">Reportes</span>
+          <span class="text-sm">Observa los reportes de tu emp</span>
         </div>
       </div>
     <% end %>
@@ -72,7 +72,7 @@
 
   </div>
 
-  <div class="flex flex-wrap gap-4 justify-center rounded-lg p-4">
+  <div class="flex flex-wrap gap-4 justify-center rounded-lg p-4 mb-20">
 
     
     <%= link_to locations_path do %>
@@ -81,6 +81,16 @@
         <div class="flex flex-col items-center">
           <span class="text-lg font-bold">Ubicaciones</span>
           <span class="text-sm">Añade, edita o elimina ubicacio</span>
+        </div>
+      </div>
+    <% end %>
+
+    <%= link_to pricings_path do %>
+      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
+          <%= material_icon.shape(:price_check) %>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold">Precios</span>
+          <span class="text-sm">Precio especial a cada cliente</span>
         </div>
       </div>
     <% end %>
