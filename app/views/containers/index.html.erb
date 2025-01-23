@@ -127,6 +127,7 @@
             <th class="px-2">Entrada</th>
             <th class="px-2">Salida</th>
             <th class="px-2">Factura</th>
+            <th class="px-2">Credito Disponible</th>
             <th class="px-2">Acción</th>
           </tr>
         </thead>
@@ -160,6 +161,9 @@
                 <% else %>
                   Sin facturar
                 <% end %>
+              </td>
+              <td class="border px-2 text-center">
+                <%= number_to_currency(container.user.available_credit) %>
               </td>
               <td class="border px-2 text-center">
                 <%= link_to container, class: "text-blue-600", title: "Ver detalles" do %>
