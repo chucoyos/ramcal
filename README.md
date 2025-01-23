@@ -51,6 +51,6 @@ Things you may want to cover:
 
 ## TO DO
 
-* Paginate invoices in users show and search filters
+* Search filters in users show 
 
 * Add reports policy

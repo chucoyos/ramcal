@@ -65,6 +65,10 @@
         </div>
       </div>
       <h1 class="text-3xl font-bold text-gray-800">Estados de Cuenta</h1>
+
+      <div class="bg-blue-50 p-4 rounded-lg shadow-md text-center">
+        <%= paginate @invoices %>
+      </div>
       <table class="min-w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">
         <thead class="bg-slate-200">
           <tr class="border">
@@ -81,7 +85,7 @@
           <% invoices_total = 0 %>
           <% invoices_due = 0 %>
 
-          <% @user.invoices.each do |invoice| %>
+          <% @invoices.each do |invoice| %>
             <tr class="border hover:bg-blue-50 transition duration-150">
               <td class="border border-gray-300 px-4 py-2"><%= invoice.id %></td>
               <td class="border border-gray-300 px-4 py-2"><%= invoice.issue_date.strftime("%d/%m/%Y") %></td>

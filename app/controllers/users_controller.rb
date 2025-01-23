@@ -27,6 +27,7 @@ class UsersController < ApplicationController
   def show
     authorize current_user, :show?, policy_class: UserPolicy
     @user = User.find(params[:id])
+    @invoices = @user.invoices.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def edit
