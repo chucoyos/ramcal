@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :suppliers
   get "reports" => "reports#index", as: :reports
   resources :payments
   resources :invoices

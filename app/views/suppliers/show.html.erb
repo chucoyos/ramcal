@@ -1,0 +1,11 @@
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto mt-8">
+    <%= render @supplier %>
+
+    <%= link_to "Editar", edit_supplier_path(@supplier), class: "mt-2 btn-primary" %>
+    <%= link_to "Regresar", suppliers_path, class: "ml-2 btn-primary" %>
+    <div class="inline-block ml-2">
+      <%= button_to "Eliminar", @supplier, method: :delete, data: { turbo_confirm: "¿Estás seguro de eliminar este proveedor?" }, class: "btn-danger mt-2" %>
+    </div>
+  </div>
+</div>
