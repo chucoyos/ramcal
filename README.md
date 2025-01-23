@@ -49,8 +49,6 @@ Things you may want to cover:
 
 * Edit manifest.json to change app name
 
-## TO DO
-
-* Search filters in users show 
+## TO DO 
 
 * Add reports policy

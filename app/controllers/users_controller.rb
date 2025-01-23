@@ -27,7 +27,22 @@ class UsersController < ApplicationController
   def show
     authorize current_user, :show?, policy_class: UserPolicy
     @user = User.find(params[:id])
-    @invoices = @user.invoices.order(created_at: :desc).page(params[:page]).per(10)
+    @invoices = @user.invoices.order(created_at: :desc).page(params[:page])
+
+    # Apply filters
+    if params[:status].present?
+      @invoices = @invoices.where(status: params[:status])
+    end
+
+    if params[:from_date].present?
+      @invoices = @invoices.where("issue_date >= ?", params[:from_date])
+    end
+
+    if params[:to_date].present?
+      @invoices = @invoices.where("issue_date <= ?", params[:to_date])
+    end
+
+    @invoices = @invoices.page(params[:page]).per(10)
   end
 
   def edit

@@ -1,6 +1,6 @@
 <div class="flex flex-col mx-auto mt-6 lg:w-3/4">
   <h1 class="text-3xl font-bold text-gray-800 mb-4">Detalles del Usuario</h1>
-  
+
   <div class="hidden lg:flex flex-col">
     <table class="min-w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">
       <thead class="bg-slate-200">
@@ -56,7 +56,7 @@
     <div class="my-4 mx-auto hidden md:flex flex-col gap-4">
       <div class="flex gap-4 justify-between my-4">
         <div>
-          <h3 class="text-xl font-bold text-gray-800">Limite de Crédito</h3>
+          <h3 class="text-xl font-bold text-gray-800">Límite de Crédito</h3>
           <h3 class="font-bold text-gray-800 text-center"><%= number_to_currency(@user.credit_limit) %></h3>
         </div>
         <div>
@@ -64,11 +64,43 @@
           <h3 class="font-bold text-gray-800 text-center"><%= number_to_currency(@user.available_credit) %></h3>
         </div>
       </div>
+
       <h1 class="text-3xl font-bold text-gray-800">Estados de Cuenta</h1>
 
-      <div class="bg-blue-50 p-4 rounded-lg shadow-md text-center">
+      <div class="container mx-auto p-6">
+        <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+          <form method="get" class="flex flex-wrap gap-4">
+            <div class="flex flex-col">
+              <label class="text-sm font-medium text-gray-700">Estado:</label>
+              <select name="status" class="border rounded-lg p-2">
+                <option value="">Todos</option>
+                <option value="Pendiente" <%= "selected" if params[:status] == "Pendiente" %>>Pendiente</option>
+                <option value="Parcial" <%= "selected" if params[:status] == "Parcial" %>>Parcial</option>
+                <option value="Pagado" <%= "selected" if params[:status] == "Pagado" %>>Pagado</option>
+              </select>
+            </div>
+
+            <div class="flex flex-col">
+              <label class="text-sm font-medium text-gray-700">Desde:</label>
+              <input type="date" name="from_date" value="<%= params[:from_date] %>" class="border rounded-lg p-2">
+            </div>
+
+            <div class="flex flex-col">
+              <label class="text-sm font-medium text-gray-700">Hasta:</label>
+              <input type="date" name="to_date" value="<%= params[:to_date] %>" class="border rounded-lg p-2">
+            </div>
+
+            <div class="flex items-end">
+              <button type="submit" class="btn-primary">Filtrar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="bg-blue-50 rounded-lg shadow-md text-center p-4">
         <%= paginate @invoices %>
       </div>
+
       <table class="min-w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">
         <thead class="bg-slate-200">
           <tr class="border">
@@ -108,9 +140,11 @@
             <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(invoices_due) %></td>
             <td class="border border-gray-300 px-4 py-2"></td>
           </tr>
+        </tfoot>
       </table>
     </div>
   <% end %>
 
 </div>
+
 
