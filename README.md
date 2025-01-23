@@ -48,3 +48,7 @@ Things you may want to cover:
 * Create services
 
 * Edit manifest.json to change app name
+
+## TO DO
+
+* Paginate invoices in users show and search filters

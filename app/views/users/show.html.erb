@@ -70,24 +70,40 @@
           <tr class="border">
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Folio</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Emisión</th>
-            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Total</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Status</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Total</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Saldo</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Actions</th>
           </tr>
         </thead>
         <tbody>
+
+          <% invoices_total = 0 %>
+          <% invoices_due = 0 %>
+
           <% @user.invoices.each do |invoice| %>
             <tr class="border hover:bg-blue-50 transition duration-150">
-              <td class="px-4 py-2"><%= invoice.id %></td>
-              <td class="px-4 py-2"><%= invoice.issue_date.strftime("%d/%m/%Y") %></td>
-              <td class="px-4 py-2"><%= number_to_currency(invoice.total) %></td>
-              <td class="px-4 py-2"><%= invoice.status %></td>
-              <td class="px-4 py-2">
+              <td class="border border-gray-300 px-4 py-2"><%= invoice.id %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= invoice.issue_date.strftime("%d/%m/%Y") %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= invoice.status %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(invoice.total) %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(invoice.total - invoice.payments.sum(:amount)) %></td>
+              <td class="border border-gray-300 px-4 py-2">
                 <%= link_to "Ver", invoice, class: "btn-primary px-4 py-2 rounded-md shadow-md" %>
               </td>
             </tr>
+            <% invoices_total += invoice.total %>
+            <% invoices_due += invoice.total - invoice.payments.sum(:amount) %>
           <% end %>
         </tbody>
+        <tfoot class="bg-slate-200">
+          <tr class="border">
+            <td class="border border-gray-300 px-4 py-2" colspan="2"></td>
+            <td class="border border-gray-300 px-4 py-2 text-right font-bold text-gray-800">Total:</td>
+            <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(invoices_total) %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(invoices_due) %></td>
+            <td class="border border-gray-300 px-4 py-2"></td>
+          </tr>
       </table>
     </div>
   <% end %>
