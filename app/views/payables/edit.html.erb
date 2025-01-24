@@ -1,0 +1,10 @@
+<div class="mx-auto md:w-2/3 w-full px-2">
+  <h1 class="font-bold text-4xl mt-6">Editando Pago</h1>
+
+  <%= render "form", payable: @payable %>
+
+  <div class="flex justify-between my-8">
+    <%= link_to "Ver", @payable, class: "ml-2 btn-primary mb-20" %>
+    <%= link_to "Regresar", payables_path, class: "ml-2 btn-primary mb-20" %>
+  </div>
+</div>

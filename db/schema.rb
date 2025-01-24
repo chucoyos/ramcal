@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_01_23_205041) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_24_074012) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -112,6 +112,19 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_23_205041) do
     t.index ["move_id"], name: "index_notifications_on_move_id"
   end
 
+  create_table "payables", force: :cascade do |t|
+    t.date "payment_date"
+    t.string "payment_type"
+    t.string "payment_means"
+    t.string "payment_concept"
+    t.bigint "supplier_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["supplier_id"], name: "index_payables_on_supplier_id"
+    t.index ["user_id"], name: "index_payables_on_user_id"
+  end
+
   create_table "payments", force: :cascade do |t|
     t.bigint "invoice_id", null: false
     t.decimal "amount", precision: 10, scale: 2
@@ -207,6 +220,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_23_205041) do
   add_foreign_key "moves", "containers"
   add_foreign_key "moves", "locations"
   add_foreign_key "notifications", "moves"
+  add_foreign_key "payables", "suppliers"
+  add_foreign_key "payables", "users"
   add_foreign_key "payments", "invoices"
   add_foreign_key "pricings", "services"
   add_foreign_key "pricings", "users"
