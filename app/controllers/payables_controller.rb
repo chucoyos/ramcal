@@ -3,7 +3,7 @@ class PayablesController < ApplicationController
 
   # GET /payables or /payables.json
   def index
-    @payables = Payable.all
+    @payables = Payable.all.includes(:supplier, :user)
   end
 
   # GET /payables/1 or /payables/1.json
@@ -65,6 +65,6 @@ class PayablesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def payable_params
-      params.require(:payable).permit(:payment_date, :payment_type, :payment_means, :payment_concept, :supplier_id, :user_id)
+      params.require(:payable).permit(:payment_amount, :payment_date, :payment_type, :payment_means, :payment_concept, :supplier_id, :user_id)
     end
 end

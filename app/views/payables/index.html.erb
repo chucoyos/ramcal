@@ -33,17 +33,19 @@
         <th class="py-3 px-4 border text-left">Medio de Pago</th>
         <th class="py-3 px-4 border text-left">Proveedor</th>
         <th class="py-3 px-4 border text-left">Usuario</th>
+        <th class="py-3 px-4 border text-left">Monto</th>
         <th class="py-3 px-4 border text-left">Acciones</th>
       </tr>
     </thead>
     <tbody>
       <% @payables.each do |payable| %>
         <tr class="border-b hover:bg-gray-100">
-          <td class="py-3 px-4"><%= payable.payment_date %></td>
+          <td class="py-3 px-4"><%= payable.payment_date.strftime("%d/%m/%Y") %></td>
           <td class="py-3 px-4"><%= payable.payment_type %></td>
           <td class="py-3 px-4"><%= payable.payment_means %></td>
-          <td class="py-3 px-4"><%= payable.supplier_id %></td>
-          <td class="py-3 px-4"><%= payable.user_id %></td>
+          <td class="py-3 px-4"><%= payable.supplier.name %></td>
+          <td class="py-3 px-4"><%= payable.user.full_name %></td>
+          <td class="py-3 px-4"><%= payable.payment_amount %></td>
           <td class="py-3 px-4">
             <%= link_to "Ver", payable, class: "btn-primary px-4 py-2 text-sm" %>
           </td>

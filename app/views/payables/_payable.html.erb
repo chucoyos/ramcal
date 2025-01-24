@@ -4,7 +4,7 @@
   <div class="space-y-4">
     <div class="flex justify-between border-b pb-2">
       <strong class="text-gray-600">📅 Fecha de Pago:</strong>
-      <span class="text-gray-900 font-medium"><%= payable.payment_date %></span>
+      <span class="text-gray-900 font-medium"><%= payable.payment_date.strftime("%d/%m/%Y") %></span>
     </div>
 
     <div class="flex justify-between border-b pb-2">
@@ -24,12 +24,12 @@
 
     <div class="flex justify-between border-b pb-2">
       <strong class="text-gray-600">🏢 Proveedor:</strong>
-      <span class="text-gray-900 font-medium"><%= payable.supplier_id %></span>
+      <span class="text-gray-900 font-medium"><%= payable.supplier.name %></span>
     </div>
 
     <div class="flex justify-between">
       <strong class="text-gray-600">👤 Autoriza:</strong>
-      <span class="text-gray-900 font-medium"><%= payable.user_id %></span>
+      <span class="text-gray-900 font-medium"><%= payable.user.full_name %></span>
     </div>
   </div>
 </div>
