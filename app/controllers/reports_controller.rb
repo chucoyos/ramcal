@@ -2,6 +2,7 @@ class ReportsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    authorize current_user, :index?, policy_class: ReportPolicy
     @months = (0..5).map { |n| Date.today.beginning_of_month - n.months }
 
     @report_data = @months.map do |month|

@@ -86,16 +86,14 @@
       <% end %>
     <% end %>
 
-     <% if current_user.role.name == "administrador" %>
-      <%= link_to reports_path do %>
-        <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
-            <%= material_icon.shape(:bar_chart) %>
-          <div class="flex flex-col items-center">
-            <span class="text-lg font-bold">Reportes</span>
-            <span class="text-sm">Observa los reportes de tu emp</span>
-          </div>
+    <%= link_to reports_path do %>
+      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
+          <%= material_icon.shape(:bar_chart) %>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold">Reportes</span>
+          <span class="text-sm">Observa los reportes de tu emp</span>
         </div>
-      <% end %>
+      </div>
     <% end %>
 
     <%= link_to suppliers_path do %>
