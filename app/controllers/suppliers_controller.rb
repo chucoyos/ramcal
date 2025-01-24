@@ -3,24 +3,29 @@ class SuppliersController < ApplicationController
 
   # GET /suppliers or /suppliers.json
   def index
+    authorize current_user, :index?, policy_class: SupplierPolicy
     @suppliers = Supplier.all
   end
 
   # GET /suppliers/1 or /suppliers/1.json
   def show
+    authorize current_user, :show?, policy_class: SupplierPolicy
   end
 
   # GET /suppliers/new
   def new
+    authorize current_user, :create?, policy_class: SupplierPolicy
     @supplier = Supplier.new
   end
 
   # GET /suppliers/1/edit
   def edit
+    authorize current_user, :update?, policy_class: SupplierPolicy
   end
 
   # POST /suppliers or /suppliers.json
   def create
+    authorize current_user, :create?, policy_class: SupplierPolicy
     @supplier = Supplier.new(supplier_params)
 
     respond_to do |format|
@@ -36,6 +41,7 @@ class SuppliersController < ApplicationController
 
   # PATCH/PUT /suppliers/1 or /suppliers/1.json
   def update
+    authorize current_user, :update?, policy_class: SupplierPolicy
     respond_to do |format|
       if @supplier.update(supplier_params)
         format.html { redirect_to @supplier, notice: "Supplier was successfully updated." }
@@ -49,6 +55,7 @@ class SuppliersController < ApplicationController
 
   # DELETE /suppliers/1 or /suppliers/1.json
   def destroy
+    authorize current_user, :destroy?, policy_class: SupplierPolicy
     @supplier.destroy!
 
     respond_to do |format|
