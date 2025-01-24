@@ -28,7 +28,7 @@
 
     <div class="my-5">
       <%= form.label :payment_means, "Forma de Pago" %>
-      <%= form.text_field :payment_means, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      <%= form.select :payment_means, options_for_select(Payable::PAYMENT_MEANS, form.object.payment_means), { prompt: "Selecciona la forma de pago" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full", required: true %>
     </div>
 
 
@@ -39,12 +39,12 @@
 
     <div class="my-5">
       <%= form.label :supplier_id, "Proveedor" %>
-      <%= form.text_field :supplier_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      <%= form.collection_select :supplier_id, Supplier.all, :id, :name, { prompt: "Seleccionar proveedor" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
 
     <div class="my-5">
-      <%= form.label :user_id, "Autoriza" %>
-      <%= form.text_field :user_id, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+      <%= form.label :user_id, "Autorizado por" %>
+      <%= form.collection_select :user_id, User.admins, :id, :full_name, { prompt: "Seleccionar administrador" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
 
     <div class="inline">
