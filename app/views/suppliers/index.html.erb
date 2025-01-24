@@ -1,14 +1,14 @@
 <div class="w-full max-w-5xl mx-auto lg:w-3/4 bg-white shadow-lg rounded-lg p-6 border border-gray-200 mt-6">
   <div class="flex justify-between items-center mb-6">
     <h1 class="font-bold text-4xl text-gray-800">Proveedores</h1>
-    <%= link_to new_supplier_path, class: "btn-primary" do %>
+    <%= link_to new_supplier_path, class: "btn-primary", title: "Nuevo Proveedor" do %>
       <div class="flex items-center">
         <%= material_icon.shape(:add_circle_outline) %>
       </div>
     <% end %>
   </div>
 
-  <div id="suppliers" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div id="suppliers" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
     <% @suppliers.each do |supplier| %>
       <div class="bg-gray-50 p-4 rounded-lg shadow-sm border border-gray-300">
         <%= render supplier %>

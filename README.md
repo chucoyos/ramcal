@@ -51,4 +51,4 @@ Things you may want to cover:
 
 ## TO DO 
 
-* Add reports policy
+* Add reports, and suppliers policy
