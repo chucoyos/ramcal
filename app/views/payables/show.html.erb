@@ -5,7 +5,7 @@
     <%= link_to "Editar", edit_payable_path(@payable), class: "btn-primary" %>
     <%= link_to "Regresar", payables_path, class: "btn-primary" %>
     <div class="inline-block ml-2">
-      <%= button_to "Eliminar", @payable, method: :delete, data: { confirm: "¿Estás seguro?" }, class: "btn-danger" %>
+      <%= button_to "Eliminar", @payable, method: :delete, data: { turbo_confirm: "¿Estás seguro?" }, class: "btn-danger" %>
     </div>
   </div>
 </div>
