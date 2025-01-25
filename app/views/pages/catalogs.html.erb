@@ -4,43 +4,7 @@
   <h1 class="my-4 text-white">Catálogos</h1>
   <div class="flex flex-wrap gap-4 justify-center rounded-lg p-4">
 
-    <%= link_to users_path do %>
-      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
-          <%= material_icon.shape(:people_outline) %>
-        <div class="flex flex-col items-center">
-          <span class="font-bold text-lg">Usuarios</span>
-          <span class="text-sm">Administra usuarios y clientes</span>
-        </div>
-      </div>
-    <% end %>
-
-    <%= link_to roles_path do %>
-      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
-          <%= material_icon.shape(:engineering) %>
-        <div class="flex flex-col items-center">
-          <span class="text-lg font-bold">Roles</span>
-          <span class="text-sm">Añade, edita o elimina roles d</span>
-        </div>
-      </div>
-    <% end %>
-
-    <%= link_to services_path do %>
-      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
-          <%= material_icon.shape(:handyman) %>
-        <div class="flex flex-col items-center">
-          <span class="text-lg font-bold">Servicios</span>
-          <span class="text-sm">Administra los servicios prest</span>
-        </div>
-      </div>
-    <% end %>
-  
-  </div>
-
-
-  <div class="flex flex-wrap gap-4 justify-center rounded-lg p-4">
-
-
-    <%= link_to invoices_path do %>
+     <%= link_to invoices_path do %>
       <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
           <%= material_icon.shape(:receipt_long) %>
         <div class="flex flex-col items-center">
@@ -59,10 +23,46 @@
         </div>
       </div>
     <% end %>
+      
+
+    <%= link_to services_path do %>
+      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
+          <%= material_icon.shape(:handyman) %>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold">Servicios</span>
+          <span class="text-sm">Administra los servicios prest</span>
+        </div>
+      </div>
+    <% end %>
+  
+  </div>
+
+
+  <div class="flex flex-wrap gap-4 justify-center rounded-lg p-4">
+
+    <%= link_to users_path do %>
+      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
+        <%= material_icon.shape(:people_outline) %>
+        <div class="flex flex-col items-center">
+          <span class="font-bold text-lg">Usuarios</span>
+          <span class="text-sm">Administra usuarios y clientes</span>
+        </div>
+      </div>
+    <% end %>
+
+    <%= link_to roles_path do %>
+      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
+        <%= material_icon.shape(:engineering) %>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold">Roles</span>
+          <span class="text-sm">Añade, edita o elimina roles d</span>
+        </div>
+      </div>
+    <% end %>
 
     <%= link_to locations_path do %>
       <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
-          <%= material_icon.shape(:place) %>
+        <%= material_icon.shape(:place) %>
         <div class="flex flex-col items-center">
           <span class="text-lg font-bold">Ubicaciones</span>
           <span class="text-sm">Añade, edita o elimina ubicacio</span>
@@ -74,21 +74,19 @@
 
   <div class="flex flex-wrap gap-4 justify-center rounded-lg p-4">
 
-   <% if current_user.role.name == "administrador" %> 
-      <%= link_to pricings_path do %>
-        <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
-            <%= material_icon.shape(:price_check) %>
-          <div class="flex flex-col items-center">
-            <span class="text-lg font-bold">Precios</span>
-            <span class="text-sm">Precio especial a cada cliente</span>
-          </div>
+    <%= link_to pricings_path do %>
+      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
+        <%= material_icon.shape(:price_check) %>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold">Precios</span>
+          <span class="text-sm">Precio especial a cada cliente</span>
         </div>
-      <% end %>
+      </div>
     <% end %>
 
     <%= link_to reports_path do %>
       <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
-          <%= material_icon.shape(:bar_chart) %>
+        <%= material_icon.shape(:bar_chart) %>
         <div class="flex flex-col items-center">
           <span class="text-lg font-bold">Reportes</span>
           <span class="text-sm">Observa los reportes de tu emp</span>
@@ -98,7 +96,7 @@
 
     <%= link_to suppliers_path do %>
       <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
-          <%= material_icon.shape(:storefront) %>
+        <%= material_icon.shape(:storefront) %>
         <div class="flex flex-col items-center">
           <span class="text-lg font-bold">Proveedores</span>
           <span class="text-sm">Añade, edita o elimina proveed</span>
@@ -112,7 +110,7 @@
 
     <%= link_to root_path do %>
       <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
-          <%= material_icon.shape(:house) %>
+        <%= material_icon.shape(:house) %>
         <div class="flex flex-col items-center">
           <span class="text-lg font-bold">Home</span>
           <span class="text-sm">YACO Yard Containers Controla,</span>
@@ -122,7 +120,7 @@
 
     <%= link_to payables_path do %>
       <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
-          <%= material_icon.shape(:calculate) %>
+        <%= material_icon.shape(:calculate) %>
         <div class="flex flex-col items-center">
           <span class="text-lg font-bold">Cuentas por Pagar</span>
           <span class="text-sm">Administra Gastos y Cuentas por</span>
