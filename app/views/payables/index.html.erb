@@ -10,47 +10,48 @@
   </div>
 
   <!-- Search & Filters -->
-  <div class="mb-5 p-4 bg-gray-100 rounded-lg shadow-md">
-    <%= form_with url: payables_path, method: :get, local: true, class: "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4" do %>
+<div class="mb-5 p-4 bg-gray-100 rounded-lg shadow-md">
+  <%= form_with url: payables_path, method: :get, local: true, class: "grid grid-cols-1 lg:grid-cols-2 gap-6" do %>
 
-      <!-- Start Date -->
-      <div>
-        <%= label_tag :start_date, "Desde" %>
-        <%= date_field_tag :start_date, params[:start_date], class: "block w-full border rounded px-3 py-2" %>
-      </div>
+    <!-- Start Date -->
+    <div>
+      <%= label_tag :start_date, "Desde" %>
+      <%= date_field_tag :start_date, params[:start_date], class: "block w-full border rounded px-3 py-2" %>
+    </div>
 
-      <!-- End Date -->
-      <div>
-        <%= label_tag :end_date, "Hasta" %>
-        <%= date_field_tag :end_date, params[:end_date], class: "block w-full border rounded px-3 py-2" %>
-      </div>
+    <!-- End Date -->
+    <div>
+      <%= label_tag :end_date, "Hasta" %>
+      <%= date_field_tag :end_date, params[:end_date], class: "block w-full border rounded px-3 py-2" %>
+    </div>
 
-      <!-- Payment Type -->
-      <div>
-        <%= label_tag :payment_type, "Tipo de Pago" %>
-        <%= select_tag :payment_type, options_for_select(Payable::PAYMENT_TYPES, params[:payment_type]), include_blank: "Todos", class: "block w-full border rounded px-3 py-2" %>
-      </div>
+    <!-- Payment Type -->
+    <div>
+      <%= label_tag :payment_type, "Tipo de Pago" %>
+      <%= select_tag :payment_type, options_for_select(Payable::PAYMENT_TYPES, params[:payment_type]), include_blank: "Todos", class: "block w-full border rounded px-3 py-2" %>
+    </div>
 
-      <!-- Payment Means -->
-      <div>
-        <%= label_tag :payment_means, "Forma de Pago" %>
-        <%= select_tag :payment_means, options_for_select(Payable::PAYMENT_MEANS, params[:payment_means]), include_blank: "Todas", class: "block w-full border rounded px-3 py-2" %>
-      </div>
+    <!-- Payment Means -->
+    <div>
+      <%= label_tag :payment_means, "Forma de Pago" %>
+      <%= select_tag :payment_means, options_for_select(Payable::PAYMENT_MEANS, params[:payment_means]), include_blank: "Todas", class: "block w-full border rounded px-3 py-2" %>
+    </div>
 
-      <!-- Supplier Name -->
-      <div>
-        <%= label_tag :supplier_name, "Proveedor" %>
-        <%= select_tag :supplier_name, options_for_select(Supplier.all.map { |s| [s.name, s.id] }, params[:supplier_name]), include_blank: "Todos", class: "block w-full border rounded px-3 py-2" %>
-      </div>
+    <!-- Supplier Name -->
+    <div>
+      <%= label_tag :supplier_name, "Proveedor" %>
+      <%= select_tag :supplier_name, options_for_select(Supplier.pluck(:name, :id), params[:supplier_name]), include_blank: "Todos", class: "block w-full border rounded px-3 py-2" %>
+    </div>
 
-      <!-- Search Button -->
-      <div class="col-span-1 md:col-span-3 lg:col-span-5 flex justify-end">
-        <%= submit_tag "Buscar", class: "btn-primary px-5 py-2" %>
-        <%= link_to "Limpiar", payables_path, class: "btn-secondary px-5 py-2 ml-2" %>
-      </div>
+    <!-- Search & Reset Buttons -->
+    <div class="lg:col-span-2 flex flex-col lg:flex-row justify-end space-y-3 lg:space-y-0 lg:space-x-3 mt-4 gap-3">
+      <%= submit_tag "Buscar", class: "btn-primary" %>
+      <%= link_to "Limpiar", payables_path, class: "btn-primary" %>
+    </div>
 
-    <% end %>
-  </div>
+  <% end %>
+</div>
+
 
   <div class="my-4 flex justify-center border bg-blue-50 rounded-lg px-6 py-2">
       <%= paginate @payables %>
