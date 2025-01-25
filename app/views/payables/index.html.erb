@@ -28,13 +28,13 @@
   <table class="w-full border-collapse border border-gray-200 rounded-lg shadow-md">
     <thead class="bg-gray-100">
       <tr>
-        <th class="py-3 px-4 border text-left">Fecha de Pago</th>
-        <th class="py-3 px-4 border text-left">Tipo de Pago</th>
-        <th class="py-3 px-4 border text-left">Medio de Pago</th>
-        <th class="py-3 px-4 border text-left">Proveedor</th>
-        <th class="py-3 px-4 border text-left">Usuario</th>
-        <th class="py-3 px-4 border text-left">Monto</th>
-        <th class="py-3 px-4 border text-left">Acciones</th>
+        <th class="py-3 px-4 border text-center">Fecha de Pago</th>
+        <th class="py-3 px-4 border text-center">Tipo de Pago</th>
+        <th class="py-3 px-4 border text-center">Medio de Pago</th>
+        <th class="py-3 px-4 border text-center">Proveedor</th>
+        <th class="py-3 px-4 border text-center">Autoriza</th>
+        <th class="py-3 px-4 border text-center">Monto</th>
+        <th class="py-3 px-4 border text-center">Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -45,7 +45,7 @@
           <td class="py-3 px-4"><%= payable.payment_means %></td>
           <td class="py-3 px-4"><%= payable.supplier.name %></td>
           <td class="py-3 px-4"><%= payable.user.full_name %></td>
-          <td class="py-3 px-4"><%= payable.payment_amount %></td>
+          <td class="py-3 px-4"><%= number_to_currency(payable.payment_amount, unit: "$", separator: ".", delimiter: ",") %></td>
           <td class="py-3 px-4">
             <%= link_to "Ver", payable, class: "btn-primary px-4 py-2 text-sm" %>
           </td>
