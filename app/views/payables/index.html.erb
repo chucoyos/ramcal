@@ -39,7 +39,7 @@
     <tbody>
       <% @payables.each do |payable| %>
         <tr class="border-b hover:bg-gray-100">
-          <td class="py-3 px-4"><%= payable.payment_date.strftime("%d/%m/%Y") %></td>
+          <td class="py-3 px-4"><%= payable.payment_date&.strftime("%d/%m/%Y") %></td>
           <td class="py-3 px-4"><%= payable.payment_type %></td>
           <td class="py-3 px-4"><%= payable.payment_means %></td>
           <td class="py-3 px-4"><%= payable.supplier.name %></td>
