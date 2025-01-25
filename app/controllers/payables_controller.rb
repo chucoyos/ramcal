@@ -4,8 +4,23 @@ class PayablesController < ApplicationController
   # GET /payables or /payables.json
   def index
     authorize current_user, :index?, policy_class: PayablePolicy
-    @payables = Payable.all.includes(:supplier, :user)
+
+    # Default date range: Start & End of Current Month
+    start_date = params[:start_date].presence || Date.today.beginning_of_month
+    end_date = params[:end_date].presence || Date.today.end_of_month
+
+    @payables = Payable.includes(:supplier, :user)
+                       .where(payment_date: start_date..end_date)
+
+    # Filters
+    @payables = @payables.where(payment_type: params[:payment_type]) if params[:payment_type].present?
+    @payables = @payables.where(payment_means: params[:payment_means]) if params[:payment_means].present?
+    @payables = @payables.where(supplier_id: params[:supplier_name]) if params[:supplier_name].present?
+
+    # Pagination (using Kaminari)
+    @payables = @payables.page(params[:page]).per(10)
   end
+
 
   # GET /payables/1 or /payables/1.json
   def show
