@@ -3,24 +3,29 @@ class PayablesController < ApplicationController
 
   # GET /payables or /payables.json
   def index
+    authorize current_user, :index?, policy_class: PayablePolicy
     @payables = Payable.all.includes(:supplier, :user)
   end
 
   # GET /payables/1 or /payables/1.json
   def show
+    authorize current_user, :show?, policy_class: PayablePolicy
   end
 
   # GET /payables/new
   def new
+    authorize current_user, :create?, policy_class: PayablePolicy
     @payable = Payable.new
   end
 
   # GET /payables/1/edit
   def edit
+    authorize current_user, :update?, policy_class: PayablePolicy
   end
 
   # POST /payables or /payables.json
   def create
+    authorize current_user, :create?, policy_class: PayablePolicy
     @payable = Payable.new(payable_params)
 
     respond_to do |format|
@@ -36,6 +41,7 @@ class PayablesController < ApplicationController
 
   # PATCH/PUT /payables/1 or /payables/1.json
   def update
+    authorize current_user, :update?, policy_class: PayablePolicy
     respond_to do |format|
       if @payable.update(payable_params)
         format.html { redirect_to @payable, notice: "Payable was successfully updated." }
@@ -49,6 +55,7 @@ class PayablesController < ApplicationController
 
   # DELETE /payables/1 or /payables/1.json
   def destroy
+    authorize current_user, :destroy?, policy_class: PayablePolicy
     @payable.destroy!
 
     respond_to do |format|
