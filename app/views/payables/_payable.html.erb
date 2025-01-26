@@ -38,18 +38,21 @@
     </div>
 
     <% if payable.receipt.attached? %>
-      <p>Comprobante: 
+      <div class="border shadow-lg rounded-lg overflow-hidden w-32 h-32">
         <% if payable.receipt.content_type.start_with?('image/') %>
-          <%= image_tag payable.receipt, class: "mt-2 w-32 h-auto rounded-lg shadow" %>
+          <%= link_to rails_blob_path(payable.receipt, only_path: true), target: "_blank" do %>
+            <%= image_tag(payable.receipt.variant(resize_to_limit: [150, 150]), class: "object-cover w-full h-full") %>
+          <% end %>
         <% else %>
-          <%= link_to "Ver comprobante", url_for(payable.receipt), target: "_blank", class: "text-blue-500 underline" %>
+          <div class="bg-gray-100 flex items-center justify-center h-full">
+            <%= link_to "Ver PDF", rails_blob_path(payable.receipt, only_path: true), target: "_blank", class: "text-blue-500 underline block text-center p-4" %>
+          </div>
         <% end %>
-      </p>
+      </div>
     <% else %>
-      <p>No hay comprobante adjunto</p>
+      <div class="text-gray-600">No hay comprobante adjunto</div>
     <% end %>
  
-
   </div>
 </div>
 
