@@ -1,6 +1,6 @@
-<div class="flex flex-col mx-2 lg:mx-24 mt-6">
+<div class="flex flex-col mx-auto mt-6 lg:w-3/4">
   <h1 class="text-3xl font-bold text-gray-800 mb-4">Detalles del Usuario</h1>
-  
+
   <div class="hidden lg:flex flex-col">
     <table class="min-w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">
       <thead class="bg-slate-200">
@@ -43,16 +43,108 @@
     </div>
   </div>
 
-  <div class="flex gap-4 mt-4">
+  <div class="flex gap-4 mt-6 mx-auto">
     <%= link_to "Editar", edit_user_path(@user), class: "btn-primary px-4 py-2 rounded-md shadow-md" %>
     <%= link_to "Eliminar", delete_member_path(@user), 
       data: { turbo_method: :delete, 
               turbo_confirm: "¿Estás seguro de eliminar a #{@user.first_name} #{@user.last_name}? También se perderá la información relacionada a este usuario." }, 
       class: "btn-danger px-4 py-2 rounded-md shadow-md" %>
-  </div>
-
-  <div class="mt-4">
     <%= link_to "Regresar", users_path, class: "btn-primary px-4 py-2 rounded-md shadow-md" %>
   </div>
+
+  <% if @user.role&.name == "cliente" %>
+    <div class="my-4 mx-auto hidden md:flex flex-col gap-4">
+      <div class="flex gap-4 justify-between my-4">
+        <div>
+          <h3 class="text-xl font-bold text-gray-800">Límite de Crédito</h3>
+          <h3 class="font-bold text-gray-800 text-center"><%= number_to_currency(@user.credit_limit) %></h3>
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-gray-800">Crédito Disponible</h3>
+          <h3 class="font-bold text-gray-800 text-center"><%= number_to_currency(@user.available_credit) %></h3>
+        </div>
+      </div>
+
+      <h1 class="text-3xl font-bold text-gray-800">Estados de Cuenta</h1>
+
+      <div class="container mx-auto p-6">
+        <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+          <form method="get" class="flex flex-wrap gap-4">
+            <div class="flex flex-col">
+              <label class="text-sm font-medium text-gray-700">Estado:</label>
+              <select name="status" class="border rounded-lg p-2">
+                <option value="">Todos</option>
+                <option value="Pendiente" <%= "selected" if params[:status] == "Pendiente" %>>Pendiente</option>
+                <option value="Parcial" <%= "selected" if params[:status] == "Parcial" %>>Parcial</option>
+                <option value="Pagado" <%= "selected" if params[:status] == "Pagado" %>>Pagado</option>
+              </select>
+            </div>
+
+            <div class="flex flex-col">
+              <label class="text-sm font-medium text-gray-700">Desde:</label>
+              <input type="date" name="from_date" value="<%= params[:from_date] %>" class="border rounded-lg p-2">
+            </div>
+
+            <div class="flex flex-col">
+              <label class="text-sm font-medium text-gray-700">Hasta:</label>
+              <input type="date" name="to_date" value="<%= params[:to_date] %>" class="border rounded-lg p-2">
+            </div>
+
+            <div class="flex items-end">
+              <button type="submit" class="btn-primary">Filtrar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="bg-blue-50 rounded-lg shadow-md text-center p-4">
+        <%= paginate @invoices %>
+      </div>
+
+      <table class="min-w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">
+        <thead class="bg-slate-200">
+          <tr class="border">
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Folio</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Emisión</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Status</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Total</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Saldo</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-600">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <% invoices_total = 0 %>
+          <% invoices_due = 0 %>
+
+          <% @invoices.each do |invoice| %>
+            <tr class="border hover:bg-blue-50 transition duration-150">
+              <td class="border border-gray-300 px-4 py-2"><%= invoice.id %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= invoice.issue_date.strftime("%d/%m/%Y") %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= invoice.status %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(invoice.total) %></td>
+              <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(invoice.total - invoice.payments.sum(:amount)) %></td>
+              <td class="border border-gray-300 px-4 py-2">
+                <%= link_to "Ver", invoice, class: "btn-primary px-4 py-2 rounded-md shadow-md" %>
+              </td>
+            </tr>
+            <% invoices_total += invoice.total %>
+            <% invoices_due += invoice.total - invoice.payments.sum(:amount) %>
+          <% end %>
+        </tbody>
+        <tfoot class="bg-slate-200">
+          <tr class="border">
+            <td class="border border-gray-300 px-4 py-2" colspan="2"></td>
+            <td class="border border-gray-300 px-4 py-2 text-right font-bold text-gray-800">Total:</td>
+            <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(invoices_total) %></td>
+            <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(invoices_due) %></td>
+            <td class="border border-gray-300 px-4 py-2"></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  <% end %>
+
 </div>
+
 

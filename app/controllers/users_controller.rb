@@ -3,7 +3,6 @@ class UsersController < ApplicationController
 
   def index
     authorize current_user, :index?, policy_class: UserPolicy
-    # @users = User.order(:first_name).page(params[:page]).per(10)
     @users = User.includes(:role).order(:first_name).page(params[:page]).per(10)
   end
 
@@ -27,6 +26,22 @@ class UsersController < ApplicationController
   def show
     authorize current_user, :show?, policy_class: UserPolicy
     @user = User.find(params[:id])
+    @invoices = @user.invoices.order(created_at: :desc).page(params[:page])
+
+    # Apply filters
+    if params[:status].present?
+      @invoices = @invoices.where(status: params[:status])
+    end
+
+    if params[:from_date].present?
+      @invoices = @invoices.where("issue_date >= ?", params[:from_date])
+    end
+
+    if params[:to_date].present?
+      @invoices = @invoices.where("issue_date <= ?", params[:to_date])
+    end
+
+    @invoices = @invoices.page(params[:page]).per(10)
   end
 
   def edit
@@ -58,6 +73,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :second_last_name, :username, :phone, :user_type, :contact_person, :role_id)
+    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :second_last_name, :username, :phone, :user_type, :contact_person, :role_id, :credit_limit, :available_credit)
   end
 end

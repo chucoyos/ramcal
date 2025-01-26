@@ -67,32 +67,54 @@
             <th class="border border-gray-300 px-4 py-2">Cliente</th>
           <% end %>
           <th class="border border-gray-300 px-4 py-2">Contenedor</th>
-          <th class="border border-gray-300 px-4 py-2">Pago</th>
           <th class="border border-gray-300 px-4 py-2">Emisión</th>
           <th class="border border-gray-300 px-4 py-2">Vence</th>
+          <th class="border border-gray-300 px-4 py-2">Pago</th>
           <th class="border border-gray-300 px-4 py-2">Cargo</th>
+          <th class="border border-gray-300 px-4 py-2">Saldo</th>
           <th class="border border-gray-300 px-4 py-2">Actions</th>
         </tr>
       </thead>
       <tbody>
         <% invoices_total = 0 %>
+        <% invoices_amount_due = 0 %>
         <% @invoices.each do |invoice| %>
           <tr class="hover:bg-gray-100">
             <td class="border border-gray-300 px-4 py-2"><%= invoice.id %></td>
             <% if current_user.role.name != "cliente" %>
-              <td class="border border-gray-300 px-4 py-2"><%= invoice.user.full_name %></td>
+              <td class="border border-gray-300 px-4 py-2">
+                <%= link_to invoice.user, class: "underline text-blue-900" do %>
+                  <%= invoice.user.full_name %>
+                <% end %>
+              </td>
             <% end %>
             <td class="border border-gray-300 px-4 py-2 underline text-blue-900">
               <%= link_to invoice.services.first&.container&.number || "N/A", invoice.services.first&.container %>
             </td>
-            <td class="border border-gray-300 px-4 py-2"><%= invoice.status %></td>
             <td class="border border-gray-300 px-4 py-2">
               <%= invoice.issue_date.in_time_zone("America/Mexico_City").strftime("%d/%m/%y") %>
             </td>
             <td class="border border-gray-300 px-4 py-2">
               <%= invoice.due_date.in_time_zone("America/Mexico_City").strftime("%d/%m/%y") %>
             </td>
+            <td class="border border-gray-300 px-4 py-2">
+              <% if invoice.status != "Pagada" %>
+                <%= link_to new_payment_path(invoice_id: invoice.id), class: "text-indigo-600", title: "Registrar Pago" do %>
+                  <div class="flex flex-col items-center justify-center">
+                    <%= material_icon.shape(:payment) %>
+                    <%= invoice.status %>
+                  </div>
+                <% end %>
+              <% else %>
+                <div class="flex flex-col items-center justify-center">
+                  <%= invoice.status %>
+                </div>
+              <% end %>
+            </td>
             <td class="border border-gray-300 px-4 py-2"><%= number_to_currency(invoice.total) %></td>
+            <td class="border border-gray-300 px-4 py-2">
+              <%= number_to_currency(invoice.total-invoice.payments.sum(:amount)) %>
+            </td>
             <td class="border border-gray-300 px-4 py-2 text-center">
               <%= link_to invoice, class: "text-blue-600", title: "Ver Detalles" do %>
                 <%= material_icon.shape(:visibility) %>
@@ -100,16 +122,20 @@
             </td>
           </tr>
           <% invoices_total += invoice.total %>
+          <% invoices_amount_due += invoice.total-invoice.payments.sum(:amount) %>
         <% end %>
       </tbody>
       <tfoot>
         <tr class="bg-blue-50 text-gray-700">
-          <td class="border border-gray-300 px-4 py-2"></td>
-          <td class="border border-gray-300 px-4 py-2"></td>
-          <td class="border border-gray-300 px-4 py-2"></td>
-          <td class="border border-gray-300 px-4 py-2"></td>
+          <td class="border border-gray-300 px-4 py-2" colspan="5"></td>
           <td class="border border-gray-300 px-4 py-2 font-semibold text-center">Total</td>
-          <td class="border border-gray-300 px-4 py-2 font-semibold" colspan="5"><%= number_to_currency(invoices_total) %></td>
+          <td class="border border-gray-300 px-4 py-2 font-semibold">
+            <%= number_to_currency(invoices_total) %>
+          </td>
+          <td class="border border-gray-300 px-4 py-2 font-semibold">
+            <%= number_to_currency(invoices_amount_due) %>
+          </td>
+          <td class="border border-gray-300 px-4 py-2"></td>
         </tr>
       </tfoot>
     </table>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_30_050129) do
+ActiveRecord::Schema[7.2].define(version: 2025_01_24_211001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -112,6 +112,20 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_30_050129) do
     t.index ["move_id"], name: "index_notifications_on_move_id"
   end
 
+  create_table "payables", force: :cascade do |t|
+    t.date "payment_date"
+    t.string "payment_type"
+    t.string "payment_means"
+    t.string "payment_concept"
+    t.bigint "supplier_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "payment_amount", precision: 10, scale: 2, default: "0.0", null: false
+    t.index ["supplier_id"], name: "index_payables_on_supplier_id"
+    t.index ["user_id"], name: "index_payables_on_user_id"
+  end
+
   create_table "payments", force: :cascade do |t|
     t.bigint "invoice_id", null: false
     t.decimal "amount", precision: 10, scale: 2
@@ -166,6 +180,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_30_050129) do
     t.index ["invoice_id"], name: "index_services_on_invoice_id"
   end
 
+  create_table "suppliers", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "contact"
+    t.string "phone"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -182,6 +205,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_30_050129) do
     t.string "phone_number"
     t.integer "user_type"
     t.bigint "role_id"
+    t.decimal "credit_limit", precision: 10, scale: 2, default: "0.0", null: false
+    t.decimal "available_credit", precision: 10, scale: 2, default: "0.0", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
@@ -196,6 +221,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_30_050129) do
   add_foreign_key "moves", "containers"
   add_foreign_key "moves", "locations"
   add_foreign_key "notifications", "moves"
+  add_foreign_key "payables", "suppliers"
+  add_foreign_key "payables", "users"
   add_foreign_key "payments", "invoices"
   add_foreign_key "pricings", "services"
   add_foreign_key "pricings", "users"

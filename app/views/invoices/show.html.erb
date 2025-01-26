@@ -30,7 +30,11 @@
         <tr class="hover:bg-gray-100">
           <td class="border border-gray-300 px-4 py-2"><%= @invoice.id %></td>
           <% if current_user.role.name != "cliente" %>
-            <td class="border border-gray-300 px-4 py-2"><%= @invoice.user.full_name %></td>
+            <td class="border border-gray-300 px-4 py-2">
+              <%= link_to @invoice.user, class: "underline text-blue-900" do %>
+                <%= @invoice.user.full_name %>
+              <% end %>
+            </td>
           <% end %>
           <td class="border border-gray-300 px-4 py-2">
             <%= link_to @invoice.services.first&.container&.number, @invoice.services.first&.container, class: "underline text-blue-900" %>

@@ -1,0 +1,87 @@
+<%= form_with(model: payable, class: "contents") do |form| %>
+  <% if payable.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(payable.errors.count, "error") %> Impiden guardar el pago:</h2>
+
+      <ul>
+        <% payable.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="mx-auto md:w-2/3 w-full px-2 my-6">
+    <% @payable ||= Payable.new %>
+
+    <div class="my-5">
+      <%= form.label :payment_date, "Fecha de Pago" %>
+      <%= form.date_field :payment_date, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full #{'border-red-500' if form.object.errors[:payment_date].any?}" %>
+      <% if form.object.errors[:payment_date].any? %>
+        <p class="text-red-500 text-sm mt-1"><%= form.object.errors[:payment_date].first %></p>
+      <% end %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :payment_amount, "Monto" %>
+      <%= form.number_field :payment_amount, step: "0.01", class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full #{'border-red-500' if form.object.errors[:payment_amount].any?}" %>
+      <% if form.object.errors[:payment_amount].any? %>
+        <p class="text-red-500 text-sm mt-1"><%= form.object.errors[:payment_amount].first %></p>
+      <% end %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :payment_type, "Tipo de Pago" %>
+      <%= form.select :payment_type, options_for_select(Payable::PAYMENT_TYPES, form.object.payment_type), { prompt: "Selecciona el tipo de pago" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full #{'border-red-500' if form.object.errors[:payment_type].any?}", required: true %>
+      <% if form.object.errors[:payment_type].any? %>
+        <p class="text-red-500 text-sm mt-1"><%= form.object.errors[:payment_type].first %></p>
+      <% end %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :payment_means, "Forma de Pago" %>
+      <%= form.select :payment_means, options_for_select(Payable::PAYMENT_MEANS, form.object.payment_means), { prompt: "Selecciona la forma de pago" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full #{'border-red-500' if form.object.errors[:payment_means].any?}", required: true %>
+      <% if form.object.errors[:payment_means].any? %>
+        <p class="text-red-500 text-sm mt-1"><%= form.object.errors[:payment_means].first %></p>
+      <% end %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :payment_concept, "Concepto" %>
+      <%= form.text_field :payment_concept, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full #{'border-red-500' if form.object.errors[:payment_concept].any?}" %>
+      <% if form.object.errors[:payment_concept].any? %>
+        <p class="text-red-500 text-sm mt-1"><%= form.object.errors[:payment_concept].first %></p>
+      <% end %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :supplier_id, "Proveedor" %>
+      <%= form.collection_select :supplier_id, Supplier.all, :id, :name, { prompt: "Seleccionar proveedor" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full #{'border-red-500' if form.object.errors[:supplier_id].any?}" %>
+      <% if form.object.errors[:supplier_id].any? %>
+        <p class="text-red-500 text-sm mt-1"><%= form.object.errors[:supplier_id].first %></p>
+      <% end %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :user_id, "Autorizado por" %>
+      <%= form.collection_select :user_id, User.admins, :id, :full_name, { prompt: "Seleccionar administrador" }, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full #{'border-red-500' if form.object.errors[:user_id].any?}" %>
+      <% if form.object.errors[:user_id].any? %>
+        <p class="text-red-500 text-sm mt-1"><%= form.object.errors[:user_id].first %></p>
+      <% end %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :receipt, "Comprobante (PDF o Imagen)" %>
+      <%= form.file_field :receipt, accept: "image/*,application/pdf",
+            class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full #{'border-red-500' if form.object.errors[:receipt].any?}" %>
+      <% if form.object.errors[:receipt].any? %>
+        <p class="text-red-500 text-sm mt-1"><%= form.object.errors[:receipt].first %></p>
+      <% end %>
+    </div>
+
+    <div class="inline">
+      <%= link_to "<- Cancelar", payables_path, class: "btn-primary mb-20" %>
+      <%= form.submit "Guardar", class: "btn-primary mb-20" %>
+    </div>
+
+  </div>
+<% end %>

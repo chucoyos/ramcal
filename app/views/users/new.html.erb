@@ -1,6 +1,6 @@
-<div class="flex flex-col w-full px-4 mb-20">
+<div class="flex flex-col w-full px-4">
   <h1 class="my-6">Nuevo Usuario</h1>
-  <div class="form">
+  <div class="form mb-20">
     <%= form_for @user, url: members_path do |f| %>
     <% if @user.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
@@ -64,6 +64,11 @@
       <div class="input-group">
         <%= f.label :contact_person %>
         <%= f.text_field :contact_person, class: "form-control" %>
+      </div>
+
+      <div class="input-group">
+        <%= f.label :credit_limit %>
+        <%= f.number_field :credit_limit, class: "form-control", step: "0.01", value: @user.credit_limit || 0 %>
       </div>
       
       <div class="flex gap-2 mt-3">

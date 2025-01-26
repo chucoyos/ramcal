@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  payment_date: 2025-01-24
+  payment_type: MyString
+  payment_means: MyString
+  payment_concept: MyString
+  supplier: one
+  user: one
+
+two:
+  payment_date: 2025-01-24
+  payment_type: MyString
+  payment_means: MyString
+  payment_concept: MyString
+  supplier: two
+  user: two

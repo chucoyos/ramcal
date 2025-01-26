@@ -1,0 +1,104 @@
+<div class="payments-report-container">
+  <h2 class="my-8">Reporte de Pagos Últimos 6 Meses</h2>
+  <table class="payments-report">
+    <thead>
+      <tr>
+        <th>Mes</th>
+        <th>Transferencia</th>
+        <th>Cheque</th>
+        <th>Tarjeta</th>
+        <th>Efectivo</th>
+        <th>Total Recibido</th>
+        <th>Por Cobrar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% total_transfer = 0 %>
+      <% total_cheque = 0 %>
+      <% total_tarjeta = 0 %>
+      <% total_efectivo = 0 %>
+      <% total_received = 0 %>
+      <% total_due = 0 %>
+
+      <% @report_data.each do |data| %>
+        <% transfer = data[:grouped]['Transferencia'] || 0 %>
+        <% cheque = data[:grouped]['Cheque'] || 0 %>
+        <% tarjeta = data[:grouped]['Tarjeta'] || 0 %>
+        <% efectivo = data[:grouped]['Efectivo'] || 0 %>
+        <% total = data[:total] %>
+        <% due = data[:due] %>
+
+        <% total_transfer += transfer %>
+        <% total_cheque += cheque %>
+        <% total_tarjeta += tarjeta %>
+        <% total_efectivo += efectivo %>
+        <% total_received += total %>
+        <% total_due += due %>
+
+        <tr>
+          <td><%= data[:month].strftime('%B %Y') %></td>
+          <td class="amount transfer"><%= number_to_currency(transfer) %></td>
+          <td class="amount cheque"><%= number_to_currency(cheque) %></td>
+          <td class="amount tarjeta"><%= number_to_currency(tarjeta) %></td>
+          <td class="amount efectivo"><%= number_to_currency(efectivo) %></td>
+          <td class="amount total"><%= number_to_currency(total) %></td>
+          <td class="amount due"><%= number_to_currency(due) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr class="totals">
+        <th>Total</th>
+        <th class="amount transfer"><%= number_to_currency(total_transfer) %></th>
+        <th class="amount cheque"><%= number_to_currency(total_cheque) %></th>
+        <th class="amount tarjeta"><%= number_to_currency(total_tarjeta) %></th>
+        <th class="amount efectivo"><%= number_to_currency(total_efectivo) %></th>
+        <th class="amount total"><%= number_to_currency(total_received) %></th>
+        <th class="amount due"><%= number_to_currency(total_due) %></th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<style>
+.payments-report-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+.payments-report {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.payments-report th, .payments-report td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.payments-report th {
+  background-color: #007bff;
+  color: white;
+}
+
+.amount {
+  font-weight: bold;
+}
+
+.transfer { color: #007bff; }
+.cheque { color: #17a2b8; }
+.tarjeta { color: #28a745; }
+.efectivo { color: #ffc107; }
+.total { background-color: #f8f9fa; }
+.due { color: #dc3545; font-weight: bold; }
+</style>
+
