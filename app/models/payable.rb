@@ -6,6 +6,7 @@ class Payable < ApplicationRecord
 
   belongs_to :supplier
   belongs_to :user
+  has_one_attached :receipt
 
   # validates :amount, presence: true, numericality: { greater_than: 0 }
   validates :payment_type, presence: true, inclusion: { in: PAYMENT_TYPES }

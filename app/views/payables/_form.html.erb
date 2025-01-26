@@ -69,6 +69,15 @@
       <% end %>
     </div>
 
+    <div class="my-5">
+      <%= form.label :receipt, "Comprobante (PDF o Imagen)" %>
+      <%= form.file_field :receipt, accept: "image/*,application/pdf",
+            class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full #{'border-red-500' if form.object.errors[:receipt].any?}" %>
+      <% if form.object.errors[:receipt].any? %>
+        <p class="text-red-500 text-sm mt-1"><%= form.object.errors[:receipt].first %></p>
+      <% end %>
+    </div>
+
     <div class="inline">
       <%= link_to "<- Cancelar", payables_path, class: "btn-primary mb-20" %>
       <%= form.submit "Guardar", class: "btn-primary mb-20" %>

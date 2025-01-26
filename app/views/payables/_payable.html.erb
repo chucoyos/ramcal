@@ -36,6 +36,20 @@
       <strong class="text-gray-600">💵 Monto:</strong>
       <strong class="text-gray-600"><%= number_to_currency(payable.payment_amount, unit: "$", separator: ".", delimiter: ",") %></strong>
     </div>
+
+    <% if payable.receipt.attached? %>
+      <p>Comprobante: 
+        <% if payable.receipt.content_type.start_with?('image/') %>
+          <%= image_tag payable.receipt, class: "mt-2 w-32 h-auto rounded-lg shadow" %>
+        <% else %>
+          <%= link_to "Ver comprobante", url_for(payable.receipt), target: "_blank", class: "text-blue-500 underline" %>
+        <% end %>
+      </p>
+    <% else %>
+      <p>No hay comprobante adjunto</p>
+    <% end %>
+ 
+
   </div>
 </div>
 

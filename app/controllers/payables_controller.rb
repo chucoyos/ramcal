@@ -9,7 +9,7 @@ class PayablesController < ApplicationController
     start_date = params[:start_date].presence || Date.today.beginning_of_month
     end_date = params[:end_date].presence || Date.today.end_of_month
 
-    @payables = Payable.includes(:supplier, :user)
+    @payables = Payable.includes(:supplier, :user, :receipt_attachment)
                        .where(payment_date: start_date..end_date)
 
     # Filters
@@ -87,6 +87,6 @@ class PayablesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def payable_params
-      params.require(:payable).permit(:payment_amount, :payment_date, :payment_type, :payment_means, :payment_concept, :supplier_id, :user_id)
+      params.require(:payable).permit(:receipt, :payment_amount, :payment_date, :payment_type, :payment_means, :payment_concept, :supplier_id, :user_id)
     end
 end
