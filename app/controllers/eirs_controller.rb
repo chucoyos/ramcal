@@ -23,7 +23,7 @@ class EirsController < ApplicationController
   def show
     authorize current_user, :show?, policy_class: EirPolicy
     id = params[:id]
-    pdf = @eir.generate_pdf
+    pdf = @eir.generate_pdf(current_user)
     send_data pdf.render, filename: "eir_#{@eir.container.number}_#{id}.pdf", type: "application/pdf", disposition: "attachment"
   end
 
