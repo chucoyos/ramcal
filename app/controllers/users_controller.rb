@@ -3,7 +3,26 @@ class UsersController < ApplicationController
 
   def index
     authorize current_user, :index?, policy_class: UserPolicy
-    @users = User.includes(:role).order(:first_name).page(params[:page]).per(10)
+    @users = User.includes(:role)
+
+    if params[:search].present?
+      @users = @users.where("first_name ILIKE :search OR last_name ILIKE :search OR second_last_name ILIKE :search OR email ILIKE :search", search: "%#{params[:search]}%")
+    end
+
+    if params[:role].present?
+      case params[:role]
+      when "cliente"
+        @users = @users.clients
+      when "administrador"
+        @users = @users.admins
+      when "staff"
+        @users = @users.staff
+      else
+        @users = @users.all
+      end
+    end
+
+    @users = @users.order(:first_name).page(params[:page]).per(10)
   end
 
   def new

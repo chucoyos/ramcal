@@ -1,9 +1,16 @@
-<div class="mx-auto w-full md:w-2/3 px-4 md:px-8 mb-20">
+<div class="mx-auto w-full md:w-2/3 px-4 md:px-8 my-8">
   <div class="mx-auto">
     <h1>Movimiento</h1>
 
     <%= render @move %>
-
-    <%= link_to "Regresar", moves_path, class: "ml-2 btn-primary" %>
+    <div class="flex">
+      <%= link_to "Regresar", moves_path, class: "ml-2 btn-primary btn" %>
+    </div>
   </div>
 </div>
+
+<style>
+  .btn {
+    margin-bottom: 5rem;
+  }
+</style>

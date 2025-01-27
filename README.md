@@ -49,6 +49,8 @@ Things you may want to cover:
 
 * Edit manifest.json to change app name
 
-## TO DO 
+* Set time zone in config/application.rb
 
-* Add search filter for users
+## TO DO
+
+* Add reports, and suppliers policy

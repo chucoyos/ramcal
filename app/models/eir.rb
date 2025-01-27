@@ -4,7 +4,7 @@ require "prawn/qrcode"
 class Eir < ApplicationRecord
   belongs_to :container
 
-  def generate_pdf
+  def generate_pdf(current_user)
     Prawn::Document.new do |pdf|
       # pdf.stroke_color "00008B"
       # pdf.fill_color "00008B"
@@ -58,7 +58,9 @@ class Eir < ApplicationRecord
       end
       pdf.move_down 10
       pdf.text "Emisión: #{Time.current.in_time_zone('America/Mexico_City').strftime('%d/%b/%Y %I:%M %p')}"
-      pdf.move_down 20
+      pdf.move_down 10
+      pdf.text "Creado por: #{current_user.email}"
+      pdf.move_down 10
       pdf.text "Firma del Operador: __________________________", position: :center
       pdf.move_down 20
 
