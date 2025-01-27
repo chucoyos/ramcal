@@ -49,6 +49,8 @@ Things you may want to cover:
 
 * Edit manifest.json to change app name
 
+* Set time zone in config/application.rb
+
 ## TO DO 
 
-* Add reports, and suppliers policy
+* Style moves show back button for small devices
