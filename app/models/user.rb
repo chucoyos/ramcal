@@ -2,6 +2,7 @@ class User < ApplicationRecord
   belongs_to :role
   scope :clients, -> { joins(:role).where(roles: { name: "cliente" }) }
   scope :admins, -> { joins(:role).where(roles: { name: "administrador" }) }
+  scope :staff, -> { joins(:role).where.not(roles: { name: [ "cliente", "administrador" ] }) }
   has_many :pricings
   has_many :services, through: :pricings
   has_many :invoices, dependent: :restrict_with_error
