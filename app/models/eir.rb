@@ -23,7 +23,7 @@ class Eir < ApplicationRecord
       pdf.move_down 10
       pdf.image "#{Rails.root}/app/assets/images/logo.jpeg", width: 100, position: :center
       pdf.move_down 10
-      pdf.text "EIR - Ramcal Patio de Maniobras", size: 20, style: :bold, align: :center, color: "00008B"
+      pdf.text "EIR - YACO Yard Containers", size: 20, style: :bold, align: :center, color: "00008B"
       pdf.move_down 10
       pdf.stroke_horizontal_rule
       pdf.move_down 20
