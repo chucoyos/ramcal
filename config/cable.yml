@@ -5,6 +5,9 @@ test:
   adapter: test
 
 production:
-  adapter: redis
-  url: <%= ENV.fetch("REDISCLOUD_URL") { "redis://localhost:6379/1" } %>
-  channel_prefix: container-yard_production
+  adapter: postgresql
+  url: <%= ENV['DATABASE_URL'] %>
+  channel_prefix: demo_yard_production
+  # adapter: redis
+  # url: <%= ENV.fetch("REDISCLOUD_URL") { "redis://localhost:6379/1" } %>
+  # channel_prefix: container-yard_production
