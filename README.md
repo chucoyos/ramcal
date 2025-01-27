@@ -51,6 +51,6 @@ Things you may want to cover:
 
 * Set time zone in config/application.rb
 
-## TO DO 
+## TO DO
 
 * Style moves show back button for small devices
