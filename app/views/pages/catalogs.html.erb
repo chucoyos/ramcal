@@ -24,13 +24,12 @@
       </div>
     <% end %>
       
-
-    <%= link_to services_path do %>
+    <%= link_to videos_path do %>
       <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
-          <%= material_icon.shape(:handyman) %>
+        <%= material_icon.shape(:video_library) %>
         <div class="flex flex-col items-center">
-          <span class="text-lg font-bold">Servicios</span>
-          <span class="text-sm">Administra los servicios prest</span>
+          <span class="text-lg font-bold">Video Tutoriales</span>
+          <span class="text-sm">Videos que explican el funcion</span>
         </div>
       </div>
     <% end %>
@@ -124,6 +123,16 @@
         <div class="flex flex-col items-center">
           <span class="text-lg font-bold">Cuentas por Pagar</span>
           <span class="text-sm">Administra Gastos y Cuentas por</span>
+        </div>
+      </div>
+    <% end %>
+
+    <%= link_to services_path do %>
+      <div class="flex flex-col gap-4 text-4xl items-center text-blue-600 p-8 rounded-lg shadow-lg bg-white hover:bg-blue-600 hover:text-white transition duration-200 cursor-pointer flex-1">
+          <%= material_icon.shape(:handyman) %>
+        <div class="flex flex-col items-center">
+          <span class="text-lg font-bold">Servicios</span>
+          <span class="text-sm">Administra los servicios prest</span>
         </div>
       </div>
     <% end %>
