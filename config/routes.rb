@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :roles
 
   root "pages#index"
+  get "videos" => "pages#videos", as: :videos
   get "catalogs" => "pages#catalogs", as: :catalogs
   devise_for :users, controllers: { registrations: "users/registrations", sessions: "users/sessions" }
   get "users/new" => "users#new", as: :new_user
