@@ -71,7 +71,9 @@
     <div class="flex gap-4 mt-8">
       <% move.images.each do |image| %>
         <div class="border shadow-lg rounded-lg overflow-hidden w-32 h-32">
-          <%= link_to image_tag(image, class: "object-cover w-full h-full"), rails_blob_path(image, only_path: true) %>
+          <%= link_to rails_blob_path(image, only_path: true), target: "_blank" do %>
+            <%= image_tag(image, class: "object-cover w-full h-full") %>
+          <% end %>
         </div>
       <% end %>
     </div>

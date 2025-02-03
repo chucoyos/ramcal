@@ -23,7 +23,7 @@ class StayServiceCalculator
 
 
     # Calculate the stay duration
-    stay_start = entry_move.created_at.to_date
+    stay_start = (entry_move.move_date || entry_move.created_at).to_date
     stay_end = Date.today
     stay_duration = (stay_end - stay_start).to_i
 

@@ -46,21 +46,21 @@ class Eir < ApplicationRecord
       pdf.text "Tamaño: #{ container.size }"
       pdf.move_down 10
       if entrada.present?
-        pdf.text "Fecha de Entrada: #{entrada.created_at.in_time_zone('America/Mexico_City').strftime('%d/%b/%Y %I:%M %p')}"
+        pdf.text "Fecha de Entrada: #{(entrada.move_date || entrada.created_at).in_time_zone('America/Mexico_City').strftime('%d/%b/%Y %I:%M %p')}"
       else
         pdf.text "Fecha de Entrada: No disponible"
       end
       pdf.move_down 10
       if salida.present?
-        pdf.text "Fecha de Salida: #{salida.created_at.in_time_zone('America/Mexico_City').strftime('%d/%b/%Y %I:%M %p')}"
+        pdf.text "Fecha de Salida: #{(salida.move_date || salida.created_at).in_time_zone('America/Mexico_City').strftime('%d/%b/%Y %I:%M %p')}"
       else
         pdf.text "Fecha de Salida: No disponible"
       end
       pdf.move_down 10
       pdf.text "Emisión: #{Time.current.in_time_zone('America/Mexico_City').strftime('%d/%b/%Y %I:%M %p')}"
       pdf.move_down 10
-      pdf.text "Creado por: #{current_user.email}"
-      pdf.move_down 10
+      # pdf.text "Creado por: #{current_user.email}"
+      # pdf.move_down 10
       pdf.text "Firma del Operador: __________________________", position: :center
       pdf.move_down 20
 

@@ -59,16 +59,19 @@
         <%= link_to move do %>
           <p class="field border-b p-4 hover:bg-blue-50 transition duration-200">
             <%= move.container.number %>
-            <% if move.move_type == "Entrada" %>
-              Entrada: <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%b/%y") %>
-            <% elsif move.move_type == "Salida" %>
-              Salida: <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%b/%y") %>
-            <% elsif move.move_type == "Reacomodo" %>
-              Reacomodo: <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%b/%y") %>
-            <% elsif move.move_type == "Lavado" %>
-              Lavado: <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%b/%y") %>
-              <% elsif move.move_type == "Traspaleo" %>
-              Traspaleo: <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%b/%y") %>
+            <% timestamp = (move.move_date || move.created_at)&.in_time_zone("America/Mexico_City")&.strftime("%d/%b/%y") || "N/A" %>
+
+            <% case move.move_type %>
+              <% when "Entrada" %> 
+                Entrada: <%= timestamp %>
+              <% when "Salida" %> 
+                Salida: <%= timestamp %>
+              <% when "Reacomodo" %> 
+                Reacomodo: <%= timestamp %>
+              <% when "Lavado" %> 
+                Lavado: <%= timestamp %>
+              <% when "Traspaleo" %> 
+                Traspaleo: <%= timestamp %>
             <% end %>
           </p>
         <% end %>
@@ -101,39 +104,40 @@
               <td class="border px-2"><%= move.container.user.full_name %></td>
               <td class="border px-2">
                 <% if move.move_type == "Entrada" %>
-                  <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
+                  <%= (move.move_date || move.created_at).in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
                 <% else %>
                   N/A
                 <% end %>
               </td>
               <td class="border px-2">
                 <% if move.move_type == "Reacomodo" %>
-                  <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
+                  <%= (move.move_date || move.created_at).in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
                 <% else %>
                   N/A
                 <% end %>
               </td>
               <td class="border px-2">
                 <% if move.move_type == "Traspaleo" %>
-                  <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
+                  <%= (move.move_date || move.created_at).in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
                 <% else %>
                   N/A
                 <% end %>
               </td>
               <td class="border px-2">
                 <% if move.move_type == "Lavado" %>
-                  <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
+                  <%= (move.move_date || move.created_at).in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
                 <% else %>
                   N/A
                 <% end %>
               </td>
               <td class="border px-2">
                 <% if move.move_type == "Salida" %>
-                  <%= move.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
+                  <%= (move.move_date || move.created_at).in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") %>
                 <% else %>
                   N/A
                 <% end %>
               </td>
+
               <td class="border px-2 text-center">
                 <%= link_to move, class: "underline text-blue-600" do %>
                   <%= material_icon.shape(:visibility) %>

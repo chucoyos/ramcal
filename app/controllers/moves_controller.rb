@@ -163,7 +163,7 @@ class MovesController < ApplicationController
   def filter_by_date_range
     from_date = params[:from_date].to_date.beginning_of_day
     to_date = params[:to_date].to_date.end_of_day
-    @moves = @moves.where(created_at: from_date..to_date)
+    @moves = @moves.where("COALESCE(move_date, created_at) BETWEEN ? AND ?", from_date, to_date)
   end
 
   def filter_by_user
@@ -196,6 +196,6 @@ class MovesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def move_params
-      params.require(:move).permit(:created_by, :created_at, :container_id, :move_type, :location_id, :status, :mode, :seal, :notes, images: [])
+      params.require(:move).permit(:move_date, :created_by, :created_at, :container_id, :move_type, :location_id, :status, :mode, :seal, :notes, images: [])
     end
 end

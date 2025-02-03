@@ -92,6 +92,11 @@
       %>
     </div>
 
+    <div class="my-5">
+      <%= form.label "Fecha del Movimiento" %>
+      <%= form.datetime_local_field :move_date, value: Time.current.strftime("%Y-%m-%dT%H:%M"), class: "flex shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
     <div class="flex gap-2", style="padding-bottom: 20px; padding-top: 20px; padding-left: 10px; padding-right: 10px;">
       <%= form.submit "Guardar", class: "btn-primary mb-16" %>
       <%= link_to "Cancelar", containers_path, class: "btn-primary mb-16" %>

@@ -146,15 +146,15 @@
               <td class="border px-2">
                 <% entrada_move = container.moves.find_by(move_type: "Entrada") %>
                 <% if entrada_move %>
-                  <span><%= entrada_move.created_at.strftime("%d/%m/%Y") %></span>
+                  <span><%= (entrada_move.move_date || entrada_move.created_at).strftime("%d/%m/%Y") %></span>
                 <% else %>
                   N/A
                 <% end %>
               </td>
               <td class="border px-2">
-                <% entrada_move = container.moves.find_by(move_type: "Salida") %>
-                <% if entrada_move %>
-                  <span><%= entrada_move.created_at.strftime("%d/%m/%Y") %></span>
+                <% salida_move = container.moves.find_by(move_type: "Salida") %>
+                <% if salida_move %>
+                  <span><%= (salida_move.move_date || salida_move.created_at).strftime("%d/%m/%Y") %></span>
                 <% else %>
                   N/A
                 <% end %>

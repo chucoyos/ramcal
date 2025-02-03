@@ -107,7 +107,7 @@ class Move < ApplicationRecord
       name: "Almacenaje",
       charge: charge,
       invoiced: false,
-      start_date: entry_move.created_at,
+      start_date: entry_move.move_date || entry_move.created_at,
       end_date: Date.today,
     )
   end

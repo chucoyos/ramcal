@@ -54,11 +54,11 @@
     </div>
 
     <div class="my-5">
-  <%= form.label :created_at, "Fecha de movimiento" %>
-  <%= form.datetime_local_field :created_at, 
-        class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
-        value: @move.created_at.in_time_zone("America/Mexico_City").strftime("%Y-%m-%dT%H:%M") %>
-</div>
+      <%= form.label :move_date, "Fecha de movimiento" %>
+      <%= form.datetime_local_field :move_date, 
+            class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full",
+            value: @move.move_date.in_time_zone("America/Mexico_City").strftime("%Y-%m-%dT%H:%M") %>
+    </div>
 
 
     <div class="my-5">

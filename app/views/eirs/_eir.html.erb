@@ -56,13 +56,13 @@
     <div class="field">
       <strong class="block font-medium mb-1">Fecha de entrada:</strong>
       <% entry = eir.container.moves.find_by(move_type: "Entrada") %>
-      <%= entry.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") if entry %>
+      <%= (entry.move_date || entry.created_at).in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") if entry %>
     </div>
 
     <div class="field">
       <strong class="block font-medium mb-1">Fecha de salida:</strong>
       <% entry = eir.container.moves.find_by(move_type: "Salida") %>
-      <%= entry.created_at.in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") if entry %>
+      <%= (entry.move_date || entry.created_at).in_time_zone("America/Mexico_City").strftime("%d/%m/%Y") if entry %>
     </div>
 
   </div>
