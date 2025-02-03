@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_27_012128) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_03_010214) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -98,6 +98,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_27_012128) do
     t.string "seal"
     t.bigint "location_id"
     t.bigint "created_by_id"
+    t.datetime "move_date"
     t.index ["container_id"], name: "index_moves_on_container_id"
     t.index ["location_id"], name: "index_moves_on_location_id"
     t.index ["move_type"], name: "index_moves_on_move_type"
