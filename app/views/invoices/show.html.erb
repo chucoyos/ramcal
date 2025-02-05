@@ -17,7 +17,7 @@
           <% if current_user.role.name != "cliente" %>
             <th class="border border-gray-300 px-4 py-2">Cliente</th>
           <% end %>
-          <th class="border border-gray-300 px-4 py-2">Contenedor</th>
+          <th class="border border-gray-300 px-4 py-2">Contenedores</th>
           <th class="border border-gray-300 px-4 py-2">Pago</th>
           <th class="border border-gray-300 px-4 py-2">Emisión</th>
           <th class="border border-gray-300 px-4 py-2">Vence</th>
@@ -37,9 +37,10 @@
             </td>
           <% end %>
           <td class="border border-gray-300 px-4 py-2">
-            <%= link_to @invoice.services.first&.container&.number, @invoice.services.first&.container, class: "underline text-blue-900" %>
+            <% @invoice.services.includes(:container).map(&:container).uniq.each do |container| %>
+              <%= link_to container.number, container, class: "underline text-blue-900" %><br>
+            <% end %>
           </td>
-             
           <td class="border border-gray-300 px-4 py-2"><%= @invoice.status %></td>
           <td class="border border-gray-300 px-4 py-2"><%= @invoice.issue_date.strftime("%d/%m/%y") %></td>
           <td class="border border-gray-300 px-4 py-2"><%= @invoice.due_date.strftime("%d/%m/%y") %></td>

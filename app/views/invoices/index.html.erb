@@ -66,7 +66,7 @@
           <% if current_user.role.name != "cliente" %>
             <th class="border border-gray-300 px-4 py-2">Cliente</th>
           <% end %>
-          <th class="border border-gray-300 px-4 py-2">Contenedor</th>
+          <th class="border border-gray-300 px-4 py-2">Contenedores</th>
           <th class="border border-gray-300 px-4 py-2">Emisión</th>
           <th class="border border-gray-300 px-4 py-2">Vence</th>
           <th class="border border-gray-300 px-4 py-2">Pago</th>
@@ -88,8 +88,10 @@
                 <% end %>
               </td>
             <% end %>
-            <td class="border border-gray-300 px-4 py-2 underline text-blue-900">
-              <%= link_to invoice.services.first&.container&.number || "N/A", invoice.services.first&.container %>
+            <td class="border border-gray-300 px-4 py-2">
+              <% invoice.services.includes(:container).map(&:container).uniq.each do |container| %>
+                <%= link_to container.number, container, class: "underline text-blue-900" %><br>
+              <% end %>
             </td>
             <td class="border border-gray-300 px-4 py-2">
               <%= invoice.issue_date.in_time_zone("America/Mexico_City").strftime("%d/%m/%y") %>
@@ -163,9 +165,11 @@
             <% end %>
 
             <div>
-              <p class="text-sm font-medium text-gray-600">Contenedor:</p>
+              <p class="text-sm font-medium text-gray-600">Contenedores:</p>
               <p class="text-lg underline text-blue-900">
-                <%= link_to invoice.services&.first&.container&.number, invoice.services.first&.container %>
+                <% invoice.services.includes(:container).map(&:container).uniq.each do |container| %>
+                  <%= link_to container.number, container, class: "underline text-blue-900" %><br>
+                <% end %>
               </p>
             </div>
 
