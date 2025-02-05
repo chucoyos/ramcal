@@ -33,21 +33,44 @@ class InvoicesController < ApplicationController
   def edit
     authorize current_user, :update?, policy_class: InvoicePolicy
   end
-
-  # POST /invoices or /invoices.json
   def create
-    authorize current_user, :create?, policy_class: InvoicePolicy
-    @invoice = Invoice.new(invoice_params)
+    container_ids = params[:container_ids] # Selected container IDs from form
+    services = Service.unbilled.where(container_id: container_ids)
 
-    respond_to do |format|
-      if @invoice.save
-        format.html { redirect_to @invoice, notice: "Invoice was successfully created." }
-        format.json { render :show, status: :created, location: @invoice }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @invoice.errors, status: :unprocessable_entity }
+    if services.any?
+      first_valid_service = services.find { |s| s.container.present? } # Find a service with a valid container
+
+      if first_valid_service.nil?
+        flash[:alert] = "Debe seleccionar los contenedores a facturar."
+        redirect_to containers_path and return
       end
+
+      paying_user = first_valid_service.container.user
+
+      # Validate that all selected containers belong to the same user
+      unique_users = services.map { |s| s.container&.user }.compact.uniq
+
+      if unique_users.size > 1
+        flash[:alert] = "Todos los contenedores seleccionados deben pertenecer al mismo cliente."
+        redirect_to containers_path and return
+      end
+
+      invoice = Invoice.create!(
+        user: paying_user, # Assign invoice to correct user
+        total: services.sum(&:charge),
+        status: "Pendiente",
+        issue_date: Time.zone.today,
+        due_date: Time.zone.today + 30.days
+      )
+
+      services.each { |service| service.update!(invoice: invoice, invoiced: true) }
+
+      flash[:notice] = "Factura creada exitosamente."
+    else
+      flash[:alert] = "No hay servicios sin facturar disponibles."
     end
+
+    redirect_to invoices_path
   end
 
   # PATCH/PUT /invoices/1 or /invoices/1.json

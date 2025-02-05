@@ -112,75 +112,97 @@
     <% end %>
   </div>
 
-  <div class="hidden lg:flex flex-col gap-4 bg-white shadow-md rounded-lg p-6">
-    <% if @containers.empty? %>
-      <p class="text-gray-600">No hay resultados para la búsqueda</p>
-    <% else %>
-      <table class="table-auto w-full border-collapse border border-gray-300 rounded-lg shadow-lg">
-        <thead class="bg-blue-50 text-gray-700">
-          <tr>
-            <th class="px-2">Cliente</th>
-            <th class="px-2">Numero</th>
-            <th class="px-2">Size</th>
-            <th class="px-2">Tipo</th>
-            <th class="px-2">Dueño</th>
-            <th class="px-2">Entrada</th>
-            <th class="px-2">Salida</th>
-            <th class="px-2">Factura</th>
-            <th class="px-2">Credito Disponible</th>
-            <th class="px-2">Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @containers.each do |container| %>
-            <tr class="hover:bg-blue-50">
-              <td class="border px-2">
-                <%= link_to container.user, class: "text-blue-600 underline", title: "Ver cliente" do %>
-                  <%= container.user.full_name %>
-                <% end %>
-              </td>
-              <td class="border px-2"><%= container.number %></td>
-              <td class="border px-2"><%= container.size %></td>
-              <td class="border px-2"><%= container.container_type %></td>
-              <td class="border px-2"><%= container.cargo_owner %></td>
-              <td class="border px-2">
-                <% entrada_move = container.moves.find_by(move_type: "Entrada") %>
-                <% if entrada_move %>
-                  <span><%= (entrada_move.move_date || entrada_move.created_at).strftime("%d/%m/%Y") %></span>
-                <% else %>
-                  N/A
-                <% end %>
-              </td>
-              <td class="border px-2">
-                <% salida_move = container.moves.find_by(move_type: "Salida") %>
-                <% if salida_move %>
-                  <span><%= (salida_move.move_date || salida_move.created_at).strftime("%d/%m/%Y") %></span>
-                <% else %>
-                  N/A
-                <% end %>
-              </td>
-              <td class="border px-2">
-                <% if container&.services&.first&.invoice %>
-                  <%= link_to container&.services&.first&.invoice&.status, container&.services&.first&.invoice, class: "text-blue-600 underline", title: "Ver factura" %>
-                <% else %>
-                  Sin facturar
-                <% end %>
-              </td>
-              <td class="border px-2 text-center">
-                <%= number_to_currency(container.user.available_credit) %>
-              </td>
-              <td class="border px-2 text-center">
-                <%= link_to container, class: "text-blue-600", title: "Ver detalles" do %>
-                  <%= material_icon.shape(:visibility) %>
-                <% end %>
-              </td>
+  <%# Start container table for large devices %>
+  <%= form_with url: invoices_path, method: :post do %>
+    <div class="hidden lg:flex flex-col gap-4 bg-white shadow-md rounded-lg p-6">
+      <% if @containers.empty? %>
+        <p class="text-gray-600">No hay resultados para la búsqueda</p>
+      <% else %>
+        <table class="table-auto w-full border-collapse border border-gray-300 rounded-lg shadow-lg">
+          <thead class="bg-blue-50 text-gray-700">
+            <tr>
+              <th class="px-2">
+                <input type="checkbox" id="select_all" class="form-checkbox h-5 w-5 text-blue-600">
+              </th>
+              <th class="px-2">Cliente</th>
+              <th class="px-2">Numero</th>
+              <th class="px-2">Size</th>
+              <th class="px-2">Tipo</th>
+              <th class="px-2">Dueño</th>
+              <th class="px-2">Entrada</th>
+              <th class="px-2">Salida</th>
+              <th class="px-2">Factura</th>
+              <th class="px-2">Credito Disponible</th>
+              <th class="px-2">Acción</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% end %>
-  </div>
+          </thead>
+          <tbody>
+            <% @containers.each do |container| %>
+              <tr class="hover:bg-blue-50">
+                <td class="border px-2 text-center">
+                  <input type="checkbox" name="container_ids[]" value="<%= container.id %>" class="form-checkbox h-5 w-5 text-blue-600 select-container">
+                </td>
+                <td class="border px-2">
+                  <%= link_to container.user, class: "text-blue-600 underline", title: "Ver cliente" do %>
+                    <%= container.user.full_name %>
+                  <% end %>
+                </td>
+                <td class="border px-2"><%= container.number %></td>
+                <td class="border px-2"><%= container.size %></td>
+                <td class="border px-2"><%= container.container_type %></td>
+                <td class="border px-2"><%= container.cargo_owner %></td>
+                <td class="border px-2">
+                  <% entrada_move = container.moves.find_by(move_type: "Entrada") %>
+                  <% if entrada_move %>
+                    <span><%= (entrada_move.move_date || entrada_move.created_at).strftime("%d/%m/%Y") %></span>
+                  <% else %>
+                    N/A
+                  <% end %>
+                </td>
+                <td class="border px-2">
+                  <% salida_move = container.moves.find_by(move_type: "Salida") %>
+                  <% if salida_move %>
+                    <span><%= (salida_move.move_date || salida_move.created_at).strftime("%d/%m/%Y") %></span>
+                  <% else %>
+                    N/A
+                  <% end %>
+                </td>
+                <td class="border px-2">
+                  <% if container&.services&.first&.invoice %>
+                    <%= link_to container&.services&.first&.invoice&.status, container&.services&.first&.invoice, class: "text-blue-600 underline", title: "Ver factura" %>
+                  <% else %>
+                    Sin facturar
+                  <% end %>
+                </td>
+                <td class="border px-2 text-center">
+                  <%= number_to_currency(container.user.available_credit) %>
+                </td>
+                <td class="border px-2 text-center">
+                  <%= link_to container, class: "text-blue-600", title: "Ver detalles" do %>
+                    <%= material_icon.shape(:visibility) %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="mt-4">
+          <button type="submit", id="invoice_submit", class="btn-primary">
+            Crear Factura
+          </button>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <%# End container table for large devices %>
 
 <div class="my-4 flex justify-center bg-blue-50 rounded-lg px-6 py-2 border border-gray-300 rounded-lg shadow">
   <%= paginate @containers %>
 </div>
+
+<script>
+  document.getElementById("select_all").addEventListener("change", function() {
+    let checkboxes = document.querySelectorAll(".select-container");
+    checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+  });
+</script>

@@ -1,6 +1,8 @@
 class Service < ApplicationRecord
   NAMES = %w[Camión-Piso Piso-Camión Camión-Camión Almacenaje Lavado Reacomodo].freeze
 
+  scope :unbilled, -> { where(invoiced: false) }
+
   belongs_to :container, optional: true
   belongs_to :invoice, optional: true
   has_many :pricings
