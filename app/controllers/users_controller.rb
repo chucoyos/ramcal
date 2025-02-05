@@ -71,7 +71,12 @@ class UsersController < ApplicationController
   def update
     authorize current_user, :update?, policy_class: UserPolicy
     @user = User.find(params[:id])
-    if @user.update(user_params)
+
+    # Remove password fields if they are blank
+    filtered_params = user_params
+    filtered_params = filtered_params.except(:password, :password_confirmation) if filtered_params[:password].blank?
+
+    if @user.update(filtered_params)
       redirect_to user_path(@user), notice: "Se actualizó el usuario."
     else
       render :edit, status: :unprocessable_entity
@@ -92,6 +97,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :second_last_name, :username, :phone, :user_type, :contact_person, :role_id, :credit_limit, :available_credit)
+    params.require(:user).permit(:auto_invoice, :email, :password, :password_confirmation, :first_name, :last_name, :second_last_name, :username, :phone, :user_type, :contact_person, :role_id, :credit_limit, :available_credit)
   end
 end

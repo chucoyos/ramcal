@@ -21,7 +21,7 @@ class Move < ApplicationRecord
   after_save :mark_location_unavailable, if: -> { location.present? && (move_type == "Entrada" || move_type == "Reacomodo" || location_changed_for_types?) }
   after_save :mark_location_available, if: -> { location.present? && move_type == "Salida" }
   after_create :create_related_service
-  after_create :set_up_invoice, if: -> { move_type == "Salida" }
+  after_create :set_up_invoice, if: -> { move_type == "Salida" && (container.user&.auto_invoice.nil? || container.user&.auto_invoice) }
 
   private
 
