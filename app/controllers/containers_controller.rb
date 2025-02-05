@@ -188,6 +188,7 @@ class ContainersController < ApplicationController
   def filter_not_invoiced
     @containers = @containers.left_joins(:services)
                              .where(services: { invoice_id: nil }) # Exclude invoiced containers
+                             .distinct
   end
 
   def generate_excel(containers)
