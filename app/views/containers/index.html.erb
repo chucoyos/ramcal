@@ -77,6 +77,14 @@
           <label for="in_yard" class="ml-2 text-sm"><%= f.label :in_yard, "En patio" %></label>
           <%= f.check_box :in_yard, { class: "form-checkbox text-blue-600 rounded focus:ring focus:ring-blue-300 cursor-pointer" }, "1", "0" %>
         </div>
+
+        <div class="input-group flex mt-2 items-center border rounded-lg px-4 py-2 shadow-sm w-full lg:w-1/6 btn-primary">
+          <label for="not_invoiced" class="ml-2 text-sm">
+            <%= f.label :not_invoiced, "No facturados" %>
+          </label>
+          <%= f.check_box :not_invoiced, { class: "form-checkbox text-blue-600 rounded focus:ring focus:ring-blue-300 cursor-pointer" }, "1", "0" %>
+        </div>
+
           <%= f.submit "Filtrar", class: "btn-primary ml-auto mt-2" do %>
             <%= material_icon.shape(:search) %>
           <% end %>

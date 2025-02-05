@@ -68,6 +68,7 @@ class InvoicesController < ApplicationController
       flash[:notice] = "Factura creada exitosamente."
     else
       flash[:alert] = "No hay servicios sin facturar disponibles."
+      redirect_to containers_path and return
     end
 
     redirect_to invoices_path

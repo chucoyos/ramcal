@@ -155,6 +155,7 @@ class ContainersController < ApplicationController
     filter_by_move_type if params[:move_type].present?
     filter_by_user if params[:user_id].present?
     filter_by_in_yard if params[:in_yard] == "1"
+    filter_not_invoiced if params[:not_invoiced] == "1"
   end
 
   def filter_by_in_yard
@@ -182,6 +183,11 @@ class ContainersController < ApplicationController
 
   def filter_by_user
     @containers = @containers.where(user_id: params[:user_id])
+  end
+
+  def filter_not_invoiced
+    @containers = @containers.left_joins(:services)
+                             .where(services: { invoice_id: nil }) # Exclude invoiced containers
   end
 
   def generate_excel(containers)
