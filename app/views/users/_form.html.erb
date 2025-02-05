@@ -43,7 +43,7 @@
     </div>
 
     <div class="input-group mb-4">
-      <%= f.label :contact_person, class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.label :contact_person, "Persona de contacto", class: "block text-sm font-medium text-gray-700 mb-1" %>
       <%= f.text_field :contact_person, class: "form-control border rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>
 
@@ -53,20 +53,20 @@
     </div>
 
     <div class="input-group mb-4">
-      <%= f.label :password, class: "block text-sm font-medium text-gray-700 mb-1" %>
+      <%= f.label :password, "Password: dejar vacío si no quiere cambiarlo", class: "block text-sm font-medium text-gray-700 mb-1" %>
       <%= f.password_field :password, class: "form-control border rounded-lg w-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>
 
-    <div class="input-group">
+    <div class="input-group mb-4">
       <%= f.label :credit_limit, "Límite de Crédito" %>
       <%= f.number_field :credit_limit, class: "form-control", step: "0.01", min: "0" %>
     </div>
 
     <div class="input-group mb-4">
-      <%= f.label :auto_invoice, "Facturación Automática" %>
+      <%= f.label :auto_invoice, "Pre-facturación Automática" %>
       <%= f.check_box :auto_invoice, class: "form-control" %>
     </div>
-    
+
     <div class="input-group mb-4">
       <%= f.submit class: "btn-primary mt-2 w-full lg:w-1/2 px-4 py-2 rounded-md shadow-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none" %>
     </div>
