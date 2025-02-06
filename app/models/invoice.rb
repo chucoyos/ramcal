@@ -11,6 +11,15 @@ class Invoice < ApplicationRecord
   validates :user_id, presence: true
   validates :status, inclusion: { in: %w[ Pendiente Pagada Parcial Vencida ] }
   before_destroy :prevent_destroy
+  before_update :validate_status
+
+  # Add validation to prevent the invoice from being updated if the status is "Pagada"
+  def validate_status
+    errors.add(:base, "No se pueden editar las facturas, debe eliminarla y modificar los servicios si es necesario.")
+    throw(:abort)
+  end
+
+  # Add a method to clear the services associated with the invoice
 
   def clear_services
     if frozen?
