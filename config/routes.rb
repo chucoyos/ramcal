@@ -3,7 +3,13 @@ Rails.application.routes.draw do
   resources :suppliers
   get "reports" => "reports#index", as: :reports
   resources :payments
-  resources :invoices
+
+  resources :invoices do
+    member do
+      get :download_pdf
+    end
+  end
+
   resources :pricings
   resources :services
   get "location", to: "moves#search_locations"

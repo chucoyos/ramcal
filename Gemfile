@@ -71,6 +71,8 @@ gem "rqrcode", "~> 2.2"
 
 gem "prawn", "~> 2.5"
 
+gem "prawn-table"
+
 gem "prawn-qrcode"
 
 gem "aws-sdk-s3", "~> 1.167"

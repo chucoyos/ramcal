@@ -56,6 +56,9 @@
             <%= link_to @invoice, data: { turbo_method: :delete, turbo_confirm: "¿Eliminar esta factura?" }, class: "text-red-600", title: "Eliminar estado de cuenta" do %>
               <%= material_icon.shape(:delete) %>
             <% end %>
+            <%= link_to download_pdf_invoice_path(@invoice), class: "text-green-600", title: "Descargar PDF" do %>
+              <%= material_icon.shape(:download) %>
+            <% end %>
           </td>
         </tr>
       </tbody>

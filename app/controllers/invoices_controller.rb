@@ -111,6 +111,14 @@ class InvoicesController < ApplicationController
     end
   end
 
+  def download_pdf
+    invoice = Invoice.find(params[:id])
+    pdf = InvoicePdf.new(invoice).render
+
+    send_data pdf, filename: "invoice_#{invoice.id}.pdf", type: "application/pdf", disposition: "attachment"
+  end
+
+
   private
   def apply_filters!
     filter_by_user if params[:user_id].present?
