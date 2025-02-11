@@ -24,6 +24,7 @@
             <tr class="bg-blue-50">
               <th class="border border-gray-300 px-2 py-2">Ubicación</th>
               <th class="border border-gray-300 px-2 py-2">Disponible</th>
+              <th class="border border-gray-300 px-2 py-2">Capacidad</th>
               <th class="border border-gray-300 px-2 py-2">Acciones</th>
             </tr>
           </thead>
@@ -34,6 +35,9 @@
               </td>
               <td class="border border-gray-300 text-center px-4">
                 <%= form.check_box :available, class: "form-checkbox" %>
+              </td>
+              <td class="border border-gray-300 text-center px-4" style="max-width: 100px;">
+                <%= form.select :capacity, Location::CAPACITIES, {}, class: "rounded-md border border-gray-400 outline-none w-full" %>
               </td>
               <td class="flex gap-2 items-center px-4 my-2">
                 <div class="text-blue-600 cursor-pointer">

@@ -52,6 +52,7 @@ group :development do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", "6.2.2", require: false
   gem "bullet"
+  gem "pry-byebug"
 end
 
 group :test do

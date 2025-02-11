@@ -34,6 +34,8 @@ class InvoicesController < ApplicationController
     authorize current_user, :update?, policy_class: InvoicePolicy
   end
   def create
+    authorize current_user, :create?, policy_class: InvoicePolicy
+    @invoice = Invoice.new(invoice_params)
     container_ids = params[:container_ids] # Selected container IDs from form
     services = Service.unbilled.where(container_id: container_ids)
 

@@ -100,8 +100,7 @@ class LocationsController < ApplicationController
       @location = Location.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def location_params
-      params.require(:location).permit(:location, :available)
+      params.require(:location).permit(:location, :available, :capacity)
     end
 end
