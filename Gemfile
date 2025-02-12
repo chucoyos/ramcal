@@ -50,7 +50,7 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
-  gem "brakeman", "6.2.2", require: false
+  gem "brakeman", "7.0.0", require: false
   gem "bullet"
   gem "pry-byebug"
 end
