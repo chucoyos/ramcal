@@ -76,7 +76,7 @@ gem "prawn-table"
 
 gem "prawn-qrcode"
 
-gem "aws-sdk-s3", "~> 1.167"
+gem "aws-sdk-s3", "~> 1.182"
 
 gem "caxlsx"
 
