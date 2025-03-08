@@ -6,8 +6,15 @@ class Eir < ApplicationRecord
 
   def generate_pdf(current_user)
     Prawn::Document.new do |pdf|
-      # pdf.stroke_color "00008B"
-      # pdf.fill_color "00008B"
+      pdf.font_families.update(
+        "Roboto" => {
+          normal: "#{Rails.root}/app/assets/fonts/Roboto-Regular.ttf",
+          bold: "#{Rails.root}/app/assets/fonts/Roboto-Bold.ttf"
+        }
+      )
+
+      pdf.font "Roboto"
+
       entrada = container.moves.find_by(move_type: "Entrada")
       salida = container.moves.find_by(move_type: "Salida")
       status = if entrada.present? && salida.present?
